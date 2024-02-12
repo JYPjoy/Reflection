@@ -5,8 +5,8 @@ struct ContentView: View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
-                .foregroundColor(.accentColor)
             Text("Hello, world!")
+                .foregroundStyle(Color.Main.main50)
         }
     }
 }
