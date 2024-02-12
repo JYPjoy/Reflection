@@ -8,13 +8,13 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "나의 앱",
+    name: "Reflection",
     platforms: [
         .iOS("16.0")
     ],
     products: [
         .iOSApplication(
-            name: "나의 앱",
+            name: "Reflection",
             targets: ["AppModule"],
             bundleIdentifier: "com.jypjoy.reflection",
             teamIdentifier: "XGHDQG66U5",
