@@ -58,4 +58,33 @@ extension RFDBService {
         model.entities = [colorChipEntity]
         return model
     }
+    
+    // MARK: - Memory Model
+    static func createMemory() -> NSEntityDescription {
+        let memoryEntity = NSEntityDescription()
+        memoryEntity.name = "Memory"
+        memoryEntity.managedObjectClassName = "Memory"
+        
+        let memoryIdAttribute = NSAttributeDescription()
+        memoryIdAttribute.name = "id"
+        memoryIdAttribute.type = .string
+        memoryEntity.properties.append(memoryIdAttribute)
+        
+        let memoryPictureAttribute = NSAttributeDescription()
+        memoryPictureAttribute.name = "picture"
+        memoryPictureAttribute.type = .binaryData
+        memoryEntity.properties.append(memoryPictureAttribute)
+        
+        let memoryTitleAttribute = NSAttributeDescription()
+        memoryTitleAttribute.name = "title"
+        memoryTitleAttribute.type = .string
+        memoryEntity.properties.append(memoryTitleAttribute)
+        
+        let memoryReflectionAttribute = NSAttributeDescription()
+        memoryReflectionAttribute.name = "reflection"
+        memoryReflectionAttribute.type = .string
+        memoryEntity.properties.append(memoryReflectionAttribute)
+        
+        return memoryEntity
+    }
 }
