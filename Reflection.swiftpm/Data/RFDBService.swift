@@ -44,9 +44,7 @@ extension RFDBService {
         
         let colorListAttribute = NSAttributeDescription()
         colorListAttribute.name = "colorList"
-        colorListAttribute.attributeType = .transformableAttributeType
-        colorListAttribute.isOptional = true
-        colorListAttribute.valueTransformerName = String(describing: AttributeTransformer.self)
+        colorListAttribute.type = .string
         colorChipEntity.properties.append(colorListAttribute)
         
         let model = NSManagedObjectModel()
