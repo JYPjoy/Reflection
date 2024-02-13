@@ -28,6 +28,7 @@ extension RFDBService {
     
     // MARK: - ColorChip Model
     static func createColorChip() -> NSManagedObjectModel {
+        /// ColorChip 관련 코드
         let colorChipEntity = NSEntityDescription()
         colorChipEntity.name = "ColorChip"
         colorChipEntity.managedObjectClassName = "ColorChip"
@@ -55,7 +56,32 @@ extension RFDBService {
         colorChipEntity.properties.append(colorListAttribute)
         
         let model = NSManagedObjectModel()
-        model.entities = [colorChipEntity]
+        
+        /// ColorChip 과 Memory 간의 관계 정의
+        let memory = RFDBService.createMemory()
+        let memoryRelation = NSRelationshipDescription()
+        memoryRelation.destinationEntity = memory
+        memoryRelation.name = "memories"
+        memoryRelation.minCount = 0
+        memoryRelation.maxCount = 0
+        memoryRelation.isOptional = true
+        memoryRelation.deleteRule = .nullifyDeleteRule
+        
+        let colorChipRelation = NSRelationshipDescription()
+        colorChipRelation.destinationEntity = colorChipEntity
+        colorChipRelation.name = "colorChip"
+        colorChipRelation.minCount = 0
+        colorChipRelation.maxCount = 0
+        colorChipRelation.isOptional = true
+        colorChipRelation.deleteRule = .nullifyDeleteRule
+        
+        memoryRelation.inverseRelationship = colorChipRelation
+        colorChipRelation.inverseRelationship = memoryRelation
+        
+        colorChipEntity.properties.append(memoryRelation)
+        memory.properties.append(colorChipRelation)
+
+        model.entities = [colorChipEntity, memory]
         return model
     }
     

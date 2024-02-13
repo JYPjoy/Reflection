@@ -7,7 +7,7 @@ class ColorChip: NSManagedObject {
     @NSManaged var colorName: String
     @NSManaged var colorCount: Int
     @NSManaged var colorList: [String]
-    //@NSManaged var memories: NSSet
+    @NSManaged var memories: NSSet
 }
 
 extension ColorChip: Identifiable {
