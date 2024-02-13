@@ -5,6 +5,7 @@ import CoreData
 class ColorChip: NSManagedObject {
     @NSManaged var identifier: UUID
     @NSManaged var colorName: String
+    @NSManaged var colorCount: Int
     @NSManaged var colorList: [String]
     //@NSManaged var memories: NSSet
 }

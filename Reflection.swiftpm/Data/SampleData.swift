@@ -8,6 +8,7 @@ class SampleData {
         let colorChip = ColorChip(context: self.context)
         colorChip.identifier = UUID()
         colorChip.colorName = "하늘색"
+        colorChip.colorCount = 2
         colorChip.colorList = ["blue", "pink"]
     }
 }

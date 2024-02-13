@@ -42,6 +42,11 @@ extension RFDBService {
         colorNameAttribute.type = .string
         colorChipEntity.properties.append(colorNameAttribute)
         
+        let colorCountAttribute = NSAttributeDescription()
+        colorCountAttribute.name = "colorCount"
+        colorCountAttribute.type = .integer64
+        colorChipEntity.properties.append(colorCountAttribute)
+        
         let colorListAttribute = NSAttributeDescription()
         colorListAttribute.name = "colorList"
         colorListAttribute.attributeType = .transformableAttributeType
