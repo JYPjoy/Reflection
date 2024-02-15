@@ -2,8 +2,24 @@ import SwiftUI
 import CoreData
 
 final class CoreDataManager {
-    static let shared = CoreDataManager()
     
+    enum CoreDataError: LocalizedError {
+        case create
+        case read
+        case update
+        case delete
+        
+        var errorDescription: String? {
+            switch self {
+            case .create: "Failed to Create Data"
+            case .read: "Faile to Read Data"
+            case .update: "Failed to Update Data"
+            case .delete: "Failed to Delete Data"
+            }
+        }
+    }
+    
+    static let shared = CoreDataManager()
     let container : NSPersistentContainer
 
     init(inMemory: Bool = false) {
