@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 @objc(Memory)
-class Memory: NSManagedObject {
+class MemoryEntity: NSManagedObject {
     @NSManaged var identifier: UUID
     @NSManaged var picture: Data?
     @NSManaged var title: String
@@ -11,7 +11,7 @@ class Memory: NSManagedObject {
     // 날짜, 위치 정보 추가될 수도
 }
 
-extension Memory: Identifiable {
+extension MemoryEntity: Identifiable {
     var id: UUID {
         identifier
     }
