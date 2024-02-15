@@ -8,6 +8,7 @@ class Memory: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var reflection: String
     @NSManaged var colorChip: NSSet /// colorchip과의 관계 정의를 위함
+    // 날짜, 위치 정보 추가될 수도
 }
 
 extension Memory: Identifiable {
