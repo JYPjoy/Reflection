@@ -40,6 +40,8 @@ final class CoreDataManager {
     }
 }
 
+
+// MARK:  - 여기서부터 RepositoryImpl로 가야 함
 extension CoreDataManager {
     
     // MARK: - ColorChip Model

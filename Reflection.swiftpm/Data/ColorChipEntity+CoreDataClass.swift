@@ -2,15 +2,15 @@ import Foundation
 import CoreData
 
 @objc(ColorChip)
-class ColorChip: NSManagedObject {
+class ColorChipEntity: NSManagedObject {
     @NSManaged var identifier: UUID
     @NSManaged var colorName: String
     @NSManaged var colorCount: Int
     @NSManaged var colorList: [String]
-    @NSManaged var memories: NSSet
+    @NSManaged var memories: Set<MemoryEntity>
 }
 
-extension ColorChip: Identifiable {
+extension ColorChipEntity: Identifiable {
     var id: UUID {
         identifier
     }

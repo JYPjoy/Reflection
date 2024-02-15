@@ -10,9 +10,9 @@ import SwiftUI
 struct SecondView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: [
-        NSSortDescriptor(keyPath: \ColorChip.colorName, ascending: true)
+        NSSortDescriptor(keyPath: \ColorChipEntity.colorName, ascending: true)
     ], animation: .default)
-    private var color: FetchedResults<ColorChip>
+    private var color: FetchedResults<ColorChipEntity>
 
     var body: some View {
         ForEach(self.color, id:\.self.id) {color in

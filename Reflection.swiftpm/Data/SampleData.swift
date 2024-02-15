@@ -5,7 +5,7 @@ class SampleData {
     let context = CoreDataManager.shared.container.viewContext
     
     func createSampleData() {
-        let colorChip = ColorChip(context: self.context)
+        let colorChip = ColorChipEntity(context: self.context)
         colorChip.identifier = UUID()
         colorChip.colorName = "하늘색"
         colorChip.colorCount = 2
