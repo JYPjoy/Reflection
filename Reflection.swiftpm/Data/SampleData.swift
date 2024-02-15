@@ -2,7 +2,7 @@ import SwiftUI
 
 class SampleData {
     static let shared: SampleData = SampleData()
-    let context = RFDBService.shared.container.viewContext
+    let context = CoreDataManager.shared.container.viewContext
     
     func createSampleData() {
         let colorChip = ColorChip(context: self.context)

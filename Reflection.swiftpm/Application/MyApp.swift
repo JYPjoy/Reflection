@@ -10,7 +10,7 @@ struct MyApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, RFDBService.shared.container.viewContext)
+                .environment(\.managedObjectContext, CoreDataManager.shared.container.viewContext)
             
         }
     }

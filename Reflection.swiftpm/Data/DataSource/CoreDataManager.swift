@@ -1,13 +1,13 @@
 import SwiftUI
 import CoreData
 
-class RFDBService {
-    static let shared = RFDBService()
+final class CoreDataManager {
+    static let shared = CoreDataManager()
     
     let container : NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        let container = NSPersistentContainer(name: "ColorChipModel", managedObjectModel: RFDBService.createColorChip())
+        let container = NSPersistentContainer(name: "ColorChipModel", managedObjectModel: CoreDataManager.createColorChip())
         
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
@@ -24,7 +24,7 @@ class RFDBService {
     }
 }
 
-extension RFDBService {
+extension CoreDataManager {
     
     // MARK: - ColorChip Model
     static func createColorChip() -> NSManagedObjectModel {
@@ -58,7 +58,7 @@ extension RFDBService {
         let model = NSManagedObjectModel()
         
         /// ColorChip 과 Memory 간의 관계 정의
-        let memory = RFDBService.createMemory()
+        let memory = CoreDataManager.createMemory()
         let memoryRelation = NSRelationshipDescription()
         memoryRelation.destinationEntity = memory
         memoryRelation.name = "memories"
