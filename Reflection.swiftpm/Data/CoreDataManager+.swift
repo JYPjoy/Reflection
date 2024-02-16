@@ -46,6 +46,11 @@ extension CoreDataManager {
         memoryRelation.isOptional = true
         memoryRelation.deleteRule = .nullifyDeleteRule
         
+        /*
+         For a to-one relationship, set maxCount to 1.
+         For a to-many relationship, set maxCount to a number greater than 1 to impose an upper limit; otherwise, use 0 to allow an unlimited number of referenced objects.
+         */
+        
         let colorChipRelation = NSRelationshipDescription()
         colorChipRelation.destinationEntity = colorChipEntity
         colorChipRelation.name = "colorChip"
