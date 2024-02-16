@@ -26,17 +26,18 @@ extension CoreDataManager {
         colorCountAttribute.type = .integer64
         colorChipEntity.properties.append(colorCountAttribute)
         
-//        let colorListAttribute = NSAttributeDescription()
-//        colorListAttribute.name = "colorList"
-//        colorListAttribute.attributeType = .transformableAttributeType
-//        colorListAttribute.isOptional = true
-//        colorListAttribute.valueTransformerName = String(describing: DataTransformer.self)
-//        colorChipEntity.properties.append(colorListAttribute)
+        let colorListAttribute = NSAttributeDescription()
+        colorListAttribute.name = "colorList"
+        colorListAttribute.attributeType = .transformableAttributeType
+        colorListAttribute.isOptional = true
+        colorListAttribute.valueTransformerName = String(describing: DataTransformer.self)
+        colorChipEntity.properties.append(colorListAttribute)
         
         let model = NSManagedObjectModel()
         
         /// ColorChip 과 Memory 간의 관계 정의
         let memory = CoreDataManager.createMemory()
+        
         let memoryRelation = NSRelationshipDescription()
         memoryRelation.destinationEntity = memory
         memoryRelation.name = "memories"
@@ -71,8 +72,8 @@ extension CoreDataManager {
         memoryEntity.managedObjectClassName = "Memory"
         
         let memoryIdAttribute = NSAttributeDescription()
-        memoryIdAttribute.name = "id"
-        memoryIdAttribute.type = .string
+        memoryIdAttribute.name = "identifier"
+        memoryIdAttribute.type = .uuid
         memoryEntity.properties.append(memoryIdAttribute)
         
         let memoryPictureAttribute = NSAttributeDescription()
