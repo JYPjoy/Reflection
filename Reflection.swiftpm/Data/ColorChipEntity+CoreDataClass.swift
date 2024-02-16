@@ -13,3 +13,10 @@ class ColorChipEntity: NSManagedObject, Identifiable {
         identifier
     }
 }
+
+extension ColorChipEntity {
+    func addMemory(values: NSSet) {
+        let item = self.mutableSetValue(forKey: "memories")
+        values.forEach{ item.add($0) }
+    }
+}

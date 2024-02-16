@@ -7,10 +7,19 @@ class MemoryEntity: NSManagedObject, Identifiable {
     @NSManaged var picture: Data?
     @NSManaged var title: String
     @NSManaged var reflection: String
-    @NSManaged var colorChip: ColorChipEntity
+    @NSManaged var colorChip: NSSet
     // 날짜, 위치 정보 추가될 수도
     
     var id: UUID {
         identifier
+    }
+}
+
+extension MemoryEntity {
+    func addColorChip(values: NSSet) {
+        let items = self.mutableSetValue(forKey: "colorChip")
+        for value in values {
+            items.add(value)
+        }
     }
 }
