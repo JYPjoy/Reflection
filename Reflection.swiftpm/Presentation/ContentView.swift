@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var viewContext
-    @State var selectedTab: Int = 1
+    @State var selectedTab: Int = 0
 
     var body: some View {
         Group {
