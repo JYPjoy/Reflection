@@ -22,7 +22,7 @@ struct ContentView: View {
                 .tag(0)
                 
                 NavigationView {
-                    NewColorView()
+                    ConverterView()
                         .environment(\.managedObjectContext, self.viewContext)
                         .navigationBarTitle("Converter")
                 }
@@ -34,7 +34,7 @@ struct ContentView: View {
                     }
                 }
                 .tag(1)
-            }
+            } // backgroundColor 바꾸기 가능
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
