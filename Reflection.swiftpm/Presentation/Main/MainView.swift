@@ -17,11 +17,11 @@ struct MainView: View {
             }
             .blackButton()
             
-            LazyVGrid(columns: column, spacing: 30) {
+            LazyVGrid(columns: column, spacing: 10) {
                 ForEach(data, id: \.self) { item in
                     VStack {
-                        Rectangle()
-                            .frame(width: 180, height: 180, alignment: .center)
+                        Rectangle() //TODO: 크기 조정 필요
+                            .frame(width: 160, height: 160, alignment: .center)
                             .overlay(
                                 LinearGradient(colors: [.green, .yellow], startPoint: .top, endPoint: .bottom)
                             )
