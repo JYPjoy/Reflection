@@ -23,8 +23,8 @@ extension View {
             .modifier(BlackTextViewModifier())
             .modifier(
                 ButtonViewModifier(
-                    border: Color(.main50),
-                    background: Color(.main50)
+                    border: Color.Main.main50,
+                    background: Color.Main.main50
                 )
             )
     }
@@ -34,8 +34,8 @@ extension View {
             .modifier(WhiteTextViewModifier())
             .modifier(
                 ButtonViewModifier(
-                    border: Color(.systemBlack),
-                    background: Color(.systemBlack)
+                    border: Color.System.systemBlack,
+                    background: Color.System.systemBlack
                 )
             )
     }
@@ -45,8 +45,8 @@ extension View {
             .modifier(GrayTextViewModifier())
             .modifier(
                 ButtonViewModifier(
-                    border: Color(.text50),
-                    background: Color(.text30)
+                    border: Color.Text.text50,
+                    background: Color.Text.text30
                 )
             )
     }

@@ -28,7 +28,7 @@ struct MainView: View {
                         Text("hex").font(.subheadline)
                         Spacer().frame(height: 6)
                     }
-                    .border(Color(.text90), width: 0.3)
+                    .border(Color.Text.text90, width: 0.3)
                     .onTapGesture { print("Click") }
                 }
             }
