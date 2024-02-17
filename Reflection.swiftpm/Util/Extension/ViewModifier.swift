@@ -34,11 +34,11 @@ struct ButtonViewModifier: ViewModifier {
             .padding()
             .padding([.leading, .trailing], 24)
             .background(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: 10)
                     .fill(background)
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: 10)
                     .stroke(border, lineWidth: 1)
             )
             .padding()
