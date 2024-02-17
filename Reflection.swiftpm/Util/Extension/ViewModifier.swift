@@ -31,6 +31,7 @@ struct ButtonViewModifier: ViewModifier {
     var background: Color
     func body(content: Content) -> some View {
         content
+        
             .padding()
             .padding([.leading, .trailing], 24)
             .background(
