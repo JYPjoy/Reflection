@@ -9,7 +9,6 @@ struct ContentView: View {
                 MainView()
                     .environment(\.managedObjectContext, self.viewContext)
                     .navigationLinkValues(MainNavigationLinkValues.self)
-                    .navigationBarTitle(Text("ColorChips"))
                     .tabItem {
                         VStack {
                             Image(systemName: "paintpalette")
@@ -20,7 +19,6 @@ struct ContentView: View {
                 
                 ConverterView()
                     .environment(\.managedObjectContext, self.viewContext)
-                    .navigationBarTitle("Converter")
                     .tabItem {
                         VStack {
                             Image(systemName: "arrow.triangle.2.circlepath")

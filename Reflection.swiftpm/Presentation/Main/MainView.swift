@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @State private var isButtonActive = false
     
     private var data  = Array(1...20)
         private let column = [
@@ -10,21 +11,11 @@ struct MainView: View {
 
     
     var body: some View {
-//        NavigationLink(value: MainNavigationLinkValues.colorChip) {
-//            Text("컬러칩뷰로 이동")
-//        }
         ScrollView{
-            
-            Button {
-                print("hi")
-            } label: {
-                Text("New Color")
-            }
-            .blackButton()
-            
             LazyVGrid(columns: column, spacing: 10) {
                 ForEach(data, id: \.self) { item in
-                    NavigationLink(value: MainNavigationLinkValues.colorChip) {
+                    NavigationLink(value: //MainNavigationLinkValues.colorChip) {
+                        MainNavigationLinkValues.value(title: "타이틀")) {
                         VStack {
                             Rectangle()
                                 .frame(width: 160, height: 160, alignment: .center)
@@ -41,7 +32,9 @@ struct MainView: View {
                     }
                 }
             }
-        } .padding()
+        } 
+        .padding()
+        .navigationBarTitle(Text("ColorChips"))
     }
 }
 
