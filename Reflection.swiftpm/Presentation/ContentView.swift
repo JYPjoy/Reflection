@@ -6,8 +6,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
+                Image("applePark")
                 Text("Hello, world!")
                     .foregroundStyle(Color.Main.main50)
                 Button {
