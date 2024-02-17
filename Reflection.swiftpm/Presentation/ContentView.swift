@@ -7,7 +7,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             TabView(selection: self.$selectedTab) {
-                NavigationView {
+                NavigationStack {
                     MainView()
                         .environment(\.managedObjectContext, self.viewContext)
                         .navigationBarTitle(Text("ColorChips"))
@@ -21,7 +21,7 @@ struct ContentView: View {
                 }
                 .tag(0)
                 
-                NavigationView {
+                NavigationStack {
                     ConverterView()
                         .environment(\.managedObjectContext, self.viewContext)
                         .navigationBarTitle("Converter")
