@@ -12,7 +12,7 @@ struct BlackTextViewModifier: ViewModifier {
 struct WhiteTextViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.body.bold())
+            .font(.title3)
             .foregroundColor(.Text.text10)
     }
 }
@@ -31,9 +31,8 @@ struct ButtonViewModifier: ViewModifier {
     var background: Color
     func body(content: Content) -> some View {
         content
-        
-            .padding()
-            .padding([.leading, .trailing], 24)
+            .padding([.top, .bottom], 10)
+            .padding([.leading, .trailing], 10)
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(background)
@@ -42,6 +41,6 @@ struct ButtonViewModifier: ViewModifier {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(border, lineWidth: 1)
             )
-            .padding()
+            .padding([.top, .bottom], 10)
     }
 }
