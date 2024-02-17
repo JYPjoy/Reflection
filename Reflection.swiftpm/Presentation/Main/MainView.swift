@@ -9,14 +9,12 @@ struct MainView: View {
     
     var body: some View {
         ScrollView{
-            
             Button {
                 print("hi")
             } label: {
                 Text("New Color")
             }
             .blackButton()
-            
             LazyVGrid(columns: column, spacing: 10) {
                 ForEach(data, id: \.self) { item in
                     VStack {
