@@ -50,4 +50,11 @@ extension View {
                 )
             )
     }
+    
+    // MARK: - 화면 이동
+    func navigationLinkValues<D>(_ data: D.Type) -> some View where D : Hashable & View {
+        NavigationStack {
+            self.navigationDestination(for: data, destination: { $0 })
+        }
+    }
 }
