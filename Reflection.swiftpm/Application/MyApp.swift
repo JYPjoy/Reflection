@@ -9,11 +9,11 @@ struct MyApp: App {
     init() { DataTransformer.register() }
     var body: some Scene {
         WindowGroup {
-            //ContentView()
-            MainView()
-                .environment(\.managedObjectContext, CoreDataManager.shared.persistentContainer.viewContext)
-//                .environment(\.managedObjectContext, CoreDataManager.shared.container.viewContext)
-            
+                ContentView()
+                //MainView()
+                    .environment(\.managedObjectContext, CoreDataManager.shared.persistentContainer.viewContext)
+                //                 .environment(\.managedObjectContext, CoreDataManager.shared.container.viewContext)
+                
         }
     }
 }
