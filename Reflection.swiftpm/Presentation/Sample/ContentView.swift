@@ -12,7 +12,7 @@ struct ContentView: View {
                     .tabItem {
                         VStack {
                             Image(systemName: "paintpalette")
-                            Text("ColorChips")
+                            Text("Color Chips")
                                 .font(.body.bold())
                         }
                     }

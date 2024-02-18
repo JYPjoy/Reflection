@@ -53,7 +53,7 @@ struct ColorChipListView: View {
             }
         }
         .padding()
-        .navigationBarTitle(Text("ColorChips"))
+        .navigationBarTitle(Text("Color Chips"))
     }
 }
 
