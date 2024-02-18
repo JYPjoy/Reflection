@@ -27,7 +27,7 @@ struct ColorChipListView: View {
                             Text("hex").font(.subheadline)
                             Spacer().frame(height: 6)
                         }
-                        .border(Color(.text90), width: 0.3)
+                        .border(Color.Text.text90, width: 0.3)
                         
                     }
                 }
@@ -45,7 +45,11 @@ struct ColorChipListView: View {
                 }
             }
             .sheet(isPresented: self.$createNewColorChip) {
-                CreateColorChipView()
+                NavigationStack {
+                    CreateColorChipView()
+                        .environment(\.managedObjectContext, self.viewContext)
+
+                }
             }
         }
         .padding()
