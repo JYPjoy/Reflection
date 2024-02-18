@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ColorChipView: View {
+struct MemoryView: View {
     var body: some View {
         Text("컬러칩")
     }

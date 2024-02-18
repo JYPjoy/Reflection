@@ -6,7 +6,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             TabView {
-                MainView()
+                ColorChipView()
                     .environment(\.managedObjectContext, self.viewContext)
                     .navigationLinkValues(MainNavigationLinkValues.self)
                     .tabItem {

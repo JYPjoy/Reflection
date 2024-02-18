@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct MainView: View {
+struct ColorChipView: View {
     @Environment(\.managedObjectContext) var viewContext
     @State private var isButtonActive = false
     
