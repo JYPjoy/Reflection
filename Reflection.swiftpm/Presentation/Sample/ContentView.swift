@@ -8,7 +8,7 @@ struct ContentView: View {
             TabView {
                 ColorChipView()
                     .environment(\.managedObjectContext, self.viewContext)
-                    .navigationLinkValues(MainNavigationLinkValues.self)
+                    .navigationLinkValues(ColorChipNavigationLinkValues.self)
                     .tabItem {
                         VStack {
                             Image(systemName: "paintpalette")

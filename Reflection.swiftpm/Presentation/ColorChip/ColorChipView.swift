@@ -15,7 +15,7 @@ struct ColorChipView: View {
             LazyVGrid(columns: column, spacing: 10) {
                 ForEach(data, id: \.self) { item in
                     NavigationLink(value: //MainNavigationLinkValues.colorChip) {
-                        MainNavigationLinkValues.value(title: "타이틀")) {
+                        ColorChipNavigationLinkValues.value(title: "타이틀")) {
                         VStack {
                             Rectangle()
                                 .frame(width: 160, height: 160, alignment: .center)
