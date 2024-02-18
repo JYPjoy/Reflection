@@ -25,13 +25,13 @@ struct CreateColorChipView: View {
                 // SECTION2
                 Section {
                     VStack{
-                        TextField("How many Colors do you want to mix?", text: $colorCountText)
+                        TextField("How many Colors do you want to pick?", text: $colorCountText)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.numberPad)
                             .padding(.trailing, 4)
                         
                         Button {
-                            if let colorCount = Int(colorCountText), colorCount > 0 {
+                            if let colorCount = Int(colorCountText), colorCount > 0 { //색깔 count 7개 정도로 제한해도 될 듯
                                 self.colorCount = colorCount
                                 colorList = Array(repeating: Color.Main.main50, count: colorCount)
                             }
