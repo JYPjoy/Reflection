@@ -19,4 +19,9 @@ extension ColorChipEntity {
         let item = self.mutableSetValue(forKey: "memories")
         values.forEach{ item.add($0) }
     }
+    
+    func removeMemory(values: NSSet) {
+        let item = self.mutableSetValue(forKey: "memories")
+        values.forEach{ item.remove($0) }
+    }
 }
