@@ -1,54 +1,53 @@
 import SwiftUI
 
+// TODO: Empty일 때, 처리 필요
 struct ColorChipListView: View {
     @Environment(\.managedObjectContext) var viewContext
     @State private var isButtonActive = false
     @State private var createNewColorChip = false
+    @FetchRequest(sortDescriptors: [
+        NSSortDescriptor(keyPath: \ColorChipEntity.colorName, ascending: true)
+    ], animation: .default)
+    private var colorChipList: FetchedResults<ColorChipEntity>
+    private let column = [
+        GridItem(.flexible()),  GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
+    ]
     
-    private var data  = Array(1...20)
-        private let column = [
-            GridItem(.flexible()),  GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
-        ]
-
     
     var body: some View {
         ScrollView{
             LazyVGrid(columns: column, spacing: 10) {
-                ForEach(data, id: \.self) { item in
+                ForEach(colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.value(title: "타이틀")) {
                         VStack {
                             Rectangle()
-                                .frame(width: 160, height: 160, alignment: .center)
-                                .overlay(
-                                    LinearGradient(colors: [.green, .yellow], startPoint: .top, endPoint: .bottom)
-                                )
-                            Text("color Name").font(.title3)
+                                .frame(height: 200)
+                                .foregroundStyle(Color(hex:item.colorList))
+                            Text(item.colorName).font(.title3).bold()
                             Spacer()
-                            Text("hex").font(.subheadline)
+                            Text(item.colorList).font(.subheadline)
                             Spacer().frame(height: 6)
                         }
                         .border(Color.Text.text90, width: 0.3)
-                        
                     }
                 }
-            }            
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         self.createNewColorChip.toggle()
                     }) {
-                        Image(systemName: "plus").bold()
-                        //Text("Add New Color")
+                        Text("Add New Color Chip")
                     }
-                    //.blackButton()
-                    //.padding()
+                    .blackButton()
+                    .padding(.top, 30)
+                    .padding(.trailing, 5)
                 }
             }
             .sheet(isPresented: self.$createNewColorChip) {
                 NavigationStack {
                     CreateColorChipView()
                         .environment(\.managedObjectContext, self.viewContext)
-
                 }
             }
         }

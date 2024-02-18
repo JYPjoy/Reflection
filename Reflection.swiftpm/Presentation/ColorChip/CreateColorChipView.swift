@@ -7,69 +7,40 @@ struct CreateColorChipView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var colorName: String = ""
-    @State private var colorCountText = ""
-    @State private var colorCount: Int = 0
-    @State private var colorList: [Color] = []
+    @State private var colorList: Color = Color(hex: "#F8D749")
+    @State private var colorListText: [String] = [] //데이터 저장 시 사용해야 함
+    
+    var colorChip: ColorChipEntity? = nil
     
     var body: some View {
         VStack {
             // MARK: - Form
             Form {
-                // SECTION1
+                // SECTION 1
                 Section {
                     TextField("Color Name", text: self.$colorName)
-                } header: {
-                    Text("Color Name") // 커스텀화 가능 .font(.body).bold()
+                } header: { // 커스텀화 가능 .font(.body).bold()
+                    Text("Color Name")
                 }
                 
-                // SECTION2
+                // SECTION 2
                 Section {
-                    VStack{
-                        TextField("How many Colors do you want to pick?", text: $colorCountText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .keyboardType(.numberPad)
-                            .padding(.trailing, 4)
-                        
-                        Button {
-                            if let colorCount = Int(colorCountText), colorCount > 0 { //색깔 count 7개 정도로 제한해도 될 듯
-                                self.colorCount = colorCount
-                                colorList = Array(repeating: Color.Main.main50, count: colorCount)
-                            }
-                        } label: {
-                            Text("Generate the ColorPickers")
-                                .frame(maxWidth: .infinity, minHeight: 20)
-                        }.mainButton()
-                    }
-                } header: {
-                    Text("The number of colors")
-                }
-                
-                
-                // SECTION 3 (리팩터링 하기)
-                Section {
-                    ForEach(0..<colorCount, id: \.self) { idx in
-                        ColorPicker("Selected Color \(idx + 1)",
-                                    selection: Binding(get: {
-                            colorList.indices.contains(idx) ? colorList[idx] : Color.Main.main50
-                        }, set: { selectedColor in
-                            if colorList.indices.contains(idx) {
-                                colorList[idx] = selectedColor
-                            }
-                        })
-                        )
-                        .padding()
-                    }
-                } header: {
-                    Text("Select the colors")
-                }
+                    ColorPicker("Selected Color", selection: self.$colorList, supportsOpacity: false)
+                } header: { Text("Select the colors") }
             }
             
             // MARK: - Button
             Button {
-                print(colorList)
+                // 새로 만들기
+                guard !colorName.isEmpty else { return }
+                let newColorChip = colorChip ?? ColorChipEntity(context: viewContext)
+                newColorChip.identifier = UUID()
+                newColorChip.colorName = colorName
+                newColorChip.colorList = colorList.HexToString() ?? "#F8D749"
+                newColorChip.memories = []
+                _ = CoreDataManager.shared.create(object: newColorChip)
                 self.dismiss()
             } label: {
-    
                     Text("Make a Color Chip")
                     .frame(maxWidth: .infinity, minHeight: 20)
        
@@ -79,6 +50,12 @@ struct CreateColorChipView: View {
             .padding(30)
         }
         .navigationTitle(Text("Create a New Color Chip"))
+        .onAppear(perform: {
+            if let colorChip = self.colorChip {
+                self.colorName = colorChip.colorName
+                self.colorList = Color(hex: colorChip.colorList)
+            }
+        })
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {

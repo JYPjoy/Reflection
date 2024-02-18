@@ -69,7 +69,6 @@ final class CoreDataManager {
     func read(predicate: NSPredicate? = nil) -> [NSManagedObject] {
         let request = NSManagedObject.fetchRequest()
         request.predicate = predicate
-        
         do {
             return try context.fetch(request) as? [NSManagedObject] ?? []
         } catch {
