@@ -52,5 +52,51 @@ final class CoreDataManager {
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy //객체 버전 우선
         return context
     }()
+    
+    
+    //MARK: - CRUD
+    func create(object: NSManagedObject) -> Bool {
+        do {
+            context.insert(object)
+            try context.save()
+            return true
+        } catch {
+            print(CoreDataError.create)
+            return false
+        }
+    }
+    
+    func read(predicate: NSPredicate? = nil) -> [NSManagedObject] {
+        let request = NSManagedObject.fetchRequest()
+        request.predicate = predicate
+        
+        do {
+            return try context.fetch(request) as? [NSManagedObject] ?? []
+        } catch {
+            print(CoreDataError.read)
+            return []
+        }
+    }
+    
+    func update(object: NSManagedObject) -> Bool {
+        do {
+            try context.save()
+            return true
+        } catch {
+            print(CoreDataError.update)
+            return false
+        }
+    }
+    
+    func delete(object: NSManagedObject) -> Bool {
+        context.delete(object)
+        do {
+            try context.save()
+            return true
+        } catch {
+            print(CoreDataError.update)
+            return false
+        }
+    }
 }
 
