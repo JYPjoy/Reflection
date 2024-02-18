@@ -79,5 +79,14 @@ struct CreateColorChipView: View {
             .padding(30)
         }
         .navigationTitle(Text("Create a New Color Chip"))
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    self.dismiss()
+                } label: {
+                    Text("Cancel")
+                }
+            }
+        })
     }
 }
