@@ -16,17 +16,23 @@ struct ColorChipListView: View {
     
     var body: some View {
         ScrollView{
-            LazyVGrid(columns: column, spacing: 10) {
+            LazyVGrid(columns: column, spacing: 20) {
                 ForEach(colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.value(title: "타이틀")) {
                         VStack {
                             Rectangle()
                                 .frame(height: 200)
                                 .foregroundStyle(Color(hex:item.colorList))
-                            Text(item.colorName).font(.title3).bold()
+                            Text(item.colorName)
+                                .padding(.leading, 10)
+                                .font(.title3).bold()
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             Spacer()
-                            Text(item.colorList).font(.subheadline)
-                            Spacer().frame(height: 6)
+                            Text(item.colorList)
+                                .padding(.leading, 10)
+                                .font(.subheadline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Spacer().frame(height: 10)
                         }
                         .border(Color.Text.text90, width: 0.3)
                     }
