@@ -8,8 +8,7 @@ class SampleData {
         let colorChip = ColorChipEntity(context: self.context)
         colorChip.identifier = UUID()
         colorChip.colorName = "하늘색"
-        colorChip.colorCount = 2
-        colorChip.colorList = ["blue", "pink"]
+        colorChip.colorList = "blue"
         let memories = self.createMemory(color: colorChip)
         colorChip.addMemory(values: NSSet(array: memories))
     }

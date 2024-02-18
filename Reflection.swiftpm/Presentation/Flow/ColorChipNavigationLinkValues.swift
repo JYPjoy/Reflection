@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum MainNavigationLinkValues: Hashable, View {
+enum ColorChipNavigationLinkValues: Hashable, View {
     case colorChip
     case value(title: String)
     

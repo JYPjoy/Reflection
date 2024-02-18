@@ -21,16 +21,9 @@ extension CoreDataManager {
         colorNameAttribute.type = .string
         colorChipEntity.properties.append(colorNameAttribute)
         
-        let colorCountAttribute = NSAttributeDescription()
-        colorCountAttribute.name = "colorCount"
-        colorCountAttribute.type = .integer64
-        colorChipEntity.properties.append(colorCountAttribute)
-        
         let colorListAttribute = NSAttributeDescription()
         colorListAttribute.name = "colorList"
-        colorListAttribute.attributeType = .transformableAttributeType
-        colorListAttribute.isOptional = true
-        colorListAttribute.valueTransformerName = String(describing: DataTransformer.self)
+        colorListAttribute.type = .string
         colorChipEntity.properties.append(colorListAttribute)
         
         let model = NSManagedObjectModel()

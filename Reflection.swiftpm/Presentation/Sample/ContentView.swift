@@ -6,13 +6,13 @@ struct ContentView: View {
     var body: some View {
         Group {
             TabView {
-                ColorChipView()
+                ColorChipListView()
                     .environment(\.managedObjectContext, self.viewContext)
-                    .navigationLinkValues(MainNavigationLinkValues.self)
+                    .navigationLinkValues(ColorChipNavigationLinkValues.self)
                     .tabItem {
                         VStack {
                             Image(systemName: "paintpalette")
-                            Text("ColorChips")
+                            Text("Color Chips")
                                 .font(.body.bold())
                         }
                     }

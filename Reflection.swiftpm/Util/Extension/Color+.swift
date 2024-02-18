@@ -57,7 +57,7 @@ extension Color {
     }
     
     // hex ➡️ String 변환
-    func toHex() -> String? {
+    func HexToString() -> String? {
         let uiColor = UIColor(self)
         
         guard let components = uiColor.cgColor.components, components.count >= 3 else {

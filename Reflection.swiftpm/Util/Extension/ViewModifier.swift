@@ -31,8 +31,7 @@ struct ButtonViewModifier: ViewModifier {
     var background: Color
     func body(content: Content) -> some View {
         content
-            .padding([.top, .bottom], 10)
-            .padding([.leading, .trailing], 10)
+            .padding()
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(background)
@@ -41,6 +40,5 @@ struct ButtonViewModifier: ViewModifier {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(border, lineWidth: 1)
             )
-            .padding([.top, .bottom], 10)
     }
 }

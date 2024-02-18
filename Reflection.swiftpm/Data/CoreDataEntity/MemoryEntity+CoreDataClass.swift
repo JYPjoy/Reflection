@@ -22,4 +22,9 @@ extension MemoryEntity {
             items.add(value)
         }
     }
+    
+    func removeColorChip(values: NSSet) {
+        let item = self.mutableSetValue(forKey: "colorChip")
+        values.forEach{ item.remove($0) }
+    }
 }

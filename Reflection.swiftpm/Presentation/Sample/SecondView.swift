@@ -22,7 +22,7 @@ struct SecondView: View {
 //    
     var body: some View {
         ForEach(self.color, id:\.self.id) {color in
-            Text(color.colorList[0])
+            Text(color.colorList)
 
         }
 //        ForEach(self.memori, id: \.self.id) { mem in
