@@ -3,6 +3,7 @@ import SwiftUI
 struct ColorChipView: View {
     @Environment(\.managedObjectContext) var viewContext
     @State private var isButtonActive = false
+    @State private var createNewColorChip = false
     
     private var data  = Array(1...20)
         private let column = [
@@ -14,8 +15,7 @@ struct ColorChipView: View {
         ScrollView{
             LazyVGrid(columns: column, spacing: 10) {
                 ForEach(data, id: \.self) { item in
-                    NavigationLink(value: //MainNavigationLinkValues.colorChip) {
-                        ColorChipNavigationLinkValues.value(title: "타이틀")) {
+                    NavigationLink(value:ColorChipNavigationLinkValues.value(title: "타이틀")) {
                         VStack {
                             Rectangle()
                                 .frame(width: 160, height: 160, alignment: .center)
@@ -31,8 +31,23 @@ struct ColorChipView: View {
                         
                     }
                 }
+            }            
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        self.createNewColorChip.toggle()
+                    }) {
+                        Image(systemName: "plus").bold()
+                        //Text("Add New Color")
+                    }
+                    //.blackButton()
+                    //.padding()
+                }
             }
-        } 
+            .sheet(isPresented: self.$createNewColorChip) {
+                CreateColorChipView()
+            }
+        }
         .padding()
         .navigationBarTitle(Text("ColorChips"))
     }
