@@ -7,7 +7,7 @@ protocol ColorChipManagable {
     func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
     func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
 //    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
-    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
+    func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
 }
 
 // MARK: - CoreDataManager
@@ -124,7 +124,7 @@ extension CoreDataManager: ColorChipManagable {
 //        <#code#>
 //    }
 //    
-    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataError> {
+    func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChipEntity], CoreDataError> {
         return Future { promise in
             self.backgroundContext.perform {
                 do {
@@ -136,17 +136,17 @@ extension CoreDataManager: ColorChipManagable {
                         id as CVarArg
                     )
                     let fetchResult = try self.backgroundContext.fetch(request)
-                    print(fetchResult)
                     guard let gatheringEntity = fetchResult.first else {
                         promise(.failure(.delete))
                         return
                     }
                     self.backgroundContext.delete(gatheringEntity)
                     try self.backgroundContext.save()
-                    promise(.success(()))
+                    
+                    let deletedResult = try self.backgroundContext.fetch(ColorChipEntity.fetchRequest())
+                    promise(.success((deletedResult)))
                 } catch {
-                    //promise(.failure(.delete))
-                    print(error.localizedDescription)
+                    promise(.failure(.delete))
                 }
             }
         }.eraseToAnyPublisher()

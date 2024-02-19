@@ -7,7 +7,7 @@ protocol ColorChipUseCaseProtocol {
     func fetchAllColorChip() -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
 //
 //    func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
-    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
+    func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
 }
 
 final class ColorChipUseCase: ColorChipUseCaseProtocol {
@@ -32,7 +32,11 @@ final class ColorChipUseCase: ColorChipUseCaseProtocol {
             .eraseToAnyPublisher()
     }
     
-    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError> {
-        return self.coreDataManager.deleteColorChip(id: id)
+    func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError> {
+        self.coreDataManager.deleteColorChip(id: id)
+            .map { colorchipList in
+                colorchipList.map{ $0.toDomain() }.sorted(by: <)
+            }
+            .eraseToAnyPublisher()
     }
 }

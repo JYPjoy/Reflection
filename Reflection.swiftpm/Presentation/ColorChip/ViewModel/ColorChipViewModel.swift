@@ -39,9 +39,9 @@ final class ColorChipViewModel: ObservableObject {
     func deleteColorChip(_ id: UUID) {
         self.colorChipUseCase.deleteColorChip(id: id)
             .sink { completion in
-                print("여기는 왔나1")
                 print(completion)
-            } receiveValue: { [weak self] in
+            } receiveValue: { [weak self] colorChipList in
+                self?.colorChipList = colorChipList
                 self?.deleteDoneSignal.send()
             }
             .store(in: &self.cancellables)

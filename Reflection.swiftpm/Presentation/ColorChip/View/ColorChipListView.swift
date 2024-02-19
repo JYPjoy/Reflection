@@ -50,7 +50,6 @@ struct ColorChipListView: View {
                         .alert(isPresented: self.$deleteColorChip, content: {
                             Alert(title: Text("Delete team?"), message: Text("Do you really want to delete?"), primaryButton: .destructive(Text("Delete"), action: {
                                 guard let itemToDelete = itemToDelete else {return}
-                                print(itemToDelete.colorName)
                                 viewModel.deleteColorChip(itemToDelete.id)
                             }), secondaryButton: .cancel())
                         })
