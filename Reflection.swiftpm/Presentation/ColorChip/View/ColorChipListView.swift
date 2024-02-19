@@ -8,6 +8,7 @@ struct ColorChipListView: View {
     @State private var isButtonActive = false
     @State private var createNewColorChip = false
     @State private var deleteColorChip = false
+    @State private var itemToDelete: ColorChip?
 
     private let column = [
         GridItem(.flexible()),  GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
@@ -35,6 +36,18 @@ struct ColorChipListView: View {
                             Spacer().frame(height: 10)
                         }
                         .border(Color.Text.text90, width: 0.3)
+                        .contextMenu(menuItems: {
+                            Button(role: .destructive, action: {
+                                withAnimation {
+                                    self.deleteColorChip.toggle()
+                                }
+                               //TODO: 나중에 alert 달기
+                                itemToDelete = item
+                            }, label: {
+                                Image(systemName: "trash")
+                                Text("Delete")
+                            })
+                        })
                     }
                 }
             }
@@ -58,8 +71,5 @@ struct ColorChipListView: View {
         }
         .padding()
         .navigationBarTitle(Text("Color Chips"))
-//        .onAppear {
-//            viewModel.fetchAllColorChips()
-//        }
     }
 }
