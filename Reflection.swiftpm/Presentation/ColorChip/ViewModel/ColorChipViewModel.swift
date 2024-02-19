@@ -38,6 +38,7 @@ final class ColorChipViewModel: ObservableObject {
     
     func deleteColorChip(_ id: UUID) {
         self.colorChipUseCase.deleteColorChip(id: id)
+            .receive(on: RunLoop.main)
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] colorChipList in
