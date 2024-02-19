@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-final class CreateColorChipViewModel: ObservableObject {
+final class ColorChipViewModel: ObservableObject {
     @Published private(set) var memories: [Memory] = []
     private(set) var registerDoneSignal = PassthroughSubject<ColorChip, Never>()
     private var cancellables: Set<AnyCancellable> = .init()

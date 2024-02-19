@@ -4,7 +4,7 @@ import SwiftUI
 // 컴포넌트 크기 조정 필요
 struct CreateColorChipView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var createColorViewModel = CreateColorChipViewModel()
+    @StateObject var createColorViewModel = ColorChipViewModel()
     
     @State private var colorName: String = ""
     @State private var colorList: Color = Color(hex: "#F8D749")
