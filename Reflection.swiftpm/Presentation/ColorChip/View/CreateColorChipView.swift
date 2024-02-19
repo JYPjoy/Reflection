@@ -40,6 +40,7 @@ struct CreateColorChipView: View {
                 newColorChip.memories = []
                
                 self.save()
+                
                 self.dismiss()
             } label: {
                     Text("Make a Color Chip")
