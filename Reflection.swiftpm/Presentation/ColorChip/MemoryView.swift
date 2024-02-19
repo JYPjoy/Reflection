@@ -10,11 +10,19 @@ struct MemoryView: View {
         .navigationTitle(Text("Memories"))
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
+                HStack {
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Add new Memory")
+                    })
                     
-                }, label: {
-                    Text("Edit")
-                })
+                    Button(action: {
+                        
+                    }, label: {
+                        Text("Edit")
+                    })
+                }
             }
         })
     }
