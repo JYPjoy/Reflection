@@ -8,7 +8,7 @@ struct ColorChip: Hashable {
     var memories: [Memory]
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(colorList)
+        hasher.combine(id)
     }
 }
 

@@ -22,3 +22,29 @@ class SampleData {
         return []
     }
 }
+
+/*
+ func addColorChip(values: NSSet) {
+     let items = self.mutableSetValue(forKey: "colorChip")
+     for value in values {
+         items.add(value)
+     }
+ }
+ 
+ func removeColorChip(values: NSSet) {
+     let item = self.mutableSetValue(forKey: "colorChip")
+     values.forEach{ item.remove($0) }
+ }
+ 
+ func addMemory(values: NSSet) {
+     let item = self.mutableSetValue(forKey: "memories")
+     values.forEach{ item.add($0) }
+ }
+ 
+ func removeMemory(values: NSSet) {
+     let item = self.mutableSetValue(forKey: "memories")
+     values.forEach{ item.remove($0) }
+ }
+ 
+ 
+ */

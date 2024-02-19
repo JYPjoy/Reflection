@@ -4,7 +4,7 @@ import SwiftUI
 // 컴포넌트 크기 조정 필요
 struct CreateColorChipView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var createColorViewModel = ColorChipViewModel()
+    @StateObject var colorChipViewModel = ColorChipViewModel()
     
     @State private var colorName: String = ""
     @State private var colorList: Color = Color(hex: "#F8D749")
@@ -31,7 +31,7 @@ struct CreateColorChipView: View {
             
             // MARK: - Button
             Button {
-                createColorViewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
+                colorChipViewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
                 
                 self.dismiss()
             } label: {

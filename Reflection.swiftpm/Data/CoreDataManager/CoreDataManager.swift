@@ -5,8 +5,7 @@ import CoreData
 // MARK: - Managable
 protocol ColorChipManagable {
     func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
-//    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
-//    
+    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
 //    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
 //    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
 }
@@ -98,7 +97,6 @@ extension CoreDataManager: ColorChipManagable {
                 
                 do {
                     try self.backgroundContext.save()
-                    print("HI")
                     promise(.success(colorChipEntity))
                 } catch let error {
                     print(error)
@@ -108,9 +106,19 @@ extension CoreDataManager: ColorChipManagable {
         }.eraseToAnyPublisher()
     }
     
-//    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataError> {
-//        <#code#>
-//    }
+    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataError> {
+        return Future { promise in
+            self.backgroundContext.perform {
+                do {
+                    let request = ColorChipEntity.fetchRequest()
+                    let fetchResult = try self.backgroundContext.fetch(request)
+                    promise(.success(fetchResult))
+                } catch {
+                    promise(.failure(.read))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
 //    
 //    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataError> {
 //        <#code#>
