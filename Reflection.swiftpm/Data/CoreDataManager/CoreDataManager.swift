@@ -7,7 +7,7 @@ protocol ColorChipManagable {
     func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
     func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
 //    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
-//    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
+    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
 }
 
 // MARK: - CoreDataManager
@@ -124,8 +124,32 @@ extension CoreDataManager: ColorChipManagable {
 //        <#code#>
 //    }
 //    
-//    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataError> {
-//        <#code#>
-//    }
+    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataError> {
+        return Future { promise in
+            self.backgroundContext.perform {
+                do {
+                    let request = ColorChipEntity.fetchRequest()
+                    // %K: 키 경로, %@: 값
+                    request.predicate = NSPredicate(
+                        format: "%K == %@",
+                        #keyPath(ColorChipEntity.identifier),
+                        id as CVarArg
+                    )
+                    let fetchResult = try self.backgroundContext.fetch(request)
+                    print(fetchResult)
+                    guard let gatheringEntity = fetchResult.first else {
+                        promise(.failure(.delete))
+                        return
+                    }
+                    self.backgroundContext.delete(gatheringEntity)
+                    try self.backgroundContext.save()
+                    promise(.success(()))
+                } catch {
+                    //promise(.failure(.delete))
+                    print(error.localizedDescription)
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
     
 }
