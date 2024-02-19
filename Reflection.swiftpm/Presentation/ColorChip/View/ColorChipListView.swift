@@ -1,27 +1,23 @@
 import SwiftUI
 
-// TODO: Empty일 때, 처리 필요
-// 버튼 뒤로 나갔다 돌아왔을 때 잘려보이는 문제 해결해야 함
 struct ColorChipListView: View {
-    @Environment(\.managedObjectContext) var viewContext
+    
+    @ObservedObject var viewModel = ColorChipViewModel()
+    
     @State private var isButtonActive = false
     @State private var createNewColorChip = false
     @State private var deleteColorChip = false
-    
-    @FetchRequest(sortDescriptors: [
-        NSSortDescriptor(keyPath: \ColorChipEntity.colorName, ascending: true)
-    ], animation: .default)
-    private var colorChipList: FetchedResults<ColorChipEntity>
-    
+    @State private var itemToDelete: ColorChip?
+
     private let column = [
         GridItem(.flexible()),  GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
     ]
     
     var body: some View {
         ScrollView {
-            //colorChipList 가 empty일 때 처리 필요함
+            //TODO: colorChipList 가 empty일 때 처리 필요함
             LazyVGrid(columns: column, spacing: 20) {
-                ForEach(colorChipList, id: \.self) { item in
+                ForEach(viewModel.colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
                         VStack {
                             Rectangle()
@@ -39,6 +35,25 @@ struct ColorChipListView: View {
                             Spacer().frame(height: 10)
                         }
                         .border(Color.Text.text90, width: 0.3)
+                        // TODO:  편집도 여기 들어가야 할 듯
+                        .contextMenu(menuItems: {
+                            Button(role: .destructive, action: {
+                                withAnimation {
+                                    self.itemToDelete = item
+                                    self.deleteColorChip.toggle()
+                                }
+                            }, label: {
+                                Image(systemName: "trash")
+                                Text("Delete")
+                            })
+                        })
+                        .alert(isPresented: self.$deleteColorChip, content: {
+                            Alert(title: Text("Delete team?"), message: Text("Do you really want to delete?"), primaryButton: .destructive(Text("Delete"), action: {
+                                guard let itemToDelete = itemToDelete else {return}
+                                viewModel.deleteColorChip(itemToDelete.id)
+                            }), secondaryButton: .cancel())
+                        })
+
                     }
                 }
             }
@@ -57,12 +72,10 @@ struct ColorChipListView: View {
         }
         .sheet(isPresented: self.$createNewColorChip) {
             NavigationStack {
-                CreateColorChipView()
+                CreateColorChipView(colorChipViewModel: viewModel)
             }
-            
         }
         .padding()
         .navigationBarTitle(Text("Color Chips"))
     }
-    
 }
