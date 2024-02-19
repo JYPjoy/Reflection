@@ -8,8 +8,8 @@ extension CoreDataManager {
     static func createColorChip() -> NSManagedObjectModel {
         /// ColorChip 관련 코드
         let colorChipEntity = NSEntityDescription()
-        colorChipEntity.name = "ColorChip"
-        colorChipEntity.managedObjectClassName = "ColorChip"
+        colorChipEntity.name = "ColorChipEntity"
+        colorChipEntity.managedObjectClassName = "ColorChipEntity"
         
         let colorIdAttribute = NSAttributeDescription()
         colorIdAttribute.name = "identifier"
@@ -66,8 +66,8 @@ extension CoreDataManager {
     // Create the Memory model with all attributes
     static func createMemory() -> NSEntityDescription {
         let memoryEntity = NSEntityDescription()
-        memoryEntity.name = "Memory"
-        memoryEntity.managedObjectClassName = "Memory"
+        memoryEntity.name = "MemoryEntity"
+        memoryEntity.managedObjectClassName = "MemoryEntity "
         
         let memoryIdAttribute = NSAttributeDescription()
         memoryIdAttribute.name = "identifier"

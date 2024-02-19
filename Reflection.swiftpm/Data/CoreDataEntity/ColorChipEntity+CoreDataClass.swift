@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-@objc(ColorChip)
+@objc(ColorChipEntity)
 class ColorChipEntity: NSManagedObject, Identifiable {
     @NSManaged public var identifier: UUID
     @NSManaged public var colorName: String
@@ -12,6 +12,25 @@ class ColorChipEntity: NSManagedObject, Identifiable {
     var id: UUID {
         identifier
     }
+}
+
+extension ColorChipEntity {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<ColorChipEntity> {
+        return NSFetchRequest<ColorChipEntity>(entityName: "ColorChipEntity")
+    }
+
+    @objc(addMemoriesObject:)
+    @NSManaged public func addToMemories(_ value: MemoryEntity)
+
+    @objc(removeMemoriesObject:)
+    @NSManaged public func removeFromMemories(_ value: MemoryEntity)
+
+    @objc(addMemories:)
+    @NSManaged public func addToMemories(_ values: NSSet)
+
+    @objc(removeMemories:)
+    @NSManaged public func removeFromMemories(_ values: NSSet)
+    
 }
 
 extension ColorChipEntity {
