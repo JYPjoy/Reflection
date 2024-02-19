@@ -10,13 +10,13 @@ struct ColorChipListView: View {
     @State private var itemToDelete: ColorChip?
 
     private let column = [
-        GridItem(.flexible()),  GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
+        GridItem(.flexible(), spacing: 40),  GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40)
     ]
     
     var body: some View {
         ScrollView {
             //TODO: colorChipList 가 empty일 때 처리 필요함
-            LazyVGrid(columns: column, spacing: 20) {
+            LazyVGrid(columns: column) {
                 ForEach(viewModel.colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
                         VStack {
