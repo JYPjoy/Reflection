@@ -1,15 +1,26 @@
 import Foundation
 import Combine
 
-protocol ColorChipUseCase {
-    func createColorChip() -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
+protocol ColorChipUseCaseProtocol {
+    func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
     
-    func readColorChip() -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
-    func readColorChipNameList() -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
-    
-    func updateColorChip() -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
-    func deleteColorChip() -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
+//    func fetchAllColorChip() -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
+//
+//    func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
+//    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
 }
 
+final class ColorChipUseCase: ColorChipUseCaseProtocol {
 
-//DataUseCaseImpl: ColorchipUseCase
+    private var coreDataManager: ColorChipManagable
+    
+    init(coreDataManager: ColorChipManagable = CoreDataManager.shared) {
+        self.coreDataManager = coreDataManager
+    }
+    
+    func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError> {
+        self.coreDataManager.insertColorChip(colorChip)
+            .map{ $0.toDomain() }
+            .eraseToAnyPublisher()
+    }
+}
