@@ -1,12 +1,12 @@
 import SwiftUI
 
 enum ColorChipNavigationLinkValues: Hashable, View {
-    case colorChip
+    case memoryView
     case value(title: String)
     
     var body: some View {
         switch self {
-        case .colorChip:
+        case .memoryView:
             MemoryView()
         case .value(let title) :
             ValueView(title: title)

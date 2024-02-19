@@ -7,6 +7,7 @@ struct ColorChipListView: View {
     @State private var isButtonActive = false
     @State private var createNewColorChip = false
     @State private var deleteColorChip = false
+    
     @FetchRequest(sortDescriptors: [
         NSSortDescriptor(keyPath: \ColorChipEntity.colorName, ascending: true)
     ], animation: .default)
@@ -17,11 +18,11 @@ struct ColorChipListView: View {
     ]
     
     var body: some View {
-        ScrollView{
+        ScrollView {
             //colorChipList 가 empty일 때 처리 필요함
             LazyVGrid(columns: column, spacing: 20) {
                 ForEach(colorChipList, id: \.self) { item in
-                    NavigationLink(value:ColorChipNavigationLinkValues.value(title: "타이틀")) {
+                    NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
                         VStack {
                             Rectangle()
                                 .frame(height: 200)
@@ -40,27 +41,29 @@ struct ColorChipListView: View {
                         .border(Color.Text.text90, width: 0.3)
                     }
                 }
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(action: {
-                            self.createNewColorChip.toggle()
-                        }) {
-                            HStack {
-                                Image(systemName: "plus").fontWeight(.bold)
-                                Text("Add New Color Chip")
-                            }
-                        }
-                    }
-                }
-                .sheet(isPresented: self.$createNewColorChip) {
-                    NavigationStack {
-                        CreateColorChipView()
-                            .environment(\.managedObjectContext, self.viewContext)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    self.createNewColorChip.toggle()
+                }) {
+                    HStack {
+                        Image(systemName: "plus").fontWeight(.bold)
+                        Text("Add New Color Chip")
                     }
                 }
             }
-            .padding()
-            .navigationBarTitle(Text("Color Chips"))
         }
+        .sheet(isPresented: self.$createNewColorChip) {
+            NavigationStack {
+                CreateColorChipView()
+                    .environment(\.managedObjectContext, self.viewContext)
+            }
+            
+        }
+        .padding()
+        .navigationBarTitle(Text("Color Chips"))
     }
+    
 }
