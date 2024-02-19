@@ -98,6 +98,7 @@ extension CoreDataManager: ColorChipManagable {
                 
                 do {
                     try self.backgroundContext.save()
+                    print("HI")
                     promise(.success(colorChipEntity))
                 } catch let error {
                     print(error)

@@ -58,7 +58,6 @@ struct ColorChipListView: View {
         .sheet(isPresented: self.$createNewColorChip) {
             NavigationStack {
                 CreateColorChipView()
-                    .environment(\.managedObjectContext, self.viewContext)
             }
             
         }
