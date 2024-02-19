@@ -30,7 +30,6 @@ extension ColorChipEntity {
 
     @objc(removeMemories:)
     @NSManaged public func removeFromMemories(_ values: NSSet)
-    
 }
 
 extension ColorChipEntity {

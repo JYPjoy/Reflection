@@ -6,7 +6,7 @@ import CoreData
 protocol ColorChipManagable {
     func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
     func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
-//    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
+    func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
     func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
 }
 
@@ -82,6 +82,7 @@ final class CoreDataManager {
     
     private func fetchMemoryEntity(of memory: [Memory]) -> [MemoryEntity] {
         let request = MemoryEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id IN %@", memory.map{ $0.identifier })
         guard let fetchResult = try? self.backgroundContext.fetch(request) else { return [] }
         return fetchResult
     }
@@ -119,11 +120,38 @@ extension CoreDataManager: ColorChipManagable {
             }
         }.eraseToAnyPublisher()
     }
-//    
-//    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataError> {
-//        <#code#>
-//    }
-//    
+    
+    func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataError> {
+        return Future { promise in
+            self.backgroundContext.perform {
+                do {
+                    let request = ColorChipEntity.fetchRequest()
+                    request.predicate = NSPredicate(
+                        format: "%K == %@",
+                        #keyPath(ColorChipEntity.identifier),
+                        colorChip.id as CVarArg
+                    )
+                    let fetchResult = try self.backgroundContext.fetch(request)
+                    guard let colorChipEntity = fetchResult.first else {
+                        promise(.failure(.update))
+                        return
+                    }
+                    
+                    colorChipEntity.colorName = colorChip.colorName
+                    colorChipEntity.colorList = colorChip.colorList
+
+                    colorChipEntity.memories.forEach{ colorChipEntity.removeFromMemories($0) }
+                
+                    colorChipEntity.addToMemories(NSSet(array:self.fetchMemoryEntity(of: colorChip.memories)))
+                    
+                    try self.backgroundContext.save()
+                } catch {
+                    promise(.failure(.update))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+ 
     func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChipEntity], CoreDataError> {
         return Future { promise in
             self.backgroundContext.perform {

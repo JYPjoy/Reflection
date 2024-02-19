@@ -1,6 +1,5 @@
 import SwiftUI
 
-// TODO: Empty일 때, 처리 필요
 struct ColorChipListView: View {
     
     @ObservedObject var viewModel = ColorChipViewModel()
@@ -16,7 +15,7 @@ struct ColorChipListView: View {
     
     var body: some View {
         ScrollView {
-            //colorChipList 가 empty일 때 처리 필요함
+            //TODO: colorChipList 가 empty일 때 처리 필요함
             LazyVGrid(columns: column, spacing: 20) {
                 ForEach(viewModel.colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
@@ -36,6 +35,7 @@ struct ColorChipListView: View {
                             Spacer().frame(height: 10)
                         }
                         .border(Color.Text.text90, width: 0.3)
+                        // TODO:  편집도 여기 들어가야 할 듯
                         .contextMenu(menuItems: {
                             Button(role: .destructive, action: {
                                 withAnimation {
