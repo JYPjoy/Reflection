@@ -2,6 +2,16 @@ import SwiftUI
 import Combine
 import CoreData
 
+// MARK: - Managable
+protocol ColorChipManagable {
+    func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
+//    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
+//    
+//    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
+//    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
+}
+
+// MARK: - CoreDataManager
 final class CoreDataManager {
     
     enum CoreDataError: LocalizedError {
@@ -30,6 +40,13 @@ final class CoreDataManager {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ColorChipModel", managedObjectModel: CoreDataManager.createColorChip())
+   
+//        // 플레이그라운드 마이그레이션 오류 해결
+//        let option = NSPersistentStoreDescription()
+//        option.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
+//        option.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
+//        container.persistentStoreDescriptions = [option]
+
         
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
@@ -53,49 +70,54 @@ final class CoreDataManager {
         return context
     }()
     
-    
-    //MARK: - CRUD
-    func create(object: NSManagedObject) -> Bool {
+    /// fetch
+    private func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         do {
-            context.insert(object)
-            try context.save()
-            return true
+            let fetchResult = try self.context.fetch(request)
+            return fetchResult
         } catch {
-            print(CoreDataError.create)
-            return false
-        }
-    }
-    
-    func read(predicate: NSPredicate? = nil) -> [NSManagedObject] {
-        let request = NSManagedObject.fetchRequest()
-        request.predicate = predicate
-        do {
-            return try context.fetch(request) as? [NSManagedObject] ?? []
-        } catch {
-            print(CoreDataError.read)
+            print(error.localizedDescription)
             return []
         }
     }
     
-    func update(object: NSManagedObject) -> Bool {
-        do {
-            try context.save()
-            return true
-        } catch {
-            print(CoreDataError.update)
-            return false
-        }
-    }
-    
-    func delete(object: NSManagedObject) -> Bool {
-        context.delete(object)
-        do {
-            try context.save()
-            return true
-        } catch {
-            print(CoreDataError.update)
-            return false
-        }
+    private func fetchMemoryEntity(of memory: [Memory]) -> [MemoryEntity] {
+        let request = MemoryEntity.fetchRequest()
+        guard let fetchResult = try? self.backgroundContext.fetch(request) else { return [] }
+        return fetchResult
     }
 }
 
+extension CoreDataManager: ColorChipManagable {
+    
+    func insertColorChip(_ colorchip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataError> {
+        return Future { promise in
+            self.backgroundContext.perform {
+                let colorChipEntity = ColorChipEntity(context: self.backgroundContext, colorChip: colorchip)
+                colorChipEntity.addToMemories(NSSet(array: self.fetchMemoryEntity(of: colorchip.memories)))
+                
+                do {
+                    try self.backgroundContext.save()
+                    print("HI")
+                    promise(.success(colorChipEntity))
+                } catch let error {
+                    print(error)
+                    promise(.failure(.create))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+//    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataError> {
+//        <#code#>
+//    }
+//    
+//    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataError> {
+//        <#code#>
+//    }
+//    
+//    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataError> {
+//        <#code#>
+//    }
+    
+}
