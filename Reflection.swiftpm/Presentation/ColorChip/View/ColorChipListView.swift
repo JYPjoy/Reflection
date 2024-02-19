@@ -1,18 +1,14 @@
 import SwiftUI
 
 // TODO: Empty일 때, 처리 필요
-// 버튼 뒤로 나갔다 돌아왔을 때 잘려보이는 문제 해결해야 함
 struct ColorChipListView: View {
-    @Environment(\.managedObjectContext) var viewContext
+    
+    @ObservedObject var viewModel = ColorChipViewModel()
+    
     @State private var isButtonActive = false
     @State private var createNewColorChip = false
     @State private var deleteColorChip = false
-    
-    @FetchRequest(sortDescriptors: [
-        NSSortDescriptor(keyPath: \ColorChipEntity.colorName, ascending: true)
-    ], animation: .default)
-    private var colorChipList: FetchedResults<ColorChipEntity>
-    
+
     private let column = [
         GridItem(.flexible()),  GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
     ]
@@ -21,7 +17,7 @@ struct ColorChipListView: View {
         ScrollView {
             //colorChipList 가 empty일 때 처리 필요함
             LazyVGrid(columns: column, spacing: 20) {
-                ForEach(colorChipList, id: \.self) { item in
+                ForEach(viewModel.colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
                         VStack {
                             Rectangle()
@@ -57,12 +53,13 @@ struct ColorChipListView: View {
         }
         .sheet(isPresented: self.$createNewColorChip) {
             NavigationStack {
-                CreateColorChipView()
+                CreateColorChipView(colorChipViewModel: viewModel)
             }
-            
         }
         .padding()
         .navigationBarTitle(Text("Color Chips"))
+//        .onAppear {
+//            viewModel.fetchAllColorChips()
+//        }
     }
-    
 }

@@ -11,6 +11,7 @@ final class ColorChipViewModel: ObservableObject {
 
     init(colorChipUseCase: ColorChipUseCaseProtocol = ColorChipUseCase(coreDataManager: CoreDataManager.shared)) {
         self.colorChipUseCase = colorChipUseCase
+        self.fetchAllColorChips()
     }
     
     func didTapMakeColorChip(colorChip: ColorChip) {
@@ -27,12 +28,12 @@ final class ColorChipViewModel: ObservableObject {
         self.colorChipUseCase.fetchAllColorChip()
             .receive(on: RunLoop.main)
             .sink { completion in
-                print("🇺🇸FETCH")
                 print(completion)
             } receiveValue: { [weak self] colorChipList in
                 self?.colorChipList = colorChipList
             }
             .store(in: &self.cancellables)
     }
+    
     
 }
