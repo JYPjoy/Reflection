@@ -45,17 +45,6 @@ extension ColorChipEntity {
     func toDomain() -> ColorChip {
         return ColorChip(id: self.identifier, colorName: self.colorName, colorList: self.colorList, memories: self.memories.map{ $0.toDomain() })
     }
-    
-    // MARK: - 리팩터링 필요함
-    func addMemory(values: NSSet) {
-        let item = self.mutableSetValue(forKey: "memories")
-        values.forEach{ item.add($0) }
-    }
-    
-    func removeMemory(values: NSSet) {
-        let item = self.mutableSetValue(forKey: "memories")
-        values.forEach{ item.remove($0) }
-    }
 }
 
 extension ColorChipEntity: Comparable {

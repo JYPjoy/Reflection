@@ -10,7 +10,7 @@ class SampleData {
         colorChip.colorName = "하늘색"
         colorChip.colorList = "blue"
         let memories = self.createMemory(color: colorChip)
-        colorChip.addMemory(values: NSSet(array: memories))
+        //colorChip.addMemory(values: NSSet(array: memories))
     }
     
     func createMemory(color: ColorChipEntity) -> [MemoryEntity] {
@@ -18,7 +18,7 @@ class SampleData {
         memory.identifier = UUID()
         memory.title = "메모리1"
         memory.reflection = "소감"
-        memory.addColorChip(values: NSSet(array: [color]))
+        //memory.addColorChip(values: NSSet(array: [color]))
         return []
     }
 }

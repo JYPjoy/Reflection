@@ -48,18 +48,4 @@ extension MemoryEntity {
     func toDomain() -> Memory {
         return Memory(identifier: self.identifier, title: self.title, reflection: self.reflection)
     }
-    
-    
-    // Refactor 필요
-    func addColorChip(values: NSSet) {
-        let items = self.mutableSetValue(forKey: "colorChip")
-        for value in values {
-            items.add(value)
-        }
-    }
-    
-    func removeColorChip(values: NSSet) {
-        let item = self.mutableSetValue(forKey: "colorChip")
-        values.forEach{ item.remove($0) }
-    }
 }
