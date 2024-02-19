@@ -26,7 +26,7 @@ struct CreateColorChipView: View {
                 // SECTION 2
                 Section {
                     ColorPicker("Selected Color", selection: self.$colorList, supportsOpacity: false)
-                } header: { Text("Select the colors") }
+                } header: { Text("Select the color") }
             }
             
             // MARK: - Button
@@ -38,7 +38,8 @@ struct CreateColorChipView: View {
                 newColorChip.colorName = colorName
                 newColorChip.colorList = colorList.HexToString() ?? "#F8D749"
                 newColorChip.memories = []
-                _ = CoreDataManager.shared.create(object: newColorChip)
+               
+                self.save()
                 self.dismiss()
             } label: {
                     Text("Make a Color Chip")
@@ -65,5 +66,13 @@ struct CreateColorChipView: View {
                 }
             }
         })
+    }
+    
+    private func save() {
+        do {
+            try self.viewContext.save()
+        } catch {
+            print("\(error)")
+        }
     }
 }

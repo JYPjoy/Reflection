@@ -30,6 +30,13 @@ final class CoreDataManager {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ColorChipModel", managedObjectModel: CoreDataManager.createColorChip())
+   
+//        // 플레이그라운드 마이그레이션 오류 해결
+//        let option = NSPersistentStoreDescription()
+//        option.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
+//        option.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
+//        container.persistentStoreDescriptions = [option]
+
         
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
@@ -54,48 +61,48 @@ final class CoreDataManager {
     }()
     
     
-    //MARK: - CRUD
-    func create(object: NSManagedObject) -> Bool {
-        do {
-            context.insert(object)
-            try context.save()
-            return true
-        } catch {
-            print(CoreDataError.create)
-            return false
-        }
-    }
-    
-    func read(predicate: NSPredicate? = nil) -> [NSManagedObject] {
-        let request = NSManagedObject.fetchRequest()
-        request.predicate = predicate
-        do {
-            return try context.fetch(request) as? [NSManagedObject] ?? []
-        } catch {
-            print(CoreDataError.read)
-            return []
-        }
-    }
-    
-    func update(object: NSManagedObject) -> Bool {
-        do {
-            try context.save()
-            return true
-        } catch {
-            print(CoreDataError.update)
-            return false
-        }
-    }
-    
-    func delete(object: NSManagedObject) -> Bool {
-        context.delete(object)
-        do {
-            try context.save()
-            return true
-        } catch {
-            print(CoreDataError.update)
-            return false
-        }
-    }
+//    //MARK: - CRUD
+//    func create(object: NSManagedObject) -> Bool {
+//        do {
+//            context.insert(object)
+//            try context.save()
+//            return true
+//        } catch {
+//            print(CoreDataError.create)
+//            return false
+//        }
+//    }
+//    
+//    func read(predicate: NSPredicate? = nil) -> [NSManagedObject] {
+//        let request = NSManagedObject.fetchRequest()
+//        request.predicate = predicate
+//        do {
+//            return try context.fetch(request) as? [NSManagedObject] ?? []
+//        } catch {
+//            print(CoreDataError.read)
+//            return []
+//        }
+//    }
+//    
+//    func update(object: NSManagedObject) -> Bool {
+//        do {
+//            try context.save()
+//            return true
+//        } catch {
+//            print(CoreDataError.update)
+//            return false
+//        }
+//    }
+//    
+//    func delete(object: NSManagedObject) -> Bool {
+//        context.delete(object)
+//        do {
+//            try context.save()
+//            return true
+//        } catch {
+//            print(CoreDataError.update)
+//            return false
+//        }
+//    }
 }
 
