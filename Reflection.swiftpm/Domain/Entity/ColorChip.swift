@@ -1,10 +1,9 @@
 import Foundation
 
-struct ColorChip: Hashable {
+struct ColorChip {
     var id: UUID
-    var name: String
-    var face: String
-    var check: Bool?
+    var colorName: String
+    var colorList: String
+    var memories: [Memory]
 }
-
 

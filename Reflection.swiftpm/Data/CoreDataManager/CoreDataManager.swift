@@ -2,6 +2,16 @@ import SwiftUI
 import Combine
 import CoreData
 
+// MARK: - Managable
+protocol ColorChipManagable {
+    func insertColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
+    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
+    
+    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
+    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
+}
+
+// MARK: - CoreDataManager
 final class CoreDataManager {
     
     enum CoreDataError: LocalizedError {
@@ -59,50 +69,39 @@ final class CoreDataManager {
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy //객체 버전 우선
         return context
     }()
-    
-    
-//    //MARK: - CRUD
-//    func create(object: NSManagedObject) -> Bool {
-//        do {
-//            context.insert(object)
-//            try context.save()
-//            return true
-//        } catch {
-//            print(CoreDataError.create)
-//            return false
-//        }
-//    }
-//    
-//    func read(predicate: NSPredicate? = nil) -> [NSManagedObject] {
-//        let request = NSManagedObject.fetchRequest()
-//        request.predicate = predicate
-//        do {
-//            return try context.fetch(request) as? [NSManagedObject] ?? []
-//        } catch {
-//            print(CoreDataError.read)
-//            return []
-//        }
-//    }
-//    
-//    func update(object: NSManagedObject) -> Bool {
-//        do {
-//            try context.save()
-//            return true
-//        } catch {
-//            print(CoreDataError.update)
-//            return false
-//        }
-//    }
-//    
-//    func delete(object: NSManagedObject) -> Bool {
-//        context.delete(object)
-//        do {
-//            try context.save()
-//            return true
-//        } catch {
-//            print(CoreDataError.update)
-//            return false
-//        }
-//    }
 }
+
+//extension CoreDataManager: ColorChipManagable {
+//    func insertColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataError> {
+////        return Future { promise in
+////            self.backgroundContext.perform {
+////                let gatheringEntity = ColorChipEntity(context: self.backgroundContext, gathering: gathering)
+////                gatheringEntity.addToBuddyList(NSSet(array: self.fetchBuddyEntity(of: gathering.buddyList)))
+////                gatheringEntity.addToPurposeList(NSSet(array: self.fetchPurposeEntity(of: gathering.purpose)))
+////                
+////                do {
+////                    try self.backgroundContext.save()
+////                    promise(.success(gatheringEntity))
+////                } catch let error {
+////                    print(error)
+////                    promise(.failure(.gatheringInsert))
+////                }
+////            }
+////        }.eraseToAnyPublisher()
+//    }
+//    
+//    func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataError> {
+//        <#code#>
+//    }
+//    
+//    func updateColorChip(_ colorChip: ColorChipEntity) -> AnyPublisher<ColorChipEntity, CoreDataError> {
+//        <#code#>
+//    }
+//    
+//    func deleteColorChip(id: UUID) -> AnyPublisher<Void, CoreDataError> {
+//        <#code#>
+//    }
+//    
+//    
+//}
 
