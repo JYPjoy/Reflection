@@ -5,7 +5,7 @@ import CoreData
 class ColorChipEntity: NSManagedObject, Identifiable {
     @NSManaged public var identifier: UUID
     @NSManaged public var colorName: String
-    @NSManaged public var colorList: String
+    @NSManaged public var colorList: String //hex값 담기게 됨
     
     @NSManaged public var memories: Set<MemoryEntity>
     
@@ -36,5 +36,12 @@ extension ColorChipEntity {
     func removeMemory(values: NSSet) {
         let item = self.mutableSetValue(forKey: "memories")
         values.forEach{ item.remove($0) }
+    }
+}
+
+extension ColorChipEntity: Comparable {
+    
+    public static func < (lhs: ColorChipEntity, rhs: ColorChipEntity) -> Bool {
+        return lhs.id < rhs.id
     }
 }

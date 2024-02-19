@@ -3,10 +3,11 @@ import CoreData
 
 @objc(Memory)
 class MemoryEntity: NSManagedObject, Identifiable {
-    @NSManaged var identifier: UUID
-    @NSManaged var picture: Data?
-    @NSManaged var title: String
-    @NSManaged var reflection: String
+    @NSManaged public var identifier: UUID
+    @NSManaged public var picture: Data?
+    @NSManaged public var title: String
+    @NSManaged public var reflection: String
+    
     @NSManaged var colorChip: NSSet
     // 날짜, 위치 정보 추가될 수도
     
