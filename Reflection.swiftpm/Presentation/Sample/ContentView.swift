@@ -6,7 +6,7 @@ struct ContentView: View {
         Group {
             TabView {
                 ColorChipListView()
-                    .navigationLinkValues(ColorChipNavigationLinkValues.self)
+                    .navigationLinkValues(NavigatingCoordinator.self)
                     .tabItem {
                         VStack {
                             Image(systemName: "paintpalette")
