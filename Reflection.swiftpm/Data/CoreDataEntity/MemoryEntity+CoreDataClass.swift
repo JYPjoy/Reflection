@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 @objc(MemoryEntity)
-class MemoryEntity: NSManagedObject, Identifiable {
+final class MemoryEntity: NSManagedObject, Identifiable {
     @NSManaged public var identifier: UUID
     @NSManaged public var picture: Data?
     @NSManaged public var title: String
@@ -25,7 +25,7 @@ extension MemoryEntity {
     @NSManaged public func addToColorChip(_ value: ColorChipEntity)
 
     @objc(removeColorChipObject:)
-    @NSManaged public func removeFromColorChip(_ value: MemoryEntity)
+    @NSManaged public func removeFromColorChip(_ value: ColorChipEntity)
 
     @objc(addColorChip:)
     @NSManaged public func addToColorChip(_ values: NSSet)

@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 @objc(ColorChipEntity)
-class ColorChipEntity: NSManagedObject, Identifiable {
+final class ColorChipEntity: NSManagedObject, Identifiable {
     @NSManaged public var identifier: UUID
     @NSManaged public var colorName: String
     @NSManaged public var colorList: String //hex값 담기게 됨

@@ -8,15 +8,16 @@ struct ColorChipListView: View {
     @State private var createNewColorChip = false
     @State private var deleteColorChip = false
     @State private var itemToDelete: ColorChip?
+    @State private var editColorChip = false
 
     private let column = [
-        GridItem(.flexible()),  GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())
+        GridItem(.flexible(), spacing: 40),  GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40)
     ]
     
     var body: some View {
         ScrollView {
-            //TODO: colorChipList 가 empty일 때 처리 필요함
-            LazyVGrid(columns: column, spacing: 20) {
+            //TODO: colorChipList 가 empty일 때 처리 필요함 (뷰 둘로 나누기)
+            LazyVGrid(columns: column, spacing: 40) {
                 ForEach(viewModel.colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
                         VStack {
@@ -35,7 +36,6 @@ struct ColorChipListView: View {
                             Spacer().frame(height: 10)
                         }
                         .border(Color.Text.text90, width: 0.3)
-                        // TODO:  편집도 여기 들어가야 할 듯
                         .contextMenu(menuItems: {
                             Button(role: .destructive, action: {
                                 withAnimation {
@@ -46,14 +46,21 @@ struct ColorChipListView: View {
                                 Image(systemName: "trash")
                                 Text("Delete")
                             })
+                            Button(role: .cancel, action: {
+                                withAnimation {
+                                    self.editColorChip.toggle()
+                                }
+                            }, label: {
+                                Image(systemName: "pencil")
+                                Text("Edit")
+                            })
                         })
                         .alert(isPresented: self.$deleteColorChip, content: {
-                            Alert(title: Text("Delete team?"), message: Text("Do you really want to delete?"), primaryButton: .destructive(Text("Delete"), action: {
+                            Alert(title: Text("Do you want to delete the " + (itemToDelete?.colorName ?? "")), message: Text((itemToDelete?.colorName ?? "")+" will be invisible from the list"), primaryButton: .destructive(Text("Delete"), action: {
                                 guard let itemToDelete = itemToDelete else {return}
                                 viewModel.deleteColorChip(itemToDelete.id)
                             }), secondaryButton: .cancel())
                         })
-
                     }
                 }
             }
@@ -71,6 +78,11 @@ struct ColorChipListView: View {
             }
         }
         .sheet(isPresented: self.$createNewColorChip) {
+            NavigationStack {
+                CreateColorChipView(colorChipViewModel: viewModel)
+            }
+        }
+        .sheet(isPresented: self.$editColorChip) {
             NavigationStack {
                 CreateColorChipView(colorChipViewModel: viewModel)
             }
