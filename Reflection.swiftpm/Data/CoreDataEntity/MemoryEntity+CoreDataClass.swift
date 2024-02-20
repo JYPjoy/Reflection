@@ -25,7 +25,7 @@ extension MemoryEntity {
     @NSManaged public func addToColorChip(_ value: ColorChipEntity)
 
     @objc(removeColorChipObject:)
-    @NSManaged public func removeFromColorChip(_ value: MemoryEntity)
+    @NSManaged public func removeFromColorChip(_ value: ColorChipEntity)
 
     @objc(addColorChip:)
     @NSManaged public func addToColorChip(_ values: NSSet)
