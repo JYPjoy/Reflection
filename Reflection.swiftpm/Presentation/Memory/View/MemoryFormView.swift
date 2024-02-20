@@ -1,7 +1,18 @@
 import SwiftUI
 
 struct MemoryFormView: View {
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: MemoryViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button {
+            
+            self.dismiss()
+        } label: {
+            Text("버튼")
+                .frame(maxWidth: .infinity, minHeight: 20)
+        }
+        .blackButton()
+        .padding(30)
     }
 }

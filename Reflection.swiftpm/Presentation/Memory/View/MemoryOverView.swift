@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct MemoryOverView: View {
-    @ObservedObject var viewModel = ColorChipViewModel()
+    @ObservedObject var viewModel = MemoryViewModel()
+    @State private var createNewMemory = false
     let colorChip: ColorChip
     
     var body: some View {
@@ -12,13 +13,18 @@ struct MemoryOverView: View {
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    
+                    self.createNewMemory.toggle()
                 }, label: {
                     Image(systemName: "plus").fontWeight(.bold)
                     Text("Add new Memory")
                 })
             }
         })
+        .sheet(isPresented: self.$createNewMemory) {
+            NavigationStack {
+                MemoryFormView(viewModel: viewModel)
+            }
+        }
     }
 }
 
