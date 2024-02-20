@@ -10,3 +10,14 @@ struct Memory: Hashable {
         hasher.combine(id)
     }
 }
+
+extension Memory: Comparable {
+    static func < (lhs: Memory, rhs: Memory) -> Bool {
+        if lhs.title == rhs.title { return lhs.id.uuidString < rhs.id.uuidString }
+        return lhs.title < rhs.title
+    }
+    
+    static func == (lhs: Memory, rhs: Memory) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
