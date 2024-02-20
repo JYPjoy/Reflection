@@ -48,7 +48,7 @@ struct ColorChipListView: View {
                             })
                         })
                         .alert(isPresented: self.$deleteColorChip, content: {
-                            Alert(title: Text("Delete team?"), message: Text("Do you really want to delete?"), primaryButton: .destructive(Text("Delete"), action: {
+                            Alert(title: Text("Do you want to delete the " + (itemToDelete?.colorName ?? "")), message: Text((itemToDelete?.colorName ?? "")+" will be invisible from the list"), primaryButton: .destructive(Text("Delete"), action: {
                                 guard let itemToDelete = itemToDelete else {return}
                                 viewModel.deleteColorChip(itemToDelete.id)
                             }), secondaryButton: .cancel())
