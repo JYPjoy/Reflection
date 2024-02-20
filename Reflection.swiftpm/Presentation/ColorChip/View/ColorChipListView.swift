@@ -6,9 +6,12 @@ struct ColorChipListView: View {
     
     @State private var isButtonActive = false
     @State private var createNewColorChip = false
+    
     @State private var deleteColorChip = false
     @State private var itemToDelete: ColorChip?
+    
     @State private var editColorChip = false
+    @State private var itemToEdit: ColorChip?
 
     private let column = [
         GridItem(.flexible(), spacing: 40),  GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40)
@@ -49,6 +52,8 @@ struct ColorChipListView: View {
                             Button(role: .cancel, action: {
                                 withAnimation {
                                     self.editColorChip.toggle()
+                                    self.itemToEdit = item
+                                    viewModel.colorChipToEdit = itemToEdit
                                 }
                             }, label: {
                                 Image(systemName: "pencil")
@@ -69,6 +74,8 @@ struct ColorChipListView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
                     self.createNewColorChip.toggle()
+                    itemToEdit = nil
+                    viewModel.colorChipToEdit = itemToEdit
                 }) {
                     HStack {
                         Image(systemName: "plus").fontWeight(.bold)
