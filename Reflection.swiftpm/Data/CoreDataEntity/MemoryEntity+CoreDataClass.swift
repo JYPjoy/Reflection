@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 @objc(MemoryEntity)
-class MemoryEntity: NSManagedObject, Identifiable {
+final class MemoryEntity: NSManagedObject, Identifiable {
     @NSManaged public var identifier: UUID
     @NSManaged public var picture: Data?
     @NSManaged public var title: String
