@@ -2,27 +2,21 @@ import SwiftUI
 
 struct MemoryOverView: View {
     @ObservedObject var viewModel = ColorChipViewModel()
+    let title: String
     
     var body: some View {
         HStack {
             Text("컬러칩")
         }
-        .navigationTitle(Text("Memories"))
+        .navigationTitle(Text("Memories of " + title))
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
-                HStack {
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("Add new Memory")
-                    })
+                Button(action: {
                     
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("Edit")
-                    })
-                }
+                }, label: {
+                    Image(systemName: "plus").fontWeight(.bold)
+                    Text("Add new Memory")
+                })
             }
         })
     }

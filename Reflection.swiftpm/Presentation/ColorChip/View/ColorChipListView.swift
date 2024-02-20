@@ -22,7 +22,7 @@ struct ColorChipListView: View {
             //TODO: colorChipList 가 empty일 때 처리 필요함 (뷰 둘로 나누기)
             LazyVGrid(columns: column, spacing: 40) {
                 ForEach(viewModel.colorChipList, id: \.self) { item in
-                    NavigationLink(value:NavigatingCoordinator.memoryView) {
+                    NavigationLink(value:NavigatingCoordinator.memoryOverView(title: item.colorName)) {
                         VStack {
                             Rectangle()
                                 .frame(height: 200)

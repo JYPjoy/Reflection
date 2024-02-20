@@ -1,13 +1,13 @@
 import SwiftUI
 
 enum NavigatingCoordinator: Hashable, View {
-    case memoryView
+    case memoryOverView(title: String)
     case value(title: String)
     
     var body: some View {
         switch self {
-        case .memoryView:
-            MemoryOverView()
+        case .memoryOverView(let title):
+            MemoryOverView(title: title)
         case .value(let title) :
             ValueView(title: title)
         }
