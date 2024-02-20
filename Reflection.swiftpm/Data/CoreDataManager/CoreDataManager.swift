@@ -88,7 +88,7 @@ final class CoreDataManager {
     /// Memory -> MemoryEntity
     private func fetchMemoryEntity(of memory: [Memory]) -> [MemoryEntity] {
         let request = MemoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id IN %@", memory.map{ $0.id })
+        request.predicate = NSPredicate(format: "identifier IN %@", memory.map{$0.id})
         guard let fetchResult = try? self.backgroundContext.fetch(request) else { return [] }
         return fetchResult
     }
