@@ -4,7 +4,7 @@ import SwiftUI
 // 컴포넌트 크기 조정 필요
 struct CreateColorChipView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var colorChipViewModel: ColorChipViewModel
+    @ObservedObject var viewModel: ColorChipViewModel
     
     @State private var colorName: String = ""
     @State private var colorList: Color = Color(hex: "#F8D749")
@@ -31,8 +31,8 @@ struct CreateColorChipView: View {
             
             // MARK: - Button
             Button {
-                colorChipViewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
-                colorChipViewModel.fetchAllColorChips()
+                viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
+                viewModel.fetchAllColorChips()
                 self.dismiss()
             } label: {
                     Text("Make a Color Chip")
@@ -45,10 +45,12 @@ struct CreateColorChipView: View {
         }
         .navigationTitle(Text("Create a New Color Chip"))
         .onAppear(perform: {
-            if let colorChip = self.colorChip {
-                self.colorName = colorChip.colorName
-                self.colorList = Color(hex: colorChip.colorList)
-            }
+            print(viewModel.colorChipList)
+//            if let colorChip = self.colorChip {
+//                self.colorName = colorChip.colorName
+//                self.colorList = Color(hex: colorChip.colorList)
+//                print("요기요", colorName, colorList)
+//            }
         })
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {

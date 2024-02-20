@@ -79,12 +79,12 @@ struct ColorChipListView: View {
         }
         .sheet(isPresented: self.$createNewColorChip) {
             NavigationStack {
-                CreateColorChipView(colorChipViewModel: viewModel)
+                CreateColorChipView(viewModel: viewModel)
             }
         }
         .sheet(isPresented: self.$editColorChip) {
             NavigationStack {
-                CreateColorChipView(colorChipViewModel: viewModel)
+                CreateColorChipView(viewModel: viewModel)
             }
         }
         .padding()
