@@ -8,6 +8,7 @@ struct ColorChipListView: View {
     @State private var createNewColorChip = false
     @State private var deleteColorChip = false
     @State private var itemToDelete: ColorChip?
+    @State private var editColorChip = false
 
     private let column = [
         GridItem(.flexible(), spacing: 40),  GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40)
@@ -15,7 +16,7 @@ struct ColorChipListView: View {
     
     var body: some View {
         ScrollView {
-            //TODO: colorChipList 가 empty일 때 처리 필요함
+            //TODO: colorChipList 가 empty일 때 처리 필요함 (뷰 둘로 나누기)
             LazyVGrid(columns: column, spacing: 40) {
                 ForEach(viewModel.colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
@@ -45,12 +46,9 @@ struct ColorChipListView: View {
                                 Image(systemName: "trash")
                                 Text("Delete")
                             })
-                            
-                            
                             Button(role: .cancel, action: {
                                 withAnimation {
-                                    // TODO:  편집 내용 
-                                    print("편집해용")
+                                    self.editColorChip.toggle()
                                 }
                             }, label: {
                                 Image(systemName: "pencil")
@@ -63,7 +61,6 @@ struct ColorChipListView: View {
                                 viewModel.deleteColorChip(itemToDelete.id)
                             }), secondaryButton: .cancel())
                         })
-
                     }
                 }
             }
@@ -81,6 +78,11 @@ struct ColorChipListView: View {
             }
         }
         .sheet(isPresented: self.$createNewColorChip) {
+            NavigationStack {
+                CreateColorChipView(colorChipViewModel: viewModel)
+            }
+        }
+        .sheet(isPresented: self.$editColorChip) {
             NavigationStack {
                 CreateColorChipView(colorChipViewModel: viewModel)
             }
