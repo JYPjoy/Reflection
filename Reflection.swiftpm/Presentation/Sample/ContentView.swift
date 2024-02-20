@@ -1,13 +1,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var viewContext
 
     var body: some View {
         Group {
             TabView {
                 ColorChipListView()
-                    .environment(\.managedObjectContext, self.viewContext)
                     .navigationLinkValues(ColorChipNavigationLinkValues.self)
                     .tabItem {
                         VStack {
@@ -18,7 +16,6 @@ struct ContentView: View {
                     }
                 
                 ConverterView()
-                    .environment(\.managedObjectContext, self.viewContext)
                     .tabItem {
                         VStack {
                             Image(systemName: "arrow.triangle.2.circlepath")

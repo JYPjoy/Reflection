@@ -16,7 +16,7 @@ struct ColorChipListView: View {
     var body: some View {
         ScrollView {
             //TODO: colorChipList 가 empty일 때 처리 필요함
-            LazyVGrid(columns: column) {
+            LazyVGrid(columns: column, spacing: 40) {
                 ForEach(viewModel.colorChipList, id: \.self) { item in
                     NavigationLink(value:ColorChipNavigationLinkValues.memoryView) {
                         VStack {
