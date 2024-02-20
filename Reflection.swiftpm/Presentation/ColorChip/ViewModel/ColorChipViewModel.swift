@@ -2,14 +2,17 @@ import Foundation
 import Combine
 
 final class ColorChipViewModel: ObservableObject {
-    @Published public var colorChipList: [ColorChip] = []
+    @Published private(set) var colorChipList: [ColorChip] = []
     @Published private(set) var memories: [Memory] = []
+    
+    @Published public var colorChipToEdit: ColorChip?
+    
     private(set) var registerDoneSignal = PassthroughSubject<ColorChip, Never>()
     private(set) var deleteDoneSignal = PassthroughSubject<Void, Never>()
     private var cancellables: Set<AnyCancellable> = .init()
     
     private let colorChipUseCase: ColorChipUseCaseProtocol
-
+    
     init(colorChipUseCase: ColorChipUseCaseProtocol = ColorChipUseCase(coreDataManager: CoreDataManager.shared)) {
         self.colorChipUseCase = colorChipUseCase
         self.fetchAllColorChips()
@@ -32,6 +35,17 @@ final class ColorChipViewModel: ObservableObject {
                 print(completion)
             } receiveValue: { [weak self] colorChipList in
                 self?.colorChipList = colorChipList
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    func updateColorChip(_ colorChip: ColorChip) {
+        self.colorChipUseCase.updateColorChip(colorChip)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { colorChip in
+                print("Edited ColorChip is", colorChip)
             }
             .store(in: &self.cancellables)
     }

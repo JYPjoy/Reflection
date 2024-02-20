@@ -1,17 +1,18 @@
 import SwiftUI
 
-// TODO: 버튼 비활성화, 더 친절한 form이 되도록 안내 문구 함께 나오도록 하기
-// 컴포넌트 크기 조정 필요
+// TODO: 버튼 비활성화(블랙 회색), 더 친절한 form이 되도록 안내 문구 함께 나오도록 하기
 struct CreateColorChipView: View {
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var colorChipViewModel: ColorChipViewModel
+    @ObservedObject var viewModel: ColorChipViewModel
     
-    @State private var colorName: String = ""
-    @State private var colorList: Color = Color(hex: "#F8D749")
-    @State private var colorListText: [String] = [] //데이터 저장 시 사용해야 함
+    //현재 뷰 구성 위함
+    @State private var colorChipToEdit: ColorChip?
+    @State private(set) var navigationTitle = "Create a New Color Chip"
+    @State private(set) var buttonText = "Make a new Color Chip"
     
-    var colorChip: ColorChipEntity? = nil
-    
+    @State private(set) var colorName: String = ""
+    @State private(set) var colorList: Color = Color(hex: "#F8D749")
+
     var body: some View {
         VStack {
             // MARK: - Form
@@ -26,30 +27,41 @@ struct CreateColorChipView: View {
                 // SECTION 2
                 Section {
                     ColorPicker("Selected Color", selection: self.$colorList, supportsOpacity: false)
+                    Text("Selected Color is " + (self.colorList.HexToString() ?? "") )
                 } header: { Text("Select the color") }
             }
             
             // MARK: - Button
             Button {
-                colorChipViewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
-                colorChipViewModel.fetchAllColorChips()
+                if self.colorChipToEdit == nil  {
+                    viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
+                } else {
+                    guard let colorChipToEditId = colorChipToEdit?.id else {return}
+                    viewModel.updateColorChip(ColorChip(id: colorChipToEditId, colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
+                }
+                viewModel.fetchAllColorChips()
                 self.dismiss()
             } label: {
-                    Text("Make a Color Chip")
+                    Text(buttonText)
                     .frame(maxWidth: .infinity, minHeight: 20)
        
             }
-            //.diabled()
+            .disabled(colorName.isEmpty)
             .blackButton()
             .padding(30)
         }
-        .navigationTitle(Text("Create a New Color Chip"))
         .onAppear(perform: {
-            if let colorChip = self.colorChip {
-                self.colorName = colorChip.colorName
-                self.colorList = Color(hex: colorChip.colorList)
+            guard let colorChipToEdit = viewModel.colorChipToEdit else { return }
+            self.colorChipToEdit = colorChipToEdit
+            
+            if self.colorChipToEdit != nil {
+                navigationTitle = "Edit the Color Chip"
+                buttonText = "Editing Completed"
+                colorName = colorChipToEdit.colorName
+                colorList = Color(hex:colorChipToEdit.colorList)
             }
         })
+        .navigationTitle(navigationTitle)
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
