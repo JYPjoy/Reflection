@@ -41,15 +41,14 @@ final class ColorChipViewModel: ObservableObject {
     
     func updateColorChip(_ colorChip: ColorChip) {
         print(colorChip)
-//        self.colorChipUseCase.updateColorChip(colorChip)
-//            .receive(on: RunLoop.main)
-//            .sink { completion in
-//                print(completion)
-//            } receiveValue: { _ in
-//                //self?.colorChipList = colorChipList
-//               // self?.deleteDoneSignal.send()
-//            }
-//            .store(in: &self.cancellables)
+        self.colorChipUseCase.updateColorChip(colorChip)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { colorChip in
+                self.registerDoneSignal.send(colorChip)
+            }
+            .store(in: &self.cancellables)
     }
     
     func deleteColorChip(_ id: UUID) {

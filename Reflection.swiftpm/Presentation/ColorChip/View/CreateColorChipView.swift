@@ -33,7 +33,12 @@ struct CreateColorChipView: View {
             
             // MARK: - Button
             Button {
-                viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
+                if self.colorChipToEdit == nil  {
+                    viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
+                } else {
+                    guard let colorChipToEditId = colorChipToEdit?.id else {return}
+                    viewModel.updateColorChip(ColorChip(id: colorChipToEditId, colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
+                }
                 viewModel.fetchAllColorChips()
                 self.dismiss()
             } label: {
@@ -48,7 +53,6 @@ struct CreateColorChipView: View {
         .onAppear(perform: {
             guard let colorChipToEdit = viewModel.colorChipToEdit else { return }
             self.colorChipToEdit = colorChipToEdit
-            print(colorChipToEdit)
             
             if self.colorChipToEdit != nil {
                 navigationTitle = "Edit the Color Chip"
