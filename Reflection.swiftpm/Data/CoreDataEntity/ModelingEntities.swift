@@ -67,7 +67,7 @@ extension CoreDataManager {
     static func createMemory() -> NSEntityDescription {
         let memoryEntity = NSEntityDescription()
         memoryEntity.name = "MemoryEntity"
-        memoryEntity.managedObjectClassName = "MemoryEntity "
+        memoryEntity.managedObjectClassName = "MemoryEntity"
         
         let memoryIdAttribute = NSAttributeDescription()
         memoryIdAttribute.name = "identifier"
