@@ -40,13 +40,12 @@ final class ColorChipViewModel: ObservableObject {
     }
     
     func updateColorChip(_ colorChip: ColorChip) {
-        print(colorChip)
         self.colorChipUseCase.updateColorChip(colorChip)
             .receive(on: RunLoop.main)
             .sink { completion in
                 print(completion)
             } receiveValue: { colorChip in
-                self.registerDoneSignal.send(colorChip)
+                print("Edited ColorChip is", colorChip)
             }
             .store(in: &self.cancellables)
     }

@@ -54,6 +54,7 @@ struct ColorChipListView: View {
                                     self.editColorChip.toggle()
                                     self.itemToEdit = item
                                     viewModel.colorChipToEdit = itemToEdit
+                                    itemToEdit = nil
                                 }
                             }, label: {
                                 Image(systemName: "pencil")
