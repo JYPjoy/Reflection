@@ -35,7 +35,6 @@ struct ColorChipListView: View {
                             Spacer().frame(height: 10)
                         }
                         .border(Color.Text.text90, width: 0.3)
-                        // TODO:  편집도 여기 들어가야 할 듯
                         .contextMenu(menuItems: {
                             Button(role: .destructive, action: {
                                 withAnimation {
@@ -45,6 +44,17 @@ struct ColorChipListView: View {
                             }, label: {
                                 Image(systemName: "trash")
                                 Text("Delete")
+                            })
+                            
+                            
+                            Button(role: .cancel, action: {
+                                withAnimation {
+                                    // TODO:  편집 내용 
+                                    print("편집해용")
+                                }
+                            }, label: {
+                                Image(systemName: "pencil")
+                                Text("Edit")
                             })
                         })
                         .alert(isPresented: self.$deleteColorChip, content: {
