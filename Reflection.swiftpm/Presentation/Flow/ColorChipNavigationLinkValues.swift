@@ -7,7 +7,7 @@ enum ColorChipNavigationLinkValues: Hashable, View {
     var body: some View {
         switch self {
         case .memoryView:
-            MemoryView()
+            MemoryOverView()
         case .value(let title) :
             ValueView(title: title)
         }

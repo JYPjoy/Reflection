@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct MemoryView: View {
-    @Environment(\.managedObjectContext) var viewContext
+struct MemoryOverView: View {
+    @ObservedObject var viewModel = ColorChipViewModel()
     
     var body: some View {
         HStack {
@@ -26,5 +26,5 @@ struct MemoryView: View {
             }
         })
     }
-    
 }
+
