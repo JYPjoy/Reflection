@@ -19,6 +19,7 @@ struct ConverterView: View {
                         .frame(width: 600, height: 50)
                         .onChange(of: hexColor) { newValue in
                             rgbColor = hexToRGB(hex: "#" + newValue)
+                            backgroundColor = Color(hex: hexColor)
                     }
                 }
                 .padding()
@@ -30,12 +31,15 @@ struct ConverterView: View {
                 )
                 
                 // RGB
-                HStack(spacing: 5) {
-                    Image(systemName: "paintbrush").font(.title2).bold()
-                    TextField("RGB", text: self.$rgbColor)
+                HStack(spacing: 10) {
+                    Image(systemName: "number").font(.title2).bold()
+                    TextField("HEX", text: self.$rgbColor) //#달려야 함
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
+                        .onChange(of: rgbColor) { newValue in
+                            Log.i(newValue)
+                    }
                 }
                 .padding()
                 .background(.clear)
@@ -44,6 +48,7 @@ struct ConverterView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.System.systemBlack, lineWidth: 5)
                 )
+ 
             }
             .padding()
         }
