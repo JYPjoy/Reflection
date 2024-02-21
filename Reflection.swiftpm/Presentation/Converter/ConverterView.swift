@@ -1,6 +1,7 @@
 import SwiftUI
 
 // TODO: RGB -> Hez 계산해야 함
+// 000000일 때 반전해서 보여주도록 해야 함
 struct ConverterView: View {
     @State private(set) var backgroundColor: Color = .white
     @State private(set) var hexColor: String = ""
@@ -34,7 +35,7 @@ struct ConverterView: View {
                 // RGB
                 HStack(spacing: 10) {
                     Image(systemName: "paintbrush").font(.title2).bold()
-                    TextField("HEX", text: self.$rgbColor) //#달려야 함
+                    TextField("RGB", text: self.$rgbColor) //#달려야 함
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
