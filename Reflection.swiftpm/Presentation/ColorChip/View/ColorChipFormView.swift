@@ -33,9 +33,9 @@ struct ColorChipFormView: View {
             
             // MARK: - Button
             Button {
-                if self.colorChipToEdit == nil  {
+                if self.colorChipToEdit == nil  { //Create
                     viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
-                } else {
+                } else { // Update
                     guard let colorChipToEditId = colorChipToEdit?.id else {return}
                     viewModel.updateColorChip(ColorChip(id: colorChipToEditId, colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
                 }

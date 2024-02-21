@@ -6,7 +6,7 @@ struct MemoryFormView: View {
     
     var body: some View {
         Button {
-            
+            self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), title: "난니", reflection: "어제 구름을 보았다. 몽글몽글한 구름"))
             self.dismiss()
         } label: {
             Text("버튼")

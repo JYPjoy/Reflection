@@ -25,6 +25,9 @@ struct MemoryOverView: View {
                 MemoryFormView(viewModel: viewModel)
             }
         }
+        .onAppear(perform: {
+            viewModel.colorChipToAdd = colorChip
+        })
     }
 }
 
