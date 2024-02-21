@@ -1,5 +1,6 @@
 import SwiftUI
 
+// TODO: RGB -> Hez 계산해야 함
 struct ConverterView: View {
     @State private(set) var backgroundColor: Color = .white
     @State private(set) var hexColor: String = ""
@@ -32,7 +33,7 @@ struct ConverterView: View {
                 
                 // RGB
                 HStack(spacing: 10) {
-                    Image(systemName: "number").font(.title2).bold()
+                    Image(systemName: "paintbrush").font(.title2).bold()
                     TextField("HEX", text: self.$rgbColor) //#달려야 함
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
