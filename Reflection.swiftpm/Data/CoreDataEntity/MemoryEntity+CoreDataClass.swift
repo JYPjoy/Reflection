@@ -46,6 +46,6 @@ extension MemoryEntity {
     }
     
     func toDomain() -> Memory {
-        return Memory(id: self.id, title: self.title, reflection: self.reflection)
+        return Memory(id: self.id, picture: self.picture , title: self.title, reflection: self.reflection)
     }
 }
