@@ -39,6 +39,18 @@ final class MemoryViewModel: ObservableObject {
             }
             .store(in: &self.cancellables)
     }
+    
+    func fetchSpecificColorChip() {
+        guard let colorChipToAdd = self.colorChipToAdd else { return }
+        self.colorChipUseCase.fetchSpecificColorChip(colorChipToAdd)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { colorChip in
+                Log.d(colorChip)
+            }
+            .store(in: &self.cancellables)
+    }
 
     func updateColorChip() {
         guard let colorChipToAdd = self.colorChipToAdd else { return }
