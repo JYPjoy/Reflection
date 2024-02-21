@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import CoreData
+import Log
 
 // MARK: - Managable
 protocol ColorChipManagable {
@@ -151,6 +152,7 @@ extension CoreDataManager: ColorChipManagable {
                     colorChipEntity.addToMemories(NSSet(array:self.fetchMemoryEntity(of: colorChip.memories)))
                     
                     try self.backgroundContext.save()
+                    promise(.success(colorChipEntity))
                 } catch {
                     promise(.failure(.update))
                 }
