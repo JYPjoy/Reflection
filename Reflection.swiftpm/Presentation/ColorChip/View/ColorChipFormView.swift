@@ -8,7 +8,7 @@ struct ColorChipFormView: View {
     //현재 뷰 구성 위함
     @State private var colorChipToEdit: ColorChip?
     @State private(set) var navigationTitle = "Create a New Color Chip"
-    @State private(set) var buttonText = "Make a new Color Chip"
+    @State private(set) var buttonText = "Create"
     
     @State private(set) var colorName: String = ""
     @State private(set) var colorList: Color = Color(hex: "#F8D749")
