@@ -31,6 +31,12 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
+            ],
+            capabilities: [
+                .fileAccess(.pictureFolder, mode: .readOnly),
+                .fileAccess(.userSelectedFiles, mode: .readOnly),
+                .photoLibrary(purposeString: "Select a photo to remember this color"),
+                .photoLibraryAdd(purposeString: "Select a photo to remember this color")
             ]
         )
     ],
