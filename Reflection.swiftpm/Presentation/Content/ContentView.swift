@@ -16,6 +16,7 @@ struct ContentView: View {
                     }
                 
                 ConverterView()
+                    .navigationLinkValues(NavigatingCoordinator.self)
                     .tabItem {
                         VStack {
                             Image(systemName: "arrow.triangle.2.circlepath")
