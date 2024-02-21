@@ -1,9 +1,10 @@
 import SwiftUI
 import PhotosUI
 
-// TODO: 추가, (편집+삭제)삭제 버튼 hidden여부 2가지 모드로 쓰여야 함
-// TODO: 지도, 날짜도 추가되면 좋을 듯
-// TODO: 사진 권한 확인
+// MARK: - TODO
+/* 1.추가, (편집+삭제)삭제 버튼 hidden여부 2가지 모드로 쓰여야 함
+   2. 지도, 날짜도 추가되면 좋을 듯
+   3. 칸이 다 채워지지 않았다면 알람 등장하도록 할 것 */
 struct MemoryFormView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: MemoryViewModel
@@ -14,6 +15,7 @@ struct MemoryFormView: View {
     @State private(set) var memoryTitle: String = ""
     @State private(set) var memoryReflection: String = ""
     
+    @State private(set) var showAlert: Bool = false
     
     var body: some View {
         VStack {
@@ -44,12 +46,11 @@ struct MemoryFormView: View {
                 }
             }
             
+            Text(showAlert ? "모든 필드" : "")
             
             // MARK: - Button
             Button {
-                //self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), title: "난니", reflection: "어제 구름을 보았다. 몽글몽글한 구름"))
-                //self.viewModel.fetchAllMemories()
-                //self.viewModel.fetchSpecificColorChip()
+                self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: memoryPicture, title: memoryTitle, reflection: memoryReflection))
                 print("메모리를 만들어라가 와야 함")
                 self.dismiss()
             } label: {
@@ -57,6 +58,7 @@ struct MemoryFormView: View {
                     .frame(maxWidth: .infinity, minHeight: 20)
             }
             .blackButton()
+            .disabled(showAlert == true)
             .padding(30)
         }
         .navigationTitle("Create a New Memory")
@@ -77,7 +79,6 @@ struct MemoryFormView: View {
     }
     
     // Loads a `Transferable` object using a representation of the item by matching content types.
-    
     /// The representation corresponding to the first matching content type of the item will be used.
     /// If multiple encodings are available for the matched content type, the preferred item encoding provided to the Photos picker decides which encoding to use.
     /// An error will be thrown if the `Transferable` object doesn't support any of the supported content types of the item.

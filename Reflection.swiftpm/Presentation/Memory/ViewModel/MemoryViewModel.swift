@@ -48,6 +48,7 @@ final class MemoryViewModel: ObservableObject {
                 print(completion)
             } receiveValue: { colorChip in
                 Log.d(colorChip)
+                Log.i(colorChip.memories)
             }
             .store(in: &self.cancellables)
     }
