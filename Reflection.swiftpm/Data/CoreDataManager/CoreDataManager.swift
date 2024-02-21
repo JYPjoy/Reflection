@@ -151,6 +151,7 @@ extension CoreDataManager: ColorChipManagable {
                     colorChipEntity.addToMemories(NSSet(array:self.fetchMemoryEntity(of: colorChip.memories)))
                     
                     try self.backgroundContext.save()
+                    promise(.success(colorChipEntity))
                 } catch {
                     promise(.failure(.update))
                 }
