@@ -1,11 +1,10 @@
 import Foundation
 
 struct ColorChip: Hashable {
-
     var id: UUID
     var colorName: String
     var colorList: String
-    var memories: [Memory] //여긴 메모리인데 -> MemoryEntiy 변환
+    var memories: [Memory]
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
