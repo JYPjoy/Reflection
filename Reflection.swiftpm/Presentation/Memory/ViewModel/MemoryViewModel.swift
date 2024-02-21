@@ -21,8 +21,9 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] memory in
-                self?.memories.append(memory) //append인 insert인지 다시 확인
+                self?.memories.insert(memory, at: Int.zero) //append인 insert인지 다시 확인
                 self?.updateColorChip()
+                self?.memories = []
             }
             .store(in: &self.cancellables)
     }
@@ -34,7 +35,6 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] memories in
-                //self?.memories = memories
                 Log.n(memories)
             }
             .store(in: &self.cancellables)
