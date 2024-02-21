@@ -6,7 +6,6 @@ final class ColorChipEntity: NSManagedObject, Identifiable {
     @NSManaged public var identifier: UUID
     @NSManaged public var colorName: String
     @NSManaged public var colorList: String //hex값 담기게 됨
-    
     @NSManaged public var memories: Set<MemoryEntity>
     
     var id: UUID {

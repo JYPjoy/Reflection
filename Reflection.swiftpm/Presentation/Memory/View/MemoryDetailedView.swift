@@ -3,7 +3,22 @@ import SwiftUI
 
 struct MemoryDetailedView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group{
+            ScrollView{
+                CompositionalView(items: 1...30, id: \.self) { item in
+                    ZStack{
+                        Rectangle()
+                            .fill(.cyan)
+                        
+                        Text("\(item)")
+                            .font(.title.bold())
+                    }
+                }
+                .padding()
+                .padding(.bottom,10)
+                
+            }
+        }
     }
 }
 
