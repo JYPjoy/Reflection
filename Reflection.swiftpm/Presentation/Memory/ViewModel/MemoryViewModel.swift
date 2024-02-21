@@ -2,8 +2,8 @@ import Foundation
 import Combine
 
 final class MemoryViewModel: ObservableObject {
-    @Published public var colorChipToAdd: ColorChip?
-    @Published private var memories: [Memory] = []
+    @Published public var specificColorChip: ColorChip?
+    @Published private(set) var memories: [Memory] = []
 
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -21,7 +21,7 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] memory in
-                self?.memories.insert(memory, at: Int.zero) //append인 insert인지 다시 확인
+                self?.memories.insert(memory, at: Int.zero)
                 self?.updateColorChip()
                 self?.memories = []
             }
@@ -40,8 +40,20 @@ final class MemoryViewModel: ObservableObject {
             .store(in: &self.cancellables)
     }
     
+    func deleteMemory(_ id: UUID) {
+        self.memoryUseCase.deleteMemory(id: id)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { [weak self] memories in
+                self?.memories = memories
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    
     func fetchSpecificColorChip() {
-        guard let colorChipToAdd = self.colorChipToAdd else { return }
+        guard let colorChipToAdd = self.specificColorChip else { return }
         self.colorChipUseCase.fetchSpecificColorChip(colorChipToAdd)
             .receive(on: RunLoop.main)
             .sink { completion in
@@ -54,7 +66,7 @@ final class MemoryViewModel: ObservableObject {
     }
 
     func updateColorChip() {
-        guard let colorChipToAdd = self.colorChipToAdd else { return }
+        guard let colorChipToAdd = self.specificColorChip else { return }
         
         let newColorChip = ColorChip(id: colorChipToAdd.id, colorName: colorChipToAdd.colorName, colorList: colorChipToAdd.colorList, memories: memories)
         Log.i(newColorChip)
