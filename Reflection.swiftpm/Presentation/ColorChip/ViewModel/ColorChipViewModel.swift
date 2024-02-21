@@ -3,8 +3,6 @@ import Combine
 
 final class ColorChipViewModel: ObservableObject {
     @Published private(set) var colorChipList: [ColorChip] = []
-    @Published private(set) var memories: [Memory] = []
-    
     @Published public var colorChipToEdit: ColorChip?
     
     private(set) var registerDoneSignal = PassthroughSubject<ColorChip, Never>()

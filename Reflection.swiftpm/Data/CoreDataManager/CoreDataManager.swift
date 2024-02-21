@@ -10,6 +10,11 @@ protocol ColorChipManagable {
     func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
 }
 
+protocol MemoryManagable {
+    func insertMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataManager.CoreDataError>
+    func fetchAllMemory() -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError>
+}
+
 // MARK: - CoreDataManager
 final class CoreDataManager {
     
@@ -80,9 +85,10 @@ final class CoreDataManager {
         }
     }
     
+    /// Memory -> MemoryEntity
     private func fetchMemoryEntity(of memory: [Memory]) -> [MemoryEntity] {
         let request = MemoryEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "id IN %@", memory.map{ $0.identifier })
+        request.predicate = NSPredicate(format: "identifier IN %@", memory.map{$0.id})
         guard let fetchResult = try? self.backgroundContext.fetch(request) else { return [] }
         return fetchResult
     }
@@ -145,6 +151,7 @@ extension CoreDataManager: ColorChipManagable {
                     colorChipEntity.addToMemories(NSSet(array:self.fetchMemoryEntity(of: colorChip.memories)))
                     
                     try self.backgroundContext.save()
+                    promise(.success(colorChipEntity))
                 } catch {
                     promise(.failure(.update))
                 }
@@ -179,5 +186,35 @@ extension CoreDataManager: ColorChipManagable {
             }
         }.eraseToAnyPublisher()
     }
+}
+
+extension CoreDataManager: MemoryManagable {
+    func insertMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataError> {
+        return Future { promise in
+            self.backgroundContext.perform {
+                let memoryEntity = MemoryEntity(context: self.backgroundContext, memory: memory)
+                do {
+                    try self.backgroundContext.save()
+                    promise(.success(memoryEntity))
+                } catch let error {
+                    print(error)
+                    promise(.failure(.create))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
     
+    func fetchAllMemory() -> AnyPublisher<[MemoryEntity], CoreDataError> {
+        return Future { promise in
+            self.backgroundContext.perform {
+                do {
+                    let request = MemoryEntity.fetchRequest()
+                    let fetchResult = try self.backgroundContext.fetch(request)
+                    promise(.success(fetchResult))
+                } catch {
+                    promise(.failure(.read))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
 }
