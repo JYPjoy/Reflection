@@ -28,7 +28,7 @@ struct MemoryOverView: View {
                     Spacer()
                     
                     Button(action: {
-                        
+                        viewModel.updateMemory(Memory(id: UUID(uuidString: "45D4BDBE-1BDD-48E6-99CF-7C3E37C6B75B")!, title: "멋쟁이 뼈다귀", reflection: "잘 업데이트 되었나요?"))
                     }, label: {
                         Text("업데이트하기(Update)")
                     })
@@ -36,7 +36,7 @@ struct MemoryOverView: View {
                     Spacer()
                     
                     Button(action: {
-                        viewModel.deleteMemory(UUID(uuidString: "8121ED9E-8096-4A83-9CCB-2DBF45CC0297")!)
+                        viewModel.deleteMemory(UUID(uuidString: "31934F94-2862-4B35-9060-7BE5F7132F40")!)
                     }, label: {
                         Text("삭제하기(Delete)")
                     })

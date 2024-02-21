@@ -6,6 +6,8 @@ protocol MemoryUseCaseProtocol {
     
     func fetchAllMemory() -> AnyPublisher<[Memory], CoreDataManager.CoreDataError>
     
+    func updateMemory(_ memory: Memory) -> AnyPublisher<Memory, CoreDataManager.CoreDataError>
+    
     func deleteMemory(id: UUID) -> AnyPublisher<[Memory], CoreDataManager.CoreDataError>
 }
 
@@ -28,6 +30,12 @@ final class MemoryUseCase: MemoryUseCaseProtocol {
             .map{ memory in
                 memory.map{ $0.toDomain() }.sorted(by: <)
             }
+            .eraseToAnyPublisher()
+    }
+    
+    func updateMemory(_ memory: Memory) -> AnyPublisher<Memory, CoreDataManager.CoreDataError> {
+        self.coreDataManager.updateMemory(memory)
+            .map{ $0.toDomain() }
             .eraseToAnyPublisher()
     }
     

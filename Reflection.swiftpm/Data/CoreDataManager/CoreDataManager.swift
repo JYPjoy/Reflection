@@ -14,6 +14,7 @@ protocol ColorChipManagable {
 protocol MemoryManagable {
     func insertMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataManager.CoreDataError>
     func fetchAllMemory() -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError>
+    func updateMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataManager.CoreDataError>
     func deleteMemory(id: UUID) -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError>
 }
 
@@ -246,6 +247,36 @@ extension CoreDataManager: MemoryManagable {
             }
         }.eraseToAnyPublisher()
     }
+    
+    func updateMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataError> {
+        Future { promise in
+           self.backgroundContext.perform {
+               do {
+                   let request = MemoryEntity.fetchRequest()
+                   request.predicate = NSPredicate(
+                       format: "%K == %@",
+                       #keyPath(MemoryEntity.identifier),
+                       memory.id as CVarArg
+                   )
+                   let fetchResult = try self.backgroundContext.fetch(request)
+                   guard let memoryEntity = fetchResult.first else {
+                       promise(.failure(.update))
+                       return
+                   }
+                   
+                   memoryEntity.picture = memory.picture
+                   memoryEntity.title = memory.title
+                   memoryEntity.reflection = memory.reflection
+                
+                   try self.backgroundContext.save()
+                   promise(.success(memoryEntity))
+               } catch {
+                   promise(.failure(.update))
+               }
+           }
+       }.eraseToAnyPublisher()
+    }
+    
     
     func deleteMemory(id: UUID) -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError> {
         return Future { promise in

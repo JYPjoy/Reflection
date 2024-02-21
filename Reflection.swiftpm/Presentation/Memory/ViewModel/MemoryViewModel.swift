@@ -4,6 +4,7 @@ import Combine
 final class MemoryViewModel: ObservableObject {
     @Published public var specificColorChip: ColorChip?
     @Published private(set) var memories: [Memory] = []
+    @Published public var memoryToEdit: Memory?
 
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -34,8 +35,19 @@ final class MemoryViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { completion in
                 print(completion)
-            } receiveValue: { [weak self] memories in
+            } receiveValue: { memories in
                 Log.n(memories)
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    func updateMemory(_ memory: Memory) {
+        self.memoryUseCase.updateMemory(memory)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { memory in
+                Log.n(memory)
             }
             .store(in: &self.cancellables)
     }
