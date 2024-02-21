@@ -5,7 +5,7 @@ struct Memory: Hashable {
     var picture: Data?
     var title: String
     var reflection: String
-    // 날짜, 위치 정보 추가될 수도
+    // TODO: 날짜, 위치 정보도 추가하도록 하기 - Entity에도 추가해야 함
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

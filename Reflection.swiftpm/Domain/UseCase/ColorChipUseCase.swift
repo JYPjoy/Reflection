@@ -5,6 +5,8 @@ protocol ColorChipUseCaseProtocol {
     func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
     
     func fetchAllColorChip() -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
+    
+    func fetchSpecificColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
 
     func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
     
@@ -30,6 +32,12 @@ final class ColorChipUseCase: ColorChipUseCaseProtocol {
             .map{ colorchipList in
                 colorchipList.map{ $0.toDomain() }.sorted(by: <)
             }
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchSpecificColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError> {
+        self.coreDataManager.updateColorChip(colorChip)
+            .map{ $0.toDomain() }
             .eraseToAnyPublisher()
     }
     

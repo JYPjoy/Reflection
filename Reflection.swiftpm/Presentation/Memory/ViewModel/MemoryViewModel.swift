@@ -21,24 +21,38 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] memory in
-                self?.memories.append(memory) //append인 insert인지 다시 확인
+                self?.memories.insert(memory, at: Int.zero) //append인 insert인지 다시 확인
                 self?.updateColorChip()
+                self?.memories = []
             }
             .store(in: &self.cancellables)
     }
 
 
-//    func fetchAllMemories() {
-//        self.memoryUseCase.fetchAllMemory()
-//            .receive(on: RunLoop.main)
-//            .sink { completion in
-//                print(completion)
-//            } receiveValue: { [weak self] memories in
-//                self?.memories = memories
-//            }
-//            .store(in: &self.cancellables)
-//    }
-//
+    func fetchAllMemories() {
+        self.memoryUseCase.fetchAllMemory()
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { [weak self] memories in
+                Log.n(memories)
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    func fetchSpecificColorChip() {
+        guard let colorChipToAdd = self.colorChipToAdd else { return }
+        self.colorChipUseCase.fetchSpecificColorChip(colorChipToAdd)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { colorChip in
+                Log.d(colorChip)
+                Log.i(colorChip.memories)
+            }
+            .store(in: &self.cancellables)
+    }
+
     func updateColorChip() {
         guard let colorChipToAdd = self.colorChipToAdd else { return }
         

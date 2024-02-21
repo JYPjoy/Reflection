@@ -6,6 +6,7 @@ import CoreData
 protocol ColorChipManagable {
     func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
     func fetchAllColorChip() -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
+    func fetchSpecificColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
     func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError>
     func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChipEntity], CoreDataManager.CoreDataError>
 }
@@ -13,6 +14,7 @@ protocol ColorChipManagable {
 protocol MemoryManagable {
     func insertMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataManager.CoreDataError>
     func fetchAllMemory() -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError>
+//    func fetchColorChipMemory(_ colorChip: ColorChip) -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError>
 }
 
 // MARK: - CoreDataManager
@@ -127,6 +129,32 @@ extension CoreDataManager: ColorChipManagable {
         }.eraseToAnyPublisher()
     }
     
+    func fetchSpecificColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataManager.CoreDataError> {
+        return Future { promise in
+            self.backgroundContext.perform {
+                do {
+                    let request = ColorChipEntity.fetchRequest()
+                    request.predicate = NSPredicate(
+                        format: "%K == %@",
+                        #keyPath(ColorChipEntity.identifier),
+                        colorChip.id as CVarArg
+                    )
+                    let fetchResult = try self.backgroundContext.fetch(request)
+                    guard let colorChipEntity = fetchResult.first else {
+                        promise(.failure(.update))
+                        return
+                    }
+                    Log.e(fetchResult)
+                    
+                    promise(.success(colorChipEntity))
+                } catch {
+                    promise(.failure(.update))
+                }
+            }
+        }.eraseToAnyPublisher()
+    }
+    
+    
     func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChipEntity, CoreDataError> {
         return Future { promise in
             self.backgroundContext.perform {
@@ -146,7 +174,7 @@ extension CoreDataManager: ColorChipManagable {
                     colorChipEntity.colorName = colorChip.colorName
                     colorChipEntity.colorList = colorChip.colorList
 
-                    colorChipEntity.memories.forEach{ colorChipEntity.removeFromMemories($0) }
+                    //olorChipEntity.memories.forEach{ colorChipEntity.removeFromMemories($0) }
                 
                     colorChipEntity.addToMemories(NSSet(array:self.fetchMemoryEntity(of: colorChip.memories)))
                     
@@ -189,6 +217,7 @@ extension CoreDataManager: ColorChipManagable {
 }
 
 extension CoreDataManager: MemoryManagable {
+
     func insertMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataError> {
         return Future { promise in
             self.backgroundContext.perform {
