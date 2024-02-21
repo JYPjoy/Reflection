@@ -96,6 +96,6 @@ struct ColorChipListView: View {
             }
         }
         .padding()
-        .navigationBarTitle(Text("Color Chips"))
+        .navigationBarTitle(Text("My Color Chips"))
     }
 }
