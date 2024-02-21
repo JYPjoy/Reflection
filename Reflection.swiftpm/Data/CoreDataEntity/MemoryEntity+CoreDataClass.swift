@@ -7,7 +7,6 @@ final class MemoryEntity: NSManagedObject, Identifiable {
     @NSManaged public var picture: Data?
     @NSManaged public var title: String
     @NSManaged public var reflection: String
-    
     @NSManaged var colorChip: Set<ColorChipEntity> //NSSet
     // 날짜, 위치 정보 추가될 수도
     
@@ -46,6 +45,6 @@ extension MemoryEntity {
     }
     
     func toDomain() -> Memory {
-        return Memory(id: self.id, picture: self.picture , title: self.title, reflection: self.reflection)
+        return Memory(id: self.id, picture: self.picture, title: self.title, reflection: self.reflection)
     }
 }
