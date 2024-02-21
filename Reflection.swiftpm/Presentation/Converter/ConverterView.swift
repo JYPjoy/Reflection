@@ -17,6 +17,9 @@ struct ConverterView: View {
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
+                        .onChange(of: hexColor) { newValue in
+                            rgbColor = hexToRGB(hex: "#" + newValue)
+                    }
                 }
                 .padding()
                 .background(.clear)
@@ -60,14 +63,15 @@ struct ConverterView: View {
     // hex ➡️ RGB
     func hexToRGB(hex: String) -> String {
         let scanner = Scanner(string: hex)
-        //_ = scanner.scanString("#")
+        _ = scanner.scanString("#")
         
         var rgb: UInt64 = 0
         scanner.scanHexInt64(&rgb)
         
-        let r = Double((rgb >> 16) & 0xFF) / 255.0
-        let g = Double((rgb >>  8) & 0xFF) / 255.0
-        let b = Double((rgb >>  0) & 0xFF) / 255.0
+        let r = Int((rgb >> 16) & 0xFF)
+        let g = Int((rgb >>  8) & 0xFF)
+        let b = Int((rgb >>  0) & 0xFF)
+
         return "\(r), \(g), \(b)"
     }
     
