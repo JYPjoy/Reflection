@@ -28,17 +28,18 @@ final class MemoryViewModel: ObservableObject {
     }
 
 
-//    func fetchAllMemories() {
-//        self.memoryUseCase.fetchAllMemory()
-//            .receive(on: RunLoop.main)
-//            .sink { completion in
-//                print(completion)
-//            } receiveValue: { [weak self] memories in
-//                self?.memories = memories
-//            }
-//            .store(in: &self.cancellables)
-//    }
-//
+    func fetchAllMemories() {
+        self.memoryUseCase.fetchAllMemory()
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { [weak self] memories in
+                //self?.memories = memories
+                Log.n(memories)
+            }
+            .store(in: &self.cancellables)
+    }
+
     func updateColorChip() {
         guard let colorChipToAdd = self.colorChipToAdd else { return }
         
