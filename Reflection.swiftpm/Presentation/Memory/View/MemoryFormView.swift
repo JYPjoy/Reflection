@@ -3,7 +3,6 @@ import PhotosUI
 
 // MARK: - TODO
 /* 1.추가, (편집+삭제)삭제 버튼 hidden여부 2가지 모드로 쓰여야 함
-   2. 지도, 날짜도 추가되면 좋을 듯
    3. 칸이 다 채워지지 않았다면 알람 등장하도록 할 것 */
 struct MemoryFormView: View {
     @Environment(\.dismiss) var dismiss
@@ -13,6 +12,7 @@ struct MemoryFormView: View {
     @State private(set)var memoryPicture: Data? = nil
     
     @State private(set) var memoryTitle: String = ""
+    @State private(set) var memoryDate: Date = Date()
     @State private(set) var memoryReflection: String = ""
     
     @State private(set) var showAlert: Bool = false
@@ -31,11 +31,17 @@ struct MemoryFormView: View {
                 }
                 
                 // SECTION 2
+                // TODO: DateFormatter 필요 여부 확인 - locale
                 Section {
                     TextField("Title", text: self.$memoryTitle)
+                    DatePicker("Date", 
+                               selection: self.$memoryDate,
+                               in: ...Date(), displayedComponents: .date)
+                        .environment(\.timeZone, TimeZone.current)
                 }  header: {
-                    Text("Title")
+                    Text("Basic Information")
                 }
+                
                 // SECTION 3
                 Section {
                     TextEditor(text: $memoryReflection)
