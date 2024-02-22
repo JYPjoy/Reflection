@@ -4,8 +4,8 @@ struct Memory: Hashable {
     var id: UUID
     var picture: Data?
     var title: String
+    var date: Date
     var reflection: String
-    // TODO: 날짜, 위치 정보도 추가하도록 하기 - Entity에도 추가해야 함
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

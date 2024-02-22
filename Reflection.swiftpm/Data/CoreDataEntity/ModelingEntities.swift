@@ -84,6 +84,11 @@ extension CoreDataManager {
         memoryTitleAttribute.type = .string
         memoryEntity.properties.append(memoryTitleAttribute)
         
+        let memoryDateAttribute = NSAttributeDescription()
+        memoryDateAttribute.name = "date"
+        memoryDateAttribute.type = .date
+        memoryEntity.properties.append(memoryDateAttribute)
+        
         let memoryReflectionAttribute = NSAttributeDescription()
         memoryReflectionAttribute.name = "reflection"
         memoryReflectionAttribute.type = .string
