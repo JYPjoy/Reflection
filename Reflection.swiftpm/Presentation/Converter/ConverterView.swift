@@ -1,10 +1,11 @@
 import SwiftUI
 
 // TODO: HEX, RGB 관련 짧은 지식 넣어주기
+// TODO: 계속
 struct ConverterView: View {
     @State private(set) var backgroundColor: Color = .white
-    @State private(set) var hexColor: String = ""
-    @State private(set) var rgbColor: String = ""
+    @State private(set) var hexColor: String = "FFFFFF"
+    @State private(set) var rgbColor: String = "255,255,255"
     
     var body: some View {
         ZStack {
@@ -14,7 +15,7 @@ struct ConverterView: View {
                 // HEX
                 HStack(spacing: 10) {
                     Image(systemName: "number").font(.title2).bold()
-                    TextField("HEX", text: self.$hexColor) 
+                    TextField("HEX", text: self.$hexColor)
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
@@ -22,11 +23,13 @@ struct ConverterView: View {
                             backgroundColor = Color(hex: hexColor)
                             if newValue.count == 6 {
                                 rgbColor = hexToRGB(hex: "#" + newValue)
+                            } else if newValue.count > 6 {
+                                rgbColor = String(newValue.prefix(newValue.count - 1))
                             }
                         }
                 }
                 .padding()
-                .background(.clear)
+                .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
@@ -53,7 +56,7 @@ struct ConverterView: View {
                         }
                 }
                 .padding()
-                .background(.clear)
+                .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
@@ -93,7 +96,7 @@ struct ConverterView: View {
     
     // RGB ➡️ HEX
     func rgbToHex(r: Int, g: Int, b: Int) -> String {
-        let hexString = String(format: "%02X%02X%02X", r, g, b)
+        let hexString = String(format: "%02x%02x%02x", r, g, b)
         return hexString
     }
 }
