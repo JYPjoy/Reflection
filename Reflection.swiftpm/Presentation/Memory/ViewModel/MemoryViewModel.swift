@@ -3,7 +3,9 @@ import Combine
 
 final class MemoryViewModel: ObservableObject {
     @Published public var specificColorChip: ColorChip?
-    @Published private(set) var memories: [Memory] = []
+    @Published public  var specificColorChipMemories: [Memory] = []
+    
+    @Published private(set) var memoriesToAdd: [Memory] = []
     @Published public var memoryToEdit: Memory?
 
     private var cancellables: Set<AnyCancellable> = .init()
@@ -22,9 +24,9 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] memory in
-                self?.memories.insert(memory, at: Int.zero)
+                self?.memoriesToAdd.insert(memory, at: Int.zero)
                 self?.updateColorChip()
-                self?.memories = []
+                self?.memoriesToAdd = []
             }
             .store(in: &self.cancellables)
     }
@@ -58,7 +60,7 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] memories in
-                self?.memories = memories
+                self?.specificColorChipMemories = memories
             }
             .store(in: &self.cancellables)
     }
@@ -80,7 +82,7 @@ final class MemoryViewModel: ObservableObject {
     func updateColorChip() {
         guard let colorChipToAdd = self.specificColorChip else { return }
         
-        let newColorChip = ColorChip(id: colorChipToAdd.id, colorName: colorChipToAdd.colorName, colorList: colorChipToAdd.colorList, memories: memories)
+        let newColorChip = ColorChip(id: colorChipToAdd.id, colorName: colorChipToAdd.colorName, colorList: colorChipToAdd.colorList, memories: memoriesToAdd)
         Log.i(newColorChip)
         
         self.colorChipUseCase.updateColorChip(newColorChip)
@@ -89,6 +91,7 @@ final class MemoryViewModel: ObservableObject {
                 print(completion)
             } receiveValue: { colorChip in
                 Log.d(colorChip)
+                self.specificColorChipMemories = colorChip.memories
             }
             .store(in: &self.cancellables)
     }
