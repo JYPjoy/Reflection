@@ -10,7 +10,7 @@ struct MemoryOverView: View {
             ScrollView{
                 VStack(spacing: 30) {
                     Button(action: {
-                        viewModel.didTapMakeMemory(memory: Memory(id: UUID(), title: "테스트용", reflection: "멋진 뼈다귀"))
+                        viewModel.didTapMakeMemory(memory: Memory(id: UUID(), title: "테스트용", date: Date(), reflection: "멋진 뼈다귀"))
                     }, label: {
                         Text("추가하기(Create)")
                     })
@@ -28,7 +28,7 @@ struct MemoryOverView: View {
                     Spacer()
                     
                     Button(action: {
-                        viewModel.updateMemory(Memory(id: UUID(uuidString: "45D4BDBE-1BDD-48E6-99CF-7C3E37C6B75B")!, title: "멋쟁이 뼈다귀", reflection: "잘 업데이트 되었나요?"))
+                        //viewModel.updateMemory(Memory(id: UUID(uuidString: "45D4BDBE-1BDD-48E6-99CF-7C3E37C6B75B")!, title: "멋쟁이 뼈다귀", date: Date(), reflection: "잘 업데이트 되었나요?"))
                     }, label: {
                         Text("업데이트하기(Update)")
                     })

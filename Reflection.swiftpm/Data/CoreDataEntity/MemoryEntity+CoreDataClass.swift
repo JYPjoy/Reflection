@@ -5,9 +5,11 @@ import CoreData
 final class MemoryEntity: NSManagedObject, Identifiable {
     @NSManaged public var identifier: UUID
     @NSManaged public var picture: Data?
+
     @NSManaged public var title: String
+    @NSManaged public var date: Date
     @NSManaged public var reflection: String
-    @NSManaged var colorChip: Set<ColorChipEntity> //NSSet
+    @NSManaged var colorChip: Set<ColorChipEntity>
     // 날짜, 위치 정보 추가될 수도
     
     var id: UUID {
@@ -41,10 +43,11 @@ extension MemoryEntity {
         self.identifier = memory.id
         self.picture = memory.picture
         self.title = memory.title
+        self.date = memory.date
         self.reflection = memory.reflection
     }
     
     func toDomain() -> Memory {
-        return Memory(id: self.id, picture: self.picture, title: self.title, reflection: self.reflection)
+        return Memory(id: self.id, picture: self.picture, title: self.title, date: self.date, reflection: self.reflection)
     }
 }
