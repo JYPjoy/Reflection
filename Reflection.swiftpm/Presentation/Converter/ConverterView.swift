@@ -50,7 +50,7 @@ struct ConverterView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.System.systemBlack, lineWidth: 5)
                 )
- 
+                Spacer().frame(height: 200)
             }
             .padding()
         }
@@ -67,7 +67,7 @@ struct ConverterView: View {
         })
     }
     
-    // hex ➡️ RGB
+    // HEX ➡️ RGB
     func hexToRGB(hex: String) -> String {
         let scanner = Scanner(string: hex)
         _ = scanner.scanString("#")
@@ -82,7 +82,7 @@ struct ConverterView: View {
         return "\(r), \(g), \(b)"
     }
     
-    // hex ➡️ RGB
+    // HEX ➡️ RGB
     func rgbToHex(r: Int, g: Int, b: Int) -> String {
         let hexString = String(format: "#%02X%02X%02X", r, g, b)
         return hexString

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct SquareGrid: View {
+struct SquareGridView: View {
     let columns: Int
     let spacing: CGFloat
     
@@ -15,7 +15,7 @@ struct SquareGrid: View {
                             ForEach(0..<self.columns) { _ in
                                 Rectangle()
                                     .frame(width: sideLength, height: sideLength)
-                                    .foregroundColor(.blue) // Just for demonstration
+                                    .foregroundColor(.blue)
                             }
                         }
                     }
