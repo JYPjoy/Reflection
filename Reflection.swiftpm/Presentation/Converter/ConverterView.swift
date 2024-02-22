@@ -1,5 +1,6 @@
 import SwiftUI
 
+// TODO: HEX, RGB 관련 짧은 지식 넣어주기
 struct ConverterView: View {
     @State private(set) var backgroundColor: Color = .white
     @State private(set) var hexColor: String = ""
@@ -13,7 +14,7 @@ struct ConverterView: View {
                 // HEX
                 HStack(spacing: 10) {
                     Image(systemName: "number").font(.title2).bold()
-                    TextField("HEX", text: self.$hexColor) //#달려야 함
+                    TextField("HEX", text: self.$hexColor) 
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
