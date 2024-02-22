@@ -1,7 +1,5 @@
 import SwiftUI
 
-// TODO: RGB -> Hez 계산해야 함
-// 000000일 때 반전해서 보여주도록 해야 함
 struct ConverterView: View {
     @State private(set) var backgroundColor: Color = .white
     @State private(set) var hexColor: String = ""
@@ -20,9 +18,11 @@ struct ConverterView: View {
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
                         .onChange(of: hexColor) { newValue in
-                            rgbColor = hexToRGB(hex: "#" + newValue)
                             backgroundColor = Color(hex: hexColor)
-                    }
+                            if newValue.count == 6 {
+                                rgbColor = hexToRGB(hex: "#" + newValue)
+                            }
+                        }
                 }
                 .padding()
                 .background(.clear)
@@ -40,8 +40,16 @@ struct ConverterView: View {
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
                         .onChange(of: rgbColor) { newValue in
-                            Log.i(newValue)
-                    }
+                            var rgbArray = newValue.components(separatedBy: ",")
+                                                  .prefix(3)
+                                                  .compactMap { Int($0.trimmingCharacters(in: .whitespaces)) }
+                            if rgbArray.count == 3, rgbArray.allSatisfy({ 0...255 ~= $0 })
+                         {
+                                backgroundColor = Color(hex: "#" + rgbToHex(r: rgbArray[0], g: rgbArray[1], b: rgbArray[2]))
+                                hexColor = rgbToHex(r: rgbArray[0], g: rgbArray[1], b: rgbArray[2])
+                            }
+                            
+                        }
                 }
                 .padding()
                 .background(.clear)
@@ -78,13 +86,13 @@ struct ConverterView: View {
         let r = Int((rgb >> 16) & 0xFF)
         let g = Int((rgb >>  8) & 0xFF)
         let b = Int((rgb >>  0) & 0xFF)
-
+        
         return "\(r), \(g), \(b)"
     }
     
-    // HEX ➡️ RGB
+    // RGB ➡️ HEX
     func rgbToHex(r: Int, g: Int, b: Int) -> String {
-        let hexString = String(format: "#%02X%02X%02X", r, g, b)
+        let hexString = String(format: "%02X%02X%02X", r, g, b)
         return hexString
     }
 }
