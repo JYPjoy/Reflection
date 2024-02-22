@@ -16,21 +16,21 @@ struct ButtonStyling_Previews {
       
       VStack(spacing: 16) {
         Button(action: {
-          // TODO:
+
         }, label: {
           Text("Primary button")
         })
         .blackButton()
         
         Button(action: {
-          // TODO:
+    
         }, label: {
           Text("Secondary button")
         })
         .blackButton()
         
         Button(action: {
-          // TODO:
+       
         }, label: {
           Text("Tertiary button")
         })
