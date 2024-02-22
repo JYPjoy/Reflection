@@ -3,11 +3,8 @@ import Combine
 
 protocol MemoryUseCaseProtocol {
     func insertMemory(_ memory: Memory) -> AnyPublisher<Memory, CoreDataManager.CoreDataError>
-    
     func fetchAllMemory() -> AnyPublisher<[Memory], CoreDataManager.CoreDataError>
-    
     func updateMemory(_ memory: Memory) -> AnyPublisher<Memory, CoreDataManager.CoreDataError>
-    
     func deleteMemory(id: UUID) -> AnyPublisher<[Memory], CoreDataManager.CoreDataError>
 }
 

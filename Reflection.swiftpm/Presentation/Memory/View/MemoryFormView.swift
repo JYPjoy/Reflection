@@ -56,7 +56,6 @@ struct MemoryFormView: View {
             
             // MARK: - Button
             Button {
-                Log.c(memoryPicture)
                 self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: memoryPicture, title: memoryTitle, date: Date(), reflection: memoryReflection))
                 print("메모리를 만들어라가 와야 함")
                 self.dismiss()

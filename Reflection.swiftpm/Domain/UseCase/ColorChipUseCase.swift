@@ -3,13 +3,9 @@ import Combine
 
 protocol ColorChipUseCaseProtocol {
     func insertColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
-    
     func fetchAllColorChip() -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
-    
     func fetchSpecificColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
-
     func updateColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError>
-    
     func deleteColorChip(id: UUID) -> AnyPublisher<[ColorChip], CoreDataManager.CoreDataError>
 }
 
