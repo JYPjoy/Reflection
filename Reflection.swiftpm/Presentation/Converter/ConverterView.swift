@@ -65,7 +65,7 @@ struct ConverterView: View {
                 
                 Spacer().frame(height: 50)
                 
-                RoundedRectangle(cornerRadius: 10)
+                Rectangle()
                     .stroke(Color.System.systemBlack, lineWidth: 5)
                     .frame(height: 200)
                     .overlay {
