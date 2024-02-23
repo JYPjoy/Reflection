@@ -16,14 +16,26 @@ struct MemoryOverView: View {
                 LazyVGrid(columns: column, spacing: 5) {
                     ForEach(viewModel.specificColorChipMemories, id: \.self) { item in
                         NavigationLink(value:NavigatingCoordinator.memoryDetailView) {
-                            VStack {
-                                Rectangle()
+                            if let picture = item.picture, let pictureImage = UIImage(data: picture) {
+                                Image(uiImage: pictureImage)
+                                    .resizable()
                                     .aspectRatio(1, contentMode: .fit)
-                            }
-                            .border(Color.Text.text90, width: 0.3)
+                                    .clipped()
+                            } else {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(.Text.text90)
+                                        .aspectRatio(1, contentMode: .fit)
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                       .frame(width: 100, height: 100)
+                                        .foregroundColor(.Main.main10)
+                                }
+                            }    
                         }
-                    }
-                }
+                    } .border(Color.Text.text90, width: 0.3)
+                }.padding([.leading, .trailing], 20)
             }
         }
         .navigationTitle(Text("Memories of " + colorChip.colorName))
@@ -47,7 +59,6 @@ struct MemoryOverView: View {
             viewModel.specificColorChipMemories = colorChip.memories
             colorChipMemories = colorChip.memories
             Log.c(colorChipMemories)
-          
         })
     }
 }
