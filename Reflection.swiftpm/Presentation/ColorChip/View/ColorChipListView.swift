@@ -97,5 +97,8 @@ struct ColorChipListView: View {
         }
         .padding()
         .navigationBarTitle(Text("My Color Chips"))
+        .onAppear {
+            viewModel.fetchAllColorChips()
+        }
     }
 }
