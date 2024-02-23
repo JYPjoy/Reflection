@@ -6,16 +6,24 @@ struct MemoryOverView: View {
     @State private var colorChipMemories: [Memory] = []
     let colorChip: ColorChip
     
+    private let column = [
+        GridItem(.flexible(), spacing: 5),  GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5)
+    ]
+    
     var body: some View {
         Group{
             ScrollView{
-                
-                
-                
-                
-                
-
-                
+                LazyVGrid(columns: column, spacing: 5) {
+                    ForEach(viewModel.specificColorChipMemories, id: \.self) { item in
+                        NavigationLink(value:NavigatingCoordinator.memoryDetailView) {
+                            VStack {
+                                Rectangle()
+                                    .aspectRatio(1, contentMode: .fit)
+                            }
+                            .border(Color.Text.text90, width: 0.3)
+                        }
+                    }
+                }
             }
         }
         .navigationTitle(Text("Memories of " + colorChip.colorName))
