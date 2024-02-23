@@ -15,7 +15,7 @@ struct RainbowWheel: View {
                     .rotationEffect(.degrees(rotation))
                     .animation(.linear(duration: 5).speed(0.5)
                                , value: rotation) // .repeatForever(autoreverses: false)
-                    .onAppear{rotation = 360}
+                    .onAppear{rotation = 180}
                 Spacer()
             }
             
