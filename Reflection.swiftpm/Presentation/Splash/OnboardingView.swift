@@ -13,25 +13,23 @@ struct OnboardingView: View {
                 case 2: thirdView
                 case 3: fourthView
                 default: ContentView()
-                    
                 }
-            }
-            .overlay(
-                Button(action: {
+                
+                Button {
                     withAnimation {
                         if (currentView <= 3 && currentView != 3) {
                             currentView += 1
                         } else { //3
                             currentView += 1
                             Log.d("객체 생성")
-                            //ExampleCreation.shared.createExampleData()
                         }
                     }
-                }, label: {
+
+                } label: {
                     /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-                })
-                
-            )
+                }
+                .mainButton()
+            }
         }
     }
     
