@@ -2,17 +2,18 @@ import SwiftUI
 
 struct SplashView: View {
     @State var isActive: Bool = false
+    @State private var rotation: Double = 0
     
     var body: some View {
         ZStack {
             if self.isActive {
                 ContentView()
             } else {
-                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+                RainbowWheel()
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 withAnimation {
                     self.isActive = true
                 }
