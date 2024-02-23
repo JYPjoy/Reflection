@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SplashView: View {
     @State var isActive: Bool = false
-    @State private var rotation: Double = 0
     
     var body: some View {
         ZStack {
