@@ -15,7 +15,7 @@ struct ConverterView: View {
                 // HEX
                 HStack(spacing: 10) {
                     Image(systemName: "number").font(.title2).bold()
-                    TextField("HEX", text: self.$hexColor)
+                    TextField("HEX(ex: F8D749)", text: self.$hexColor)
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
@@ -39,7 +39,7 @@ struct ConverterView: View {
                 // RGB
                 HStack(spacing: 10) {
                     Image(systemName: "paintbrush").font(.title2).bold()
-                    TextField("RGB", text: self.$rgbColor) //#달려야 함
+                    TextField("RGB(ex: 248,215,73)", text: self.$rgbColor) //#달려야 함
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
@@ -62,7 +62,16 @@ struct ConverterView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.System.systemBlack, lineWidth: 5)
                 )
-                Spacer().frame(height: 200)
+                
+                Spacer().frame(height: 50)
+                
+                Rectangle()
+                    .stroke(Color.System.systemBlack, lineWidth: 5)
+                    .frame(height: 200)
+                    .overlay {
+                        Text("설명")
+                    }
+                    .padding([.leading, .trailing], 100)
             }
             .padding()
         }

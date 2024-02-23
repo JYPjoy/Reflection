@@ -50,7 +50,7 @@ struct ColorChipFormView: View {
             .blackButton()
             .padding(30)
         }
-        .onAppear(perform: {
+        .onAppear {
             guard let colorChipToEdit = viewModel.colorChipToEdit else { return }
             self.colorChipToEdit = colorChipToEdit
             
@@ -60,7 +60,7 @@ struct ColorChipFormView: View {
                 colorName = colorChipToEdit.colorName
                 colorList = Color(hex:colorChipToEdit.colorList)
             }
-        })
+        }
         .navigationTitle(navigationTitle)
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {

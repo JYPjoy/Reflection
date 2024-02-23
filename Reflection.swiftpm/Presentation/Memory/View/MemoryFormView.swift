@@ -8,9 +8,12 @@ struct MemoryFormView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: MemoryViewModel
     
+    @State private var memoryToEdit: Memory?
+    @State private(set) var navigationTitle = "Create a New Memory"
+    @State private(set) var buttonText = "Create"
+    
     @State private(set) var selectedItem: [PhotosPickerItem] = []
     @State private(set)var memoryPicture: Data? = nil
-    
     @State private(set) var memoryTitle: String = ""
     @State private(set) var memoryDate: Date = Date()
     @State private(set) var memoryReflection: String = ""
@@ -56,18 +59,23 @@ struct MemoryFormView: View {
             
             // MARK: - Button
             Button {
-                self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: memoryPicture, title: memoryTitle, date: Date(), reflection: memoryReflection))
-                print("메모리를 만들어라가 와야 함")
+                if self.memoryToEdit == nil {
+                    self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: memoryPicture, title: memoryTitle, date: Date(), reflection: memoryReflection))
+                } else {
+                    guard let memoryToEditId = memoryToEdit?.id else {return}
+                    self.viewModel.updateMemory(Memory(id: memoryToEditId, picture: memoryPicture, title: memoryTitle, date: memoryDate, reflection: memoryReflection))
+                }
+                viewModel.fetchAllMemories()
                 self.dismiss()
             } label: {
-                Text("Create")
+                Text(buttonText)
                     .frame(maxWidth: .infinity, minHeight: 20)
             }
             .blackButton()
             .disabled(showAlert == true)
             .padding(30)
         }
-        .navigationTitle("Create a New Memory")
+        .navigationTitle(navigationTitle)
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
@@ -80,6 +88,20 @@ struct MemoryFormView: View {
         .onChange(of: self.selectedItem) { newValue in
             for value in newValue {
                 let _ = self.loadTransferable(from: value)
+            }
+        }
+        .onAppear {
+            guard let memoryToEdit = viewModel.memoryToEdit else {return}
+            self.memoryToEdit = memoryToEdit
+            
+            if self.memoryToEdit != nil {
+                navigationTitle = "Edit the Memory"
+                buttonText = "Editing Completed"
+                
+                memoryPicture = memoryToEdit.picture
+                memoryTitle = memoryToEdit.title
+                memoryDate = memoryToEdit.date
+                memoryReflection = memoryToEdit.reflection
             }
         }
     }

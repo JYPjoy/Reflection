@@ -1,62 +1,81 @@
 import SwiftUI
 
+// TODO: colorChipMemories 있, 없 뷰 구성 달라져야 함
+// ContextMenu: 삭제, 편집
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
-    @State private var createNewMemory = false
     @State private var colorChipMemories: [Memory] = []
+    
+    @State private var createNewMemory = false
+    @State private var deleteMemory = false
+    @State private var memoryToDelete: Memory?
+    @State private var editMemory = false
+    @State private var memoryToEdit:  Memory?
+    
     let colorChip: ColorChip
+    
+    private let column = [
+        GridItem(.flexible(), spacing: 5),  GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5)
+    ]
     
     var body: some View {
         Group{
             ScrollView{
-                // MARK: - CRUD 확인용
-//                VStack(spacing: 30) {
-//                    Button(action: {
-//                        viewModel.didTapMakeMemory(memory: Memory(id: UUID(), title: "테스트용", date: Date(), reflection: "멋진 뼈다귀"))
-//                    }, label: {
-//                        Text("추가하기(Create)")
-//                    })
-//                    .blackButton()
-//                    Spacer()
-//                    
-//                    
-//                    Button(action: {
-//                        viewModel.fetchAllMemories()
-//                        viewModel.fetchSpecificColorChip()
-//                    }, label: {
-//                        Text("메모리 내용 출력하기(read)")
-//                    })
-//                    .mainButton()
-//                    Spacer()
-//                    
-//                    Button(action: {
-//                        //viewModel.updateMemory(Memory(id: UUID(uuidString: "45D4BDBE-1BDD-48E6-99CF-7C3E37C6B75B")!, title: "멋쟁이 뼈다귀", date: Date(), reflection: "잘 업데이트 되었나요?"))
-//                    }, label: {
-//                        Text("업데이트하기(Update)")
-//                    })
-//                    .mainButton()
-//                    Spacer()
-//                    
-//                    Button(action: {
-//                        viewModel.deleteMemory(UUID(uuidString: "31934F94-2862-4B35-9060-7BE5F7132F40")!)
-//                    }, label: {
-//                        Text("삭제하기(Delete)")
-//                    })
-//                    .blackButton()
-//                }
-
-                CompositionalView(items: viewModel.specificColorChipMemories, id: \.self) { item in
-                    ZStack{
-                        Rectangle()
-                            .fill(.cyan)
-                        
-                        Text("\(item.title)")
-                            .font(.title.bold())
+                LazyVGrid(columns: column, spacing: 5) {
+                    ForEach(viewModel.specificColorChipMemories, id: \.self) { item in
+                        NavigationLink(value:NavigatingCoordinator.memoryDetailView) {
+                            if let picture = item.picture, let pictureImage = UIImage(data: picture) {
+                                Image(uiImage: pictureImage)
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fit)
+                                    .clipped()
+                            } else {
+                                ZStack {
+                                    Rectangle()
+                                        .foregroundColor(.Text.text90)
+                                        .aspectRatio(1, contentMode: .fit)
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 100, height: 100)
+                                        .foregroundColor(.Main.main10)
+                                }
+                            }
+                            
+                        }
+                        .contextMenu(menuItems: {
+                            Button(role: .destructive, action: {
+                                withAnimation {
+                                    self.memoryToDelete = item
+                                    self.deleteMemory.toggle()
+                                }
+                            }, label: {
+                                Image(systemName: "trash")
+                                Text("Delete")
+                            })
+                            Button(role: .cancel, action: {
+                                withAnimation {
+                                    self.editMemory.toggle()
+                                    self.memoryToEdit = item
+                                    viewModel.memoryToEdit = item
+                                    memoryToEdit = nil
+                                }
+                            }, label: {
+                                Image(systemName: "pencil")
+                                Text("Edit")
+                            })
+                        })
+                        .alert(isPresented: self.$deleteMemory, content: {
+                            Alert(title: Text("Do you want to delete the " + (memoryToDelete?.title ?? "")), message: Text((memoryToDelete?.title  ?? "")+" will be invisible from the list"), primaryButton: .destructive(Text("Delete"), action: {
+                                guard let memoryToDelete = memoryToDelete else {return}
+                                
+                                viewModel.deleteMemory(memoryToDelete.id)
+                            }), secondaryButton: .cancel())
+                        })
                     }
-                }
-                .padding()
-                .padding(.bottom,10)
-                
+                    .border(Color.Text.text90, width: 0.3)
+                    
+                }.padding([.leading, .trailing], 20)
             }
         }
         .navigationTitle(Text("Memories of " + colorChip.colorName))
@@ -75,12 +94,15 @@ struct MemoryOverView: View {
                 MemoryFormView(viewModel: viewModel)
             }
         }
+        .sheet(isPresented: self.$editMemory) {
+            NavigationStack {
+                MemoryFormView(viewModel: viewModel)
+            }
+        }
         .onAppear(perform: {
             viewModel.specificColorChip = colorChip
             viewModel.specificColorChipMemories = colorChip.memories
             colorChipMemories = colorChip.memories
-            Log.c(colorChipMemories)
-          
         })
     }
 }
