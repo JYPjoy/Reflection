@@ -1,5 +1,7 @@
 import SwiftUI
 
+// TODO: colorChipMemories 있, 없 뷰 구성 달라져야 함
+// ContextMenu: 삭제, 편집
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
     @State private var createNewMemory = false
@@ -34,6 +36,23 @@ struct MemoryOverView: View {
                                 }
                             }    
                         }
+                        .contextMenu(menuItems: {
+                            Button(role: .destructive, action: {
+                                withAnimation {
+                          
+                                }
+                            }, label: {
+                                Image(systemName: "trash")
+                                Text("Delete")
+                            })
+                            Button(role: .cancel, action: {
+                                withAnimation {
+                                }
+                            }, label: {
+                                Image(systemName: "pencil")
+                                Text("Edit")
+                            })
+                        })
                     } .border(Color.Text.text90, width: 0.3)
                 }.padding([.leading, .trailing], 20)
             }
