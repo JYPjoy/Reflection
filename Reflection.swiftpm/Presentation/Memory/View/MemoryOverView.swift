@@ -4,8 +4,14 @@ import SwiftUI
 // ContextMenu: 삭제, 편집
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
-    @State private var createNewMemory = false
     @State private var colorChipMemories: [Memory] = []
+    
+    @State private var createNewMemory = false
+    @State private var deleteMemory = false
+    @State private var memoryToDelete: Memory?
+    @State private var editMemory = false
+    @State private var memoryToEdit:  Memory?
+    
     let colorChip: ColorChip
     
     private let column = [
@@ -31,15 +37,17 @@ struct MemoryOverView: View {
                                     Image(systemName: "photo")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
-                                       .frame(width: 100, height: 100)
+                                        .frame(width: 100, height: 100)
                                         .foregroundColor(.Main.main10)
                                 }
-                            }    
+                            }
+                            
                         }
                         .contextMenu(menuItems: {
                             Button(role: .destructive, action: {
                                 withAnimation {
-                          
+                                    self.memoryToDelete = item
+                                    self.deleteMemory.toggle()
                                 }
                             }, label: {
                                 Image(systemName: "trash")
@@ -47,13 +55,26 @@ struct MemoryOverView: View {
                             })
                             Button(role: .cancel, action: {
                                 withAnimation {
+                                    self.editMemory.toggle()
+                                    self.memoryToEdit = item
+                                    viewModel.memoryToEdit = item
+                                    memoryToEdit = nil
                                 }
                             }, label: {
                                 Image(systemName: "pencil")
                                 Text("Edit")
                             })
                         })
-                    } .border(Color.Text.text90, width: 0.3)
+                        .alert(isPresented: self.$deleteMemory, content: {
+                            Alert(title: Text("Do you want to delete the " + (memoryToDelete?.title ?? "")), message: Text((memoryToDelete?.title  ?? "")+" will be invisible from the list"), primaryButton: .destructive(Text("Delete"), action: {
+                                guard let memoryToDelete = memoryToDelete else {return}
+                                
+                                viewModel.deleteMemory(memoryToDelete.id)
+                            }), secondaryButton: .cancel())
+                        })
+                    }
+                    .border(Color.Text.text90, width: 0.3)
+                    
                 }.padding([.leading, .trailing], 20)
             }
         }
@@ -73,11 +94,15 @@ struct MemoryOverView: View {
                 MemoryFormView(viewModel: viewModel)
             }
         }
+        .sheet(isPresented: self.$editMemory) {
+            NavigationStack {
+                MemoryFormView(viewModel: viewModel)
+            }
+        }
         .onAppear(perform: {
             viewModel.specificColorChip = colorChip
             viewModel.specificColorChipMemories = colorChip.memories
             colorChipMemories = colorChip.memories
-            Log.c(colorChipMemories)
         })
     }
 }

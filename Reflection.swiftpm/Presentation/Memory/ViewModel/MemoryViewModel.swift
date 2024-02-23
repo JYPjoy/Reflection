@@ -2,6 +2,7 @@ import Foundation
 import Combine
 
 final class MemoryViewModel: ObservableObject {
+
     @Published public var specificColorChip: ColorChip?
     @Published public  var specificColorChipMemories: [Memory] = []
     
@@ -31,7 +32,6 @@ final class MemoryViewModel: ObservableObject {
             .store(in: &self.cancellables)
     }
 
-
     func fetchAllMemories() {
         self.memoryUseCase.fetchAllMemory()
             .receive(on: RunLoop.main)
@@ -49,7 +49,7 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { memory in
-                Log.n(memory)
+                Log.n("Edited Memory is" + "\(memory)")
             }
             .store(in: &self.cancellables)
     }
@@ -83,7 +83,6 @@ final class MemoryViewModel: ObservableObject {
         guard let colorChipToAdd = self.specificColorChip else { return }
         
         let newColorChip = ColorChip(id: colorChipToAdd.id, colorName: colorChipToAdd.colorName, colorList: colorChipToAdd.colorList, memories: memoriesToAdd)
-        Log.i(newColorChip)
         
         self.colorChipUseCase.updateColorChip(newColorChip)
             .receive(on: RunLoop.main)
