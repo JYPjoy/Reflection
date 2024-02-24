@@ -4,6 +4,7 @@ import PhotosUI
 // MARK: - TODO
 /* 1.추가, (편집+삭제)삭제 버튼 hidden여부 2가지 모드로 쓰여야 함
    3. 칸이 다 채워지지 않았다면 알람 등장하도록 할 것 */
+// 메모리 편집한 후 아무것도 없을 때 예전 정보 뭍어 나옴
 struct MemoryFormView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: MemoryViewModel

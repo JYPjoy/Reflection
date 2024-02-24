@@ -50,6 +50,7 @@ final class MemoryViewModel: ObservableObject {
                 print(completion)
             } receiveValue: { memory in
                 Log.n("Edited Memory is" + "\(memory)")
+                self.fetchSpecificColorChipMemories()
             }
             .store(in: &self.cancellables)
     }

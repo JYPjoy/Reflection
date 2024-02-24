@@ -1,6 +1,7 @@
 import SwiftUI
 
 // TODO: empty랑 memorycontainer 겹쳐보이는 현상 해결 -> 앱 빌드하면 그렇게 보임
+// TODO: 편집, 삭제 시 바뀌기 전의 정보가 겹쳐 보이는 문제 발생
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
     @State private var colorChipMemories: [Memory] = []
@@ -9,7 +10,7 @@ struct MemoryOverView: View {
     @State private var deleteMemory = false
     @State private var memoryToDelete: Memory?
     @State private var editMemory = false
-    @State private var memoryToEdit:  Memory?
+    @State private var memoryToEdit: Memory?
     
     let colorChip: ColorChip
     
@@ -60,8 +61,6 @@ struct MemoryOverView: View {
             viewModel.fetchSpecificColorChipMemories()
         })
     }
-    
-    
     // MARK: - Inner Container
     var memoryContainer: some View {
         ScrollView{
