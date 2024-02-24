@@ -2,21 +2,17 @@
 import SwiftUI
 
 struct MemoryDetailedView: View {
+    @ObservedObject var viewModel = MemoryViewModel()
+    @State private var detailedMemory: Memory?
+    let memory: Memory
+    
     var body: some View {
         Group{
             ScrollView{
-                CompositionalView(items: 1...30, id: \.self) { item in
-                    ZStack{
-                        Rectangle()
-                            .fill(.cyan)
-                        
-                        Text("\(item)")
-                            .font(.title.bold())
-                    }
+                HStack {
+                    Text("메모리디테일")
+                    Text("메모리디테일")
                 }
-                .padding()
-                .padding(.bottom,10)
-                
             }
         }
     }

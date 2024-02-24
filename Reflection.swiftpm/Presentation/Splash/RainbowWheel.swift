@@ -25,5 +25,7 @@ struct RainbowWheel: View {
                 .bold()
                 .foregroundStyle(Color.white)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Splash View")
     }
 }

@@ -4,6 +4,7 @@ import PhotosUI
 // MARK: - TODO
 /* 1.추가, (편집+삭제)삭제 버튼 hidden여부 2가지 모드로 쓰여야 함
    3. 칸이 다 채워지지 않았다면 알람 등장하도록 할 것 */
+// 메모리 편집한 후 아무것도 없을 때 예전 정보 뭍어 나옴
 struct MemoryFormView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: MemoryViewModel
@@ -28,6 +29,7 @@ struct MemoryFormView: View {
                 Section {
                     PhotosPicker(selection: self.$selectedItem, maxSelectionCount: 1, matching: .images) {
                         showPicture
+                            .accessibilityLabel(Text("PhotosPicker"))
                     }
                 }  header: {
                     Text("A Piece of Memory")
@@ -65,6 +67,7 @@ struct MemoryFormView: View {
                     guard let memoryToEditId = memoryToEdit?.id else {return}
                     self.viewModel.updateMemory(Memory(id: memoryToEditId, picture: memoryPicture, title: memoryTitle, date: memoryDate, reflection: memoryReflection))
                 }
+                viewModel.memoryToEdit = nil
                 viewModel.fetchAllMemories()
                 self.dismiss()
             } label: {
@@ -79,6 +82,7 @@ struct MemoryFormView: View {
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
+                    viewModel.memoryToEdit = nil
                     self.dismiss()
                 } label: {
                     Text("Cancel")
@@ -93,7 +97,7 @@ struct MemoryFormView: View {
         .onAppear {
             guard let memoryToEdit = viewModel.memoryToEdit else {return}
             self.memoryToEdit = memoryToEdit
-            
+            Log.d(memoryToEdit)
             if self.memoryToEdit != nil {
                 navigationTitle = "Edit the Memory"
                 buttonText = "Editing Completed"
@@ -103,6 +107,9 @@ struct MemoryFormView: View {
                 memoryDate = memoryToEdit.date
                 memoryReflection = memoryToEdit.reflection
             }
+        }
+        .onDisappear {
+            self.memoryToEdit = nil
         }
     }
     
