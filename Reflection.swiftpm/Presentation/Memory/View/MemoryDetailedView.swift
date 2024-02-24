@@ -7,11 +7,11 @@ struct MemoryDetailedView: View {
     var body: some View {
         Group{
             ScrollView{
-            
+                HStack {
+                    Text("메모리디테일")
+                    Text("메모리디테일")
+                }
             }
-            .padding()
-            .padding(.bottom,10)
-            
         }
         .onAppear {
             Log.d(memory)

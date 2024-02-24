@@ -1,5 +1,6 @@
 import SwiftUI
 
+// TODO: Onboarding 나왔다 없어졌을 때 오토레이아웃 에러 해결
 struct SplashView: View {
     @State var isActive: Bool = false
     
