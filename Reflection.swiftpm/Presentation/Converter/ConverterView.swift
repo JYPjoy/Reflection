@@ -63,17 +63,16 @@ struct ConverterView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.System.systemBlack, lineWidth: 5)
                 )
-                
-                Spacer().frame(height: 50)
+                Spacer().frame(height:10)
                 
                 ZStack {
                     Rectangle()
                         .stroke(Color.black, lineWidth: 5) // 테두리 색상 및 두께 지정
                         .background(Color.white) // 배경색 설정
                         .foregroundStyle(Color.System.systemWhite)
-                        .frame(height: 250)
+                        .frame(height: 300)
                     
-                    Text("RGB is consist of combinations of red, green, and blue, each ranging from 0 to 255.\nFor example, white is represented as 255, 255, 255. And black is represented as 0, 0, 0.\n \nHEX color is expressed as a six-digit combination of numbers(0-9) and letters(A-F) defined by its mix of red, green and blue (RGB). For example, white is #FFFFFF.\n\nFor more details, ry it by yourself on the box above. When you enter a hex Color(without the#), it will automatically convert into RGB. Similarly, When you enter an RGB color, it automatically convert into a hexColor. Just try it!")
+                    Text("RGB is consist of combinations of red, green, and blue, each ranging from 0 to 255.\nFor example, white is represented as 255, 255, 255. And black is represented as 0, 0, 0.\n \nHEX color is expressed as a six-digit combination of numbers(0-9) and letters(A-F) defined by its mix of red, green and blue (RGB). For example, white is #FFFFFF.\n\nFor more details, try it by yourself on the box above. When you enter a hex Color(without the#), it will automatically convert into RGB. Similarly, When you enter an RGB color, it automatically convert into a hexColor. Just try it!")
                         .font(.body)
                         .padding(20)
                 }
