@@ -4,7 +4,6 @@ import PhotosUI
 // MARK: - TODO
 /* 1.추가, (편집+삭제)삭제 버튼 hidden여부 2가지 모드로 쓰여야 함
    3. 칸이 다 채워지지 않았다면 알람 등장하도록 할 것 */
-// 메모리 편집한 후 아무것도 없을 때 예전 정보 뭍어 나옴
 struct MemoryFormView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: MemoryViewModel
@@ -21,6 +20,14 @@ struct MemoryFormView: View {
     
     @State private(set) var showAlert: Bool = false
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        return formatter
+    }()
+    
     var body: some View {
         VStack {
             // MARK: - Form
@@ -36,13 +43,13 @@ struct MemoryFormView: View {
                 }
                 
                 // SECTION 2
-                // TODO: DateFormatter 필요 여부 확인 - locale
                 Section {
                     TextField("Title", text: self.$memoryTitle)
                     DatePicker("Date", 
                                selection: self.$memoryDate,
                                in: ...Date(), displayedComponents: .date)
-                        .environment(\.timeZone, TimeZone.current)
+                        //.environment(\.timeZone, TimeZone.current)
+                    Text("\(memoryDate)")
                 }  header: {
                     Text("Basic Information")
                 }
@@ -97,7 +104,6 @@ struct MemoryFormView: View {
         .onAppear {
             guard let memoryToEdit = viewModel.memoryToEdit else {return}
             self.memoryToEdit = memoryToEdit
-            Log.d(memoryToEdit)
             if self.memoryToEdit != nil {
                 navigationTitle = "Edit the Memory"
                 buttonText = "Editing Completed"
