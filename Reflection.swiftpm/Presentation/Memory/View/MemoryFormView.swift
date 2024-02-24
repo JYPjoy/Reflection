@@ -66,6 +66,7 @@ struct MemoryFormView: View {
                     guard let memoryToEditId = memoryToEdit?.id else {return}
                     self.viewModel.updateMemory(Memory(id: memoryToEditId, picture: memoryPicture, title: memoryTitle, date: memoryDate, reflection: memoryReflection))
                 }
+                viewModel.memoryToEdit = nil
                 viewModel.fetchAllMemories()
                 self.dismiss()
             } label: {
@@ -80,6 +81,7 @@ struct MemoryFormView: View {
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
+                    viewModel.memoryToEdit = nil
                     self.dismiss()
                 } label: {
                     Text("Cancel")
@@ -94,7 +96,7 @@ struct MemoryFormView: View {
         .onAppear {
             guard let memoryToEdit = viewModel.memoryToEdit else {return}
             self.memoryToEdit = memoryToEdit
-            
+            Log.d(memoryToEdit)
             if self.memoryToEdit != nil {
                 navigationTitle = "Edit the Memory"
                 buttonText = "Editing Completed"

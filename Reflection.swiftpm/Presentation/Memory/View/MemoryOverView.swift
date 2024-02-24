@@ -1,6 +1,5 @@
 import SwiftUI
 
-// TODO: 편집, 삭제 시 바뀌기 전의 정보가 겹쳐 보이는 문제 발생
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
     // @State private var colorChipMemories: [Memory] = []
