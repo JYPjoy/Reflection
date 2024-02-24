@@ -1,5 +1,6 @@
 import SwiftUI
 
+// TODO: ContextMenu Accessibility 어떻게 적용하지?
 struct ColorChipListView: View {
     
     @ObservedObject var viewModel = ColorChipViewModel()
@@ -78,14 +79,19 @@ struct ColorChipListView: View {
                             .padding(.leading, 10)
                             .font(.title3).bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .accessibilityLabel("\(item.colorName)")
                
                         Spacer()
                         Text(item.colorList)
                             .padding(.leading, 10)
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .accessibilityHidden(true)
                         Spacer().frame(height: 10)
                     }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text("This Color's name is"+item.colorName + " \n\n and it's consist of " + ColorManager.shared.hexToRGBAccessibility(hex: item.colorList)))
+
                     .border(Color.Text.text90, width: 0.3)
                     .contextMenu(menuItems: {
                         Button(role: .destructive, action: {
