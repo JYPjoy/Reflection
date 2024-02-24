@@ -3,7 +3,7 @@ import SwiftUI
 // TODO: 편집, 삭제 시 바뀌기 전의 정보가 겹쳐 보이는 문제 발생
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
-   // @State private var colorChipMemories: [Memory] = []
+    // @State private var colorChipMemories: [Memory] = []
     @State private var isLoading = true
     
     @State private var createNewMemory = false
@@ -15,7 +15,7 @@ struct MemoryOverView: View {
     let colorChip: ColorChip
     
     private let column = [
-        GridItem(.flexible(), spacing: 5), 
+        GridItem(.flexible(), spacing: 5),
         GridItem(.flexible(), spacing: 5),
         GridItem(.flexible(), spacing: 5),
         GridItem(.flexible(), spacing: 5),
@@ -32,17 +32,16 @@ struct MemoryOverView: View {
                         .scaleEffect(1.5)
                         .frame(width: geometry.size.width)
                         .frame(minHeight: geometry.size.height)
+                } else if !viewModel.specificColorChipMemories.isEmpty {
+                    memoryContainer
                 } else {
-                        if !viewModel.specificColorChipMemories.isEmpty {
-                            memoryContainer
-                        } else {
-                            emptyView
-                                .padding()
-                                .frame(width: geometry.size.width)
-                                .frame(minHeight: geometry.size.height)
-                        }
-                    }
+                    emptyView
+                        .padding()
+                        .frame(width: geometry.size.width)
+                        .frame(minHeight: geometry.size.height)
                 }
+            }
+            
         }
         .navigationTitle(Text("Memories of " + colorChip.colorName))
         .toolbar(content: {
@@ -96,7 +95,7 @@ struct MemoryOverView: View {
                                     .foregroundColor(.Main.main10)
                             }
                         }
-                        
+    
                     }
                     .contextMenu(menuItems: {
                         Button(role: .destructive, action: {
