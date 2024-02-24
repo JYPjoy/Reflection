@@ -14,7 +14,11 @@ struct ColorChipListView: View {
     @State private var itemToEdit: ColorChip?
     
     private let column = [
-        GridItem(.flexible(), spacing: 40),  GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40), GridItem(.flexible(), spacing: 40)
+        GridItem(.flexible(), spacing: 40),  
+        GridItem(.flexible(), spacing: 40),
+        GridItem(.flexible(), spacing: 40),
+        GridItem(.flexible(), spacing: 40), 
+        GridItem(.flexible(), spacing: 40)
     ]
     
     var body: some View {
@@ -119,7 +123,7 @@ struct ColorChipListView: View {
         VStack(spacing: 40) {
             Text("Seems like you don't have any color chips yet.\nClick and Start making the new one!")
                 .multilineTextAlignment(.center)
-                .font(.title3).bold()
+                .font(.title2)
             
             Button(action: {
                 withAnimation {
@@ -127,7 +131,7 @@ struct ColorChipListView: View {
                 }
             }, label: {
                 Text("Create your first Color Chip")
-                    .font(.title3).bold()
+                    .font(.title2).bold()
             })
             .mainButton()
         }

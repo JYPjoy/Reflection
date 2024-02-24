@@ -1,6 +1,5 @@
 import SwiftUI
 
-// TODO: colorChipMemories 있, 없 뷰 구성 달라져야 함
 // ContextMenu: 삭제, 편집
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
@@ -15,67 +14,24 @@ struct MemoryOverView: View {
     let colorChip: ColorChip
     
     private let column = [
-        GridItem(.flexible(), spacing: 5),  GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5)
+        GridItem(.flexible(), spacing: 5), 
+        GridItem(.flexible(), spacing: 5),
+        GridItem(.flexible(), spacing: 5),
+        GridItem(.flexible(), spacing: 5),
+        GridItem(.flexible(), spacing: 5)
     ]
     
     var body: some View {
-        Group{
-            ScrollView{
-                LazyVGrid(columns: column, spacing: 5) {
-                    ForEach(viewModel.specificColorChipMemories, id: \.self) { item in
-                        NavigationLink(value:NavigatingCoordinator.memoryDetailView) {
-                            if let picture = item.picture, let pictureImage = UIImage(data: picture) {
-                                Image(uiImage: pictureImage)
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fit)
-                                    .clipped()
-                            } else {
-                                ZStack {
-                                    Rectangle()
-                                        .foregroundColor(.Text.text90)
-                                        .aspectRatio(1, contentMode: .fit)
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 100, height: 100)
-                                        .foregroundColor(.Main.main10)
-                                }
-                            }
-                            
-                        }
-                        .contextMenu(menuItems: {
-                            Button(role: .destructive, action: {
-                                withAnimation {
-                                    self.memoryToDelete = item
-                                    self.deleteMemory.toggle()
-                                }
-                            }, label: {
-                                Image(systemName: "trash")
-                                Text("Delete")
-                            })
-                            Button(role: .cancel, action: {
-                                withAnimation {
-                                    self.editMemory.toggle()
-                                    self.memoryToEdit = item
-                                    viewModel.memoryToEdit = item
-                                    memoryToEdit = nil
-                                }
-                            }, label: {
-                                Image(systemName: "pencil")
-                                Text("Edit")
-                            })
-                        })
-                        .alert(isPresented: self.$deleteMemory, content: {
-                            Alert(title: Text("Do you want to delete the " + (memoryToDelete?.title ?? "")), message: Text((memoryToDelete?.title  ?? "")+" will be invisible from the list"), primaryButton: .destructive(Text("Delete"), action: {
-                                guard let memoryToDelete = memoryToDelete else {return}
-                                
-                                viewModel.deleteMemory(memoryToDelete.id)
-                            }), secondaryButton: .cancel())
-                        })
-                    }
-                    .border(Color.Text.text90, width: 0.3)
-                    
-                }.padding([.leading, .trailing], 20)
+        GeometryReader { geometry in
+            ScrollView {
+                if !viewModel.specificColorChipMemories.isEmpty {
+                    memoryContainer
+                } else {
+                    emptyView
+                    .padding()
+                    .frame(width: geometry.size.width)
+                    .frame(minHeight: geometry.size.height)
+                }
             }
         }
         .navigationTitle(Text("Memories of " + colorChip.colorName))
@@ -104,6 +60,86 @@ struct MemoryOverView: View {
             viewModel.specificColorChipMemories = colorChip.memories
             colorChipMemories = colorChip.memories
         })
+    }
+    
+    
+    // MARK: - Inner Container
+    var memoryContainer: some View {
+        ScrollView{
+            LazyVGrid(columns: column, spacing: 5) {
+                ForEach(viewModel.specificColorChipMemories, id: \.self) { item in
+                    NavigationLink(value:NavigatingCoordinator.memoryDetailView) {
+                        if let picture = item.picture, let pictureImage = UIImage(data: picture) {
+                            Image(uiImage: pictureImage)
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fit)
+                                .clipped()
+                        } else {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(.Text.text90)
+                                    .aspectRatio(1, contentMode: .fit)
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 100, height: 100)
+                                    .foregroundColor(.Main.main10)
+                            }
+                        }
+                        
+                    }
+                    .contextMenu(menuItems: {
+                        Button(role: .destructive, action: {
+                            withAnimation {
+                                self.memoryToDelete = item
+                                self.deleteMemory.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "trash")
+                            Text("Delete")
+                        })
+                        Button(role: .cancel, action: {
+                            withAnimation {
+                                self.editMemory.toggle()
+                                self.memoryToEdit = item
+                                viewModel.memoryToEdit = item
+                                memoryToEdit = nil
+                            }
+                        }, label: {
+                            Image(systemName: "pencil")
+                            Text("Edit")
+                        })
+                    })
+                    .alert(isPresented: self.$deleteMemory, content: {
+                        Alert(title: Text("Do you want to delete the " + (memoryToDelete?.title ?? "")), message: Text((memoryToDelete?.title  ?? "")+" will be invisible from the list"), primaryButton: .destructive(Text("Delete"), action: {
+                            guard let memoryToDelete = memoryToDelete else {return}
+                            
+                            viewModel.deleteMemory(memoryToDelete.id)
+                        }), secondaryButton: .cancel())
+                    })
+                }
+                .border(Color.Text.text90, width: 0.3)
+                
+            }.padding([.leading, .trailing], 20)
+        }
+    }
+    
+    var emptyView: some View {
+        VStack(spacing: 40) {
+            Text("Seems like you don't have any memories yet.\nClick and Start building your own color schema from your memories.")
+                .multilineTextAlignment(.center)
+                .font(.title2)
+            
+            Button(action: {
+                withAnimation {
+                    self.createNewMemory.toggle()
+                }
+            }, label: {
+                Text("Unfold your memories")
+                    .font(.title2).bold()
+            })
+            .blackButton()
+        }
     }
 }
 
