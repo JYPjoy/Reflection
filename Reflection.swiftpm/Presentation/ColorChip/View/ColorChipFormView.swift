@@ -39,6 +39,7 @@ struct ColorChipFormView: View {
                     guard let colorChipToEditId = colorChipToEdit?.id else {return}
                     viewModel.updateColorChip(ColorChip(id: colorChipToEditId, colorName: colorName, colorList: colorList.HexToString() ?? "#F8D749", memories: []))
                 }
+                viewModel.colorChipToEdit = nil
                 viewModel.fetchAllColorChips()
                 self.dismiss()
             } label: {
@@ -68,6 +69,7 @@ struct ColorChipFormView: View {
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
+                    viewModel.colorChipToEdit = nil
                     self.dismiss()
                 } label: {
                     Text("Cancel")
