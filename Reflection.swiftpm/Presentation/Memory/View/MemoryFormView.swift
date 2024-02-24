@@ -29,6 +29,7 @@ struct MemoryFormView: View {
                 Section {
                     PhotosPicker(selection: self.$selectedItem, maxSelectionCount: 1, matching: .images) {
                         showPicture
+                            .accessibilityLabel(Text("PhotosPicker"))
                     }
                 }  header: {
                     Text("A Piece of Memory")
