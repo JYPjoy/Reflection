@@ -1,10 +1,10 @@
 import SwiftUI
 
-// TODO: empty랑 memorycontainer 겹쳐보이는 현상 해결 -> 앱 빌드하면 그렇게 보임
 // TODO: 편집, 삭제 시 바뀌기 전의 정보가 겹쳐 보이는 문제 발생
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
-    @State private var colorChipMemories: [Memory] = []
+   // @State private var colorChipMemories: [Memory] = []
+    @State private var isLoading = true
     
     @State private var createNewMemory = false
     @State private var deleteMemory = false
@@ -25,15 +25,24 @@ struct MemoryOverView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                if !viewModel.specificColorChipMemories.isEmpty {
-                    memoryContainer
+                if isLoading {
+                    //TODO: 시간 되면 바꾸기
+                    ProgressView("Loading...")
+                        .tint(.System.systemBlack)
+                        .scaleEffect(1.5)
+                        .frame(width: geometry.size.width)
+                        .frame(minHeight: geometry.size.height)
                 } else {
-                    emptyView
-                    .padding()
-                    .frame(width: geometry.size.width)
-                    .frame(minHeight: geometry.size.height)
+                        if !viewModel.specificColorChipMemories.isEmpty {
+                            memoryContainer
+                        } else {
+                            emptyView
+                                .padding()
+                                .frame(width: geometry.size.width)
+                                .frame(minHeight: geometry.size.height)
+                        }
+                    }
                 }
-            }
         }
         .navigationTitle(Text("Memories of " + colorChip.colorName))
         .toolbar(content: {
@@ -58,7 +67,10 @@ struct MemoryOverView: View {
         }
         .onAppear(perform: {
             viewModel.specificColorChip = colorChip
-            viewModel.fetchSpecificColorChipMemories()
+            viewModel.fetchSpecificColorChipMemories(colorChip)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isLoading = false
+            }
         })
     }
     // MARK: - Inner Container
