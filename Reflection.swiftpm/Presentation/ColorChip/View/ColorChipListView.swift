@@ -78,6 +78,7 @@ struct ColorChipListView: View {
                             .padding(.leading, 10)
                             .font(.title3).bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
+               
                         Spacer()
                         Text(item.colorList)
                             .padding(.leading, 10)

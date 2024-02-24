@@ -81,15 +81,6 @@ struct ConverterView: View {
             .padding()
         }
         .navigationTitle(Text("Color Converter"))
-//        .toolbar(content: {
-//            ToolbarItem(placement: .topBarTrailing) {
-//                Button(action: {
-//                    // TODO: Sheet 등장하며 hex랑 RGB 간의 관계 정의하도록 하기
-//                }, label: {
-//                    Image(systemName: "questionmark.circle").fontWeight(.bold)
-//                })
-//            }
-//        })
     }
     
     // HEX ➡️ RGB
