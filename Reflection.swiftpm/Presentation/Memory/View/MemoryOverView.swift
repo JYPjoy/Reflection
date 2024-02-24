@@ -57,8 +57,8 @@ struct MemoryOverView: View {
         }
         .onAppear(perform: {
             viewModel.specificColorChip = colorChip
-            viewModel.specificColorChipMemories = colorChip.memories
-            colorChipMemories = colorChip.memories
+            viewModel.fetchSpecificColorChipMemories()
+            colorChipMemories = viewModel.specificColorChipMemories
         })
     }
     

@@ -4,7 +4,7 @@ import Combine
 final class MemoryViewModel: ObservableObject {
 
     @Published public var specificColorChip: ColorChip?
-    @Published public  var specificColorChipMemories: [Memory] = []
+    @Published public var specificColorChipMemories: [Memory] = []
     
     @Published private(set) var memoriesToAdd: [Memory] = []
     @Published public var memoryToEdit: Memory?
@@ -78,7 +78,19 @@ final class MemoryViewModel: ObservableObject {
             }
             .store(in: &self.cancellables)
     }
-
+    
+    func fetchSpecificColorChipMemories() {
+        guard let specificColorChipMemories = self.specificColorChip else {return}
+        self.colorChipUseCase.fetchSpecificColorChip(specificColorChipMemories)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { colorChip in
+                self.specificColorChipMemories = colorChip.memories
+            }
+            .store(in: &self.cancellables)
+    }
+    
     func updateColorChip() {
         guard let colorChipToAdd = self.specificColorChip else { return }
         

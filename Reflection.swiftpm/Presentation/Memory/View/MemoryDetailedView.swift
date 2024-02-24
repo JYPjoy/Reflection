@@ -2,6 +2,8 @@
 import SwiftUI
 
 struct MemoryDetailedView: View {
+    @ObservedObject var viewModel = MemoryViewModel()
+    @State private var detailedMemory: Memory?
     let memory: Memory
     
     var body: some View {
@@ -12,9 +14,6 @@ struct MemoryDetailedView: View {
                     Text("메모리디테일")
                 }
             }
-        }
-        .onAppear {
-            Log.d(memory)
         }
     }
 }
