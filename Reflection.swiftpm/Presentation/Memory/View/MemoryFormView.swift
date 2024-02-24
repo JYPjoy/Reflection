@@ -105,6 +105,9 @@ struct MemoryFormView: View {
                 memoryReflection = memoryToEdit.reflection
             }
         }
+        .onDisappear {
+            self.memoryToEdit = nil
+        }
     }
     
     // Loads a `Transferable` object using a representation of the item by matching content types.

@@ -61,6 +61,9 @@ struct ColorChipFormView: View {
                 colorList = Color(hex:colorChipToEdit.colorList)
             }
         }
+        .onDisappear(perform: {
+            colorChipToEdit = nil
+        })
         .navigationTitle(navigationTitle)
         .toolbar(content: {
             ToolbarItem(placement: .topBarTrailing) {
