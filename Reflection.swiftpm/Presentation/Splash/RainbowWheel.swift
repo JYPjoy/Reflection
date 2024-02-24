@@ -11,10 +11,10 @@ struct RainbowWheel: View {
                 Circle()
                     .stroke(style: StrokeStyle(lineWidth: 100, dash: [30]))
                     .fill(AngularGradient(colors: [.red, .green, .blue], center: .center))
-                    .frame(width: 500, height: 500)
+                    .frame(width: 515, height: 515)
                     .rotationEffect(.degrees(rotation))
                     .animation(.linear(duration: 5).speed(0.5)
-                               , value: rotation) // .repeatForever(autoreverses: false)
+                               , value: rotation)
                     .onAppear{rotation = 180}
                 Spacer()
             }
