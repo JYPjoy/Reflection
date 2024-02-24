@@ -12,6 +12,8 @@ struct ColorChipFormView: View {
     
     @State private(set) var colorName: String = ""
     @State private(set) var colorList: Color = Color(hex: "#F8D749")
+    
+
 
     var body: some View {
         VStack {
@@ -27,7 +29,10 @@ struct ColorChipFormView: View {
                 // SECTION 2
                 Section {
                     ColorPicker("Selected Color", selection: self.$colorList, supportsOpacity: false)
+                        .accessibility(label: Text("Color Picker"))
                     Text("Selected Color is " + (self.colorList.HexToString() ?? "") )
+                        .accessibilityLabel("Selected Color is" + ColorManager.shared.hexToRGBAccessibility(hex: (self.colorList.HexToString() ?? "")))
+                        
                 } header: { Text("Select the color") }
             }
             
