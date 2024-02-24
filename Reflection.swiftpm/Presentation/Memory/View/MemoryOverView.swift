@@ -1,6 +1,6 @@
 import SwiftUI
 
-// ContextMenu: 삭제, 편집
+// TODO: empty랑 memorycontainer 겹쳐보이는 현상 해결 -> 앱 빌드하면 그렇게 보임
 struct MemoryOverView: View {
     @ObservedObject var viewModel = MemoryViewModel()
     @State private var colorChipMemories: [Memory] = []
@@ -58,7 +58,6 @@ struct MemoryOverView: View {
         .onAppear(perform: {
             viewModel.specificColorChip = colorChip
             viewModel.fetchSpecificColorChipMemories()
-            colorChipMemories = viewModel.specificColorChipMemories
         })
     }
     
