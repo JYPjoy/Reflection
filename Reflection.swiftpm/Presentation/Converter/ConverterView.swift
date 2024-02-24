@@ -67,10 +67,15 @@ struct ConverterView: View {
                 
                 Rectangle()
                     .stroke(Color.System.systemBlack, lineWidth: 5)
+                    .foregroundStyle(Color.System.systemWhite)
+                    .backgroundStyle(Color.System.systemWhite)
                     .frame(height: 200)
                     .overlay {
-                        Text("설명")
+                        Text("RGB is consist of combinations of red, green, and blue, each ranging from 0 to 255.\n For example, white is represented as 255, 255, 255. And black is represented as 0, 0, 0.\n \n \nA HEX color is expressed as a six-digit combination of numbers(0-9) and letters(A-F) defined by its mix of red, green and blue (RGB). For example, white is #FFFFFF.")
+                            .font(.body)
+                        
                     }
+                
                     .padding([.leading, .trailing], 100)
             }
             .padding()
