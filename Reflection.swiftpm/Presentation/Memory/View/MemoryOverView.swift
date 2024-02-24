@@ -68,7 +68,7 @@ struct MemoryOverView: View {
         ScrollView{
             LazyVGrid(columns: column, spacing: 5) {
                 ForEach(viewModel.specificColorChipMemories, id: \.self) { item in
-                    NavigationLink(value:NavigatingCoordinator.memoryDetailView) {
+                    NavigationLink(value:NavigatingCoordinator.memoryDetailView(memory: item)) {
                         if let picture = item.picture, let pictureImage = UIImage(data: picture) {
                             Image(uiImage: pictureImage)
                                 .resizable()
