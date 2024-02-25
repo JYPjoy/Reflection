@@ -3,18 +3,10 @@ import SwiftUI
 
 struct MemoryDetailedView: View {
     @ObservedObject var viewModel = MemoryViewModel()
-    @State var dateString = ""
+    @State private(set) var dateString = ""
  
     let memory: Memory
     let colorChip: ColorChip
-    
-    static var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd" // HH:mm
-        formatter.locale = Locale.current
-        formatter.timeZone = TimeZone.current
-        return formatter
-    }
     
     var body: some View {
         ScrollView {
@@ -63,9 +55,10 @@ struct MemoryDetailedView: View {
                                 .font(.largeTitle)
                                 .foregroundStyle(Color.black).bold()
                             
-                            Text(dateString)
+                            Text(formattedDate(memory.date))
                                 .font(.callout)
                                 .foregroundStyle(Color.black)
+                               
                         }
                         .padding([.leading, .trailing], 30)
                     }
@@ -77,17 +70,19 @@ struct MemoryDetailedView: View {
                         Text(memory.reflection).font(.body).padding()
                     }
                     .border(Color.black, width: 0.5)
-                    //.padding()
-            
                 }
                 .padding([.leading, .trailing], 200)
                 .padding([.top, .bottom], 40)
                 Spacer().frame(height: 40)
             }
-            .onAppear {
-                dateString = MemoryDetailedView.dateFormatter.string(for: memory.date) ?? ""
-            }
         }
+    }
+    
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
     }
 }
 
