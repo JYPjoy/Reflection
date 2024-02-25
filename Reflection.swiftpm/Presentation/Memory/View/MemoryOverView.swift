@@ -98,7 +98,6 @@ struct MemoryOverView: View {
                     }
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text(item.title))
-                    
                     .contextMenu(menuItems: {
                         Button(role: .destructive, action: {
                             withAnimation {
