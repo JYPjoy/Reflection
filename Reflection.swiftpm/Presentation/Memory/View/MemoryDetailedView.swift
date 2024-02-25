@@ -33,6 +33,7 @@ struct MemoryDetailedView: View {
                                 Rectangle()
                                     .foregroundColor(.Text.text90)
                                     .aspectRatio(1, contentMode: .fit)
+                                    .frame(width: 350, height: 350)
                                 Image(systemName: "photo")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
