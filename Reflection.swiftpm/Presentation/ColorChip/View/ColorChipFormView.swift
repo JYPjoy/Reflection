@@ -1,6 +1,5 @@
 import SwiftUI
 
-// TODO: 버튼 비활성화(블랙 회색 색상도), 더 친절한 form이 되도록 안내 문구 함께 나오도록 하기
 struct ColorChipFormView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: ColorChipViewModel
