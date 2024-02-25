@@ -49,7 +49,7 @@ struct MemoryFormView: View {
                                selection: self.$memoryDate,
                                in: ...Date(), displayedComponents: .date)
                         //.environment(\.timeZone, TimeZone.current)
-                    Text("\(memoryDate)")
+//                    Text("\(memoryDate)")
                 }  header: {
                     Text("Basic Information")
                 }
