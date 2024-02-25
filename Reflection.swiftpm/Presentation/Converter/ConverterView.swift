@@ -15,7 +15,9 @@ struct ConverterView: View {
                 
                 // HEX
                 HStack(spacing: 10) {
-                    Image(systemName: "number").font(.title2).bold()
+                    Image(systemName: "number")
+                        .font(.title2).bold()
+                        .accessibilityHidden(true)
                     TextField("HEX(ex: F8D749)", text: self.$hexColor)
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
@@ -28,6 +30,7 @@ struct ConverterView: View {
                                 rgbColor = String(newValue.prefix(newValue.count - 1))
                             }
                         }
+                        .accessibilityLabel(ColorManager.shared.hexToRGBAccessibility(hex: "#" + hexColor))
                 }
                 .padding()
                 .background(.white)
@@ -39,8 +42,10 @@ struct ConverterView: View {
                 
                 // RGB
                 HStack(spacing: 10) {
-                    Image(systemName: "paintbrush").font(.title2).bold()
-                    TextField("RGB(ex: 248,215,73)", text: self.$rgbColor) //#달려야 함
+                    Image(systemName: "paintbrush")
+                        .font(.title2).bold()
+                        .accessibilityHidden(true)
+                    TextField("RGB(ex: 248,215,73)", text: self.$rgbColor)
                         .font(.title2).bold()
                         .padding([.leading, .trailing], 30)
                         .frame(width: 600, height: 50)
@@ -53,8 +58,9 @@ struct ConverterView: View {
                                 backgroundColor = Color(hex: "#" + ColorManager.shared.rgbToHex(r: rgbArray[0], g: rgbArray[1], b: rgbArray[2]))
                                 hexColor = ColorManager.shared.rgbToHex(r: rgbArray[0], g: rgbArray[1], b: rgbArray[2])
                             }
-                            
                         }
+                        .accessibilityLabel(ColorManager.shared.rgbToAccessibility(rgbColor))
+                     
                 }
                 .padding()
                 .background(.white)
@@ -70,8 +76,7 @@ struct ConverterView: View {
                        // .background(Color.white) // 배경색 설정
                         .foregroundStyle(Color.System.systemWhite)
          
-                    
-                    Text("When you enter a hex Color(without the #) on first input field, it will automatically convert into RGB on second input field. \nSimilarly, When you enter an RGB color on second input field, it automatically convert into a hex  Color. Just try it!\n\nIf you want to know more about RGB and HEX, then click the Question Mark on the top right side of toolbar.")
+                    Text("When you enter a hex Color(without the #) on first input field, it will automatically convert into RGB on second input field. \nSimilarly, When you enter an RGB color on second input field, it automatically convert into a hex  Color. Just try it!\n\nIf you want to know more about RGB and HEX, then click the Help button on the top right side of toolbar.")
                         .font(.body)
                         .padding(25)
                 }
@@ -87,6 +92,7 @@ struct ConverterView: View {
                     self.showSheet.toggle()
                 }, label: {
                     Image(systemName: "questionmark.circle").fontWeight(.bold)
+                        .accessibilityLabel("Help")
                 })
             }
         })

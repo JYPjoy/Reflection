@@ -18,6 +18,11 @@ final class ColorManager {
         return "\(r), \(g), \(b)"
     }
     
+    // RGB ➡️ HEX
+    func rgbToHex(r: Int, g: Int, b: Int) -> String {
+        let hexString = String(format: "%02x%02x%02x", r, g, b)
+        return hexString
+    }
     
     func hexToRGBAccessibility(hex: String) -> String {
         let scanner = Scanner(string: hex)
@@ -33,11 +38,15 @@ final class ColorManager {
         return "Red\(r), Green\(g), Blue\(b)"
     }
     
-    
-    // RGB ➡️ HEX
-    func rgbToHex(r: Int, g: Int, b: Int) -> String {
-        let hexString = String(format: "%02x%02x%02x", r, g, b)
-        return hexString
+    func rgbToAccessibility(_ rgbColor: String) -> String {
+        var result = ""
+        let rgbArray = rgbColor.components(separatedBy: ",")
+                              .prefix(3)
+                              .compactMap { Int($0.trimmingCharacters(in: .whitespaces)) }
+   
+        if rgbArray.count == 3, rgbArray.allSatisfy({ 0...255 ~= $0 }){
+            result = "Red\(rgbArray[0]), Green\(rgbArray[1]), Blue\(rgbArray[2])"
+        }
+        return result
     }
-    
 }
