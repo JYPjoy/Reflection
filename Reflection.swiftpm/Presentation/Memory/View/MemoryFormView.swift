@@ -20,14 +20,7 @@ struct MemoryFormView: View {
     
     @State private(set) var showAlert: Bool = false
     
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        formatter.locale = Locale.current
-        formatter.timeZone = TimeZone.current
-        return formatter
-    }()
-    
+
     var body: some View {
         VStack {
             // MARK: - Form
