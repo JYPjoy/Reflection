@@ -25,7 +25,6 @@ struct MemoryOverView: View {
         GeometryReader { geometry in
             ScrollView {
                 if isLoading {
-                    //TODO: 시간 되면 바꾸기
                     ProgressView("Loading...")
                         .tint(.System.systemBlack)
                         .scaleEffect(1.5)
@@ -82,6 +81,7 @@ struct MemoryOverView: View {
                                 .resizable()
                                 .aspectRatio(1, contentMode: .fit)
                                 .clipped()
+                                .accessibilityLabel(Text(item.title))
                         } else {
                             ZStack {
                                 Rectangle()
@@ -92,6 +92,7 @@ struct MemoryOverView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 100, height: 100)
                                     .foregroundColor(.Main.main10)
+                                    .accessibilityLabel("Photo")
                             }
                         }
     
