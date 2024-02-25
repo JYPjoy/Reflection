@@ -13,7 +13,9 @@ struct ColorChipFormView: View {
     @State private(set) var colorName: String = ""
     @State private(set) var colorList: Color = Color(hex: "#F8D749")
     
-
+    var isValidateForm: Bool {
+        !colorName.isEmpty
+    }
 
     var body: some View {
         VStack {
@@ -52,8 +54,9 @@ struct ColorChipFormView: View {
                     .frame(maxWidth: .infinity, minHeight: 20)
        
             }
-            .disabled(colorName.isEmpty)
             .blackButton()
+            .opacity(isValidateForm ? 1 : 0.5)
+            .disabled(colorName.isEmpty)
             .padding(30)
         }
         .onAppear {

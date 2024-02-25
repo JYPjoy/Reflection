@@ -1,6 +1,5 @@
 import SwiftUI
 
-// TODO: ContextMenu Accessibility 어떻게 적용하지?
 struct ColorChipListView: View {
     
     @ObservedObject var viewModel = ColorChipViewModel()
