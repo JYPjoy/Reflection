@@ -3,6 +3,8 @@ import SwiftUI
 struct OnboardingView: View {
     
     @Binding var currentView: Int
+    @ObservedObject var viewModel: OnboardingViewModel
+    
     
     var body: some View {
         ZStack {

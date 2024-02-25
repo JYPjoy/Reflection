@@ -30,7 +30,7 @@ struct ContentView: View {
                 } // backgroundColor 바꾸기 가능
             }
         } else {
-            OnboardingView(currentView: self.$currentView)
+            OnboardingView(currentView: self.$currentView, viewModel: OnboardingViewModel())
         }
     }
 }
