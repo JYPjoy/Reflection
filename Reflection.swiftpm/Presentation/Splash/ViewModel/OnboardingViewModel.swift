@@ -3,6 +3,9 @@ import Combine
 
 final class OnboardingViewModel: ObservableObject {
     
+    @Published public var exampleColorChip: ColorChip?
+    @Published private(set) var memoriesToAdd: [Memory] = []
+    
     private var cancellables: Set<AnyCancellable> = .init()
     private let memoryUseCase: MemoryUseCaseProtocol
     private let colorChipUseCase: ColorChipUseCaseProtocol
@@ -14,10 +17,12 @@ final class OnboardingViewModel: ObservableObject {
     
     func didTapMakeColorChip(colorChip: ColorChip) {
         self.colorChipUseCase.insertColorChip(colorChip)
+            .receive(on: RunLoop.main)
             .sink { completion in
                 print(completion)
             } receiveValue: { colorChip in
                 Log.t(colorChip)
+                self.exampleColorChip = colorChip
             }
             .store(in: &self.cancellables)
     }
@@ -27,8 +32,25 @@ final class OnboardingViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { completion in
                 print(completion)
-            } receiveValue: { memory in
-                Log.t(memory)
+            } receiveValue: { [weak self] memory in
+                self?.memoriesToAdd.insert(memory, at: Int.zero)
+                self?.updateColorChip()
+                self?.memoriesToAdd = []
+            }
+            .store(in: &self.cancellables)
+    }
+    
+    func updateColorChip() {
+        guard let colorChipToAdd = self.exampleColorChip else { return }
+        
+        let newColorChip = ColorChip(id: colorChipToAdd.id, colorName: colorChipToAdd.colorName, colorList: colorChipToAdd.colorList, memories: memoriesToAdd)
+        
+        self.colorChipUseCase.updateColorChip(newColorChip)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { colorChip in
+                Log.d(colorChip)
             }
             .store(in: &self.cancellables)
     }
