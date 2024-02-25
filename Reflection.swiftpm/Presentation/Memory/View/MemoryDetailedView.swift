@@ -4,7 +4,9 @@ import SwiftUI
 struct MemoryDetailedView: View {
     @ObservedObject var viewModel = MemoryViewModel()
     @State var dateString = ""
+ 
     let memory: Memory
+    let colorChip: ColorChip
     
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
