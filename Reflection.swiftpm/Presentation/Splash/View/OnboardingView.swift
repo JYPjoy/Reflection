@@ -7,7 +7,8 @@ struct OnboardingView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            Color.System.systemBlack
+            VStack(spacing: 20) {
                 switch self.currentView {
                 case 0: firstView
                 case 1: secondView
@@ -22,37 +23,169 @@ struct OnboardingView: View {
                             currentView += 1
                         } else { //3
                             currentView += 1
-                            Log.d("객체 생성")
                         }
                     }
-
                 } label: {
-                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+                    Text("Next")
+                        .frame(maxWidth: .infinity, minHeight: 20)
+                        .font(.title2)
                 }
                 .mainButton()
+                .font(.title)
+                .padding([.leading, .trailing], 50)
+                .padding([.bottom], 100)
+                
             }
         }
     }
     
     var firstView: some View { //컬러칩
-        Text("하이1")
+        VStack(spacing: 20){
+            HStack {
+                Text("Make your own Color Chip")
+                    .bold()
+                    .font(.title)
+                    .foregroundColor(.System.systemWhite)
+                
+                Spacer()
+            }
+            .padding(30)
+            .padding(.top, 30)
+            
+            
+            HStack {
+                Text("Build your own Color Chip with distinct names on it!")
+                    .bold()
+                    .font(.title2)
+                    .foregroundColor(.System.systemWhite)
+                
+                Spacer()
+            }
+            .padding(30)
+            .padding(.top, 30)
+            
+            Image("rainbow")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 600)
+                .accessibilityHidden(true)
+            
+            Spacer()
+        }
     }
 
         
     var secondView: some View { //메모리 + 상세 메모리
-        Text("하이2")
+        VStack(spacing: 20){
+            HStack {
+                Text("Reflect from your memories")
+                    .bold()
+                    .font(.title)
+                    .foregroundColor(.System.systemWhite)
+                
+                Spacer()
+            }
+            .padding(30)
+            .padding(.top, 30)
+            
+            
+            HStack {
+                Text("Reflect from your memories of the Color, and Make your own schema") //스키마 풀어 쓰기
+                    .bold()
+                    .font(.title2)
+                    .foregroundColor(.System.systemWhite)
+                
+                Spacer()
+            }
+            .padding(30)
+            .padding(.top, 30)
+            
+            Image("rainbow")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 600)
+                .accessibilityHidden(true)
+            
+            Spacer()
+        }
+         
     }
     
     var thirdView: some View { // 컨버터
-        Text("하이3")
-            .onAppear {
-                viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "테스트", colorList: "테스트", memories: [Memory(id: UUID(), title: "하이", date: Date(), reflection: "하이")]))
+        
+        VStack(spacing: 20){
+            HStack {
+                Text("Color Converter")
+                    .bold()
+                    .font(.title)
+                    .foregroundColor(.System.systemWhite)
                 
-                viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "rainbow")?.pngData(), title: "타이틀", date: Date(), reflection: "감상"))
+                Spacer()
             }
+            .padding(30)
+            .padding(.top, 30)
+            
+            
+            HStack {
+                Text("Reflect from your memories of the Color, and Make your own schema")
+                    .bold()
+                    .font(.title2)
+                    .foregroundColor(.System.systemWhite)
+                
+                Spacer()
+            }
+            .padding(30)
+            .padding(.top, 30)
+            
+            Image("rainbow")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 600)
+                .accessibilityHidden(true)
+            
+            Spacer()
+        }
+        .onAppear {
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "테스트", colorList: "테스트", memories: [Memory(id: UUID(), title: "하이", date: Date(), reflection: "하이")]))
+            
+            viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "rainbow")?.pngData(), title: "타이틀", date: Date(), reflection: "감상"))
+        }
+
     }
     
-    var fourthView: some View { //example 넣었다, 어떤 환경에서 구동?
-        Text("하이4")
+    var fourthView: some View { //example 넣었다, 어떤 환경에서 구동? (12.9)
+        
+        VStack(spacing: 20){
+            HStack {
+                Text("Let's get started!")
+                    .bold()
+                    .font(.title)
+                    .foregroundColor(.System.systemWhite)
+                
+                Spacer()
+            }
+            .padding(30)
+            .padding(.top, 30)
+            
+            
+            HStack {
+                Text("Please view this on an iPad Pro 12.9 device. To help your understanding, I added some examples. \nAre you ready to start? Then Let's get started!")
+                    .bold()
+                    .font(.title2)
+                    .foregroundColor(.System.systemWhite)
+                
+                Spacer()
+            }
+            .padding(30)
+            .padding(.top, 30)
+            
+            Image("rainbow")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 600)
+                .accessibilityHidden(true)
+            
+            Spacer()
+        }
     }
 }
