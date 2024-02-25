@@ -18,9 +18,10 @@ struct MemoryFormView: View {
     @State private(set) var memoryDate: Date = Date()
     @State private(set) var memoryReflection: String = ""
     
-    @State private(set) var showAlert: Bool = false
+    var isValidateForm: Bool {
+        !memoryTitle.isEmpty && !memoryReflection.isEmpty
+    }
     
-
     var body: some View {
         VStack {
             // MARK: - Form
@@ -42,7 +43,6 @@ struct MemoryFormView: View {
                                selection: self.$memoryDate,
                                in: ...Date(), displayedComponents: .date)
                         //.environment(\.timeZone, TimeZone.current)
-//                    Text("\(memoryDate)")
                 }  header: {
                     Text("Basic Information")
                 }
@@ -56,8 +56,6 @@ struct MemoryFormView: View {
                     Text("Reflection")
                 }
             }
-            
-            Text(showAlert ? "모든 필드" : "")
             
             // MARK: - Button
             Button {
@@ -75,7 +73,8 @@ struct MemoryFormView: View {
                     .frame(maxWidth: .infinity, minHeight: 20)
             }
             .blackButton()
-            .disabled(showAlert == true)
+            .opacity(isValidateForm ? 1 : 0.5)
+            .disabled(!isValidateForm)
             .padding(30)
         }
         .navigationTitle(navigationTitle)

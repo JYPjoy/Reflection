@@ -56,7 +56,7 @@ struct ColorChipFormView: View {
             }
             .blackButton()
             .opacity(isValidateForm ? 1 : 0.5)
-            .disabled(colorName.isEmpty)
+            .disabled(!isValidateForm)
             .padding(30)
         }
         .onAppear {
