@@ -1,9 +1,11 @@
 import SwiftUI
 
 struct ConverterView: View {
+    @Environment(\.dismiss) var dismiss
     @State private(set) var backgroundColor: Color = .white
     @State private(set) var hexColor: String = "FFFFFF"
     @State private(set) var rgbColor: String = "255,255,255"
+    @State private(set) var showSheet: Bool = false
     
     var body: some View {
         
@@ -65,21 +67,33 @@ struct ConverterView: View {
                 ZStack {
                     Rectangle()
                         .stroke(Color.black, lineWidth: 5) // 테두리 색상 및 두께 지정
-                        .background(Color.white) // 배경색 설정
+                       // .background(Color.white) // 배경색 설정
                         .foregroundStyle(Color.System.systemWhite)
-                        .frame(height: 380)
+         
                     
-                    Text("RGB defines the values of red(first number), green(second number), or blue(third number). The number 0 signifies no representation of the color and 255 signifies the highest possible concentration of the color. For example, white is represented as 255, 255, 255. And black is represented as 0, 0, 0.\n\nHex color codes start with a hashtag (#) and are followed by six letters and numbers. The first two refer to red, the next two refer to green, and the last two refer to blue. The color values are defined in values between 00 and FF.For example, white is represented as #ffffff, and black is represented as #000000.\n\nFor more details, try it by yourself on the box above. When you enter a hex Color(without the #), it will automatically convert into RGB. Similarly, When you enter an RGB color, it automatically convert into a hex  Color. Just try it!")
+                    Text("When you enter a hex Color(without the #) on first input field, it will automatically convert into RGB on second input field. \nSimilarly, When you enter an RGB color on second input field, it automatically convert into a hex  Color. Just try it!\n\nIf you want to know more about RGB and HEX, then click the Question Mark on the top right side of toolbar.")
                         .font(.body)
                         .padding(25)
                 }
                 .padding([.leading, .trailing], 50)
+                .frame(height: 200)
             }
             .padding()
         }
         .navigationTitle(Text("Color Converter"))
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    self.showSheet.toggle()
+                }, label: {
+                    Image(systemName: "questionmark.circle").fontWeight(.bold)
+                })
+            }
+        })
+        .sheet(isPresented: self.$showSheet) {
+            NavigationStack {
+                ConverterDetailView()
+            }
+        }
     }
-    
-
 }
-
