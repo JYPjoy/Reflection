@@ -146,11 +146,11 @@ struct OnboardingView: View {
             Spacer()
         }
         .onAppear {
-            // #1 Lively Green, #dfe772
+            // #1 Lively Green, #dbe1af
             /* 스티브잡스 씨어터 - 청각: 생상스 - The Carnival of the Animals - Finale,
                 아보카도 - 부드러운 맛(촉각)
              */
-            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "A Lively Green", colorList: "#dfe772", memories: []))
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "A Lively Green", colorList: "#dbe1af", memories: []))
             
             // The Carnival of the Animals - Finale
             viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "stevejobstheater")?.pngData(), title: "Apple Park's green", date: Date(), reflection: "At WWDC23, I have had a chance to look toward Apple Park in front of Steve Jobs Theater. Apple Park was surrounded by various grasses and trees. It was so fabulous!  That green color reminds me of ‘Saint-Saens: Carnival of the Animals-Finale’. I felt so cheerful, and full of joy."))
