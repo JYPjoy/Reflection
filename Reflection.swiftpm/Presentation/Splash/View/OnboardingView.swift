@@ -54,7 +54,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Build your own Color Chip with distinct names on it!")
+                Text("Make your own Color Chip with distinct names on it!")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
@@ -90,7 +90,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Reflect from your memories of the Color, and Make your own color language")
+                Text("Reflect from your memories of the Color, and make your own color language.")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
@@ -127,7 +127,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Can convert RGB colors to Hex colors, and vice versa, in ConverterView")
+                Text("Can convert Hex colors to RGB colors, and vice versa, in Converter Tab")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
@@ -148,7 +148,6 @@ struct OnboardingView: View {
         .onAppear {
             // #1 Lively Green, #dbe1af
             /* 스티브잡스 씨어터 - 청각: 생상스 - The Carnival of the Animals - Finale,
-                아보카도 - 부드러운 맛(촉각)
              */
             viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "A Lively Green", colorList: "#dbe1af", memories: []))
             
@@ -169,7 +168,7 @@ struct OnboardingView: View {
              */
             viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "ChillyBlue", colorList: "#074A90", memories: []))
             
-            viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "ulleungdo")?.pngData(), title: "Chily Ulleungdo", date: Date(), reflection: "Today I came to Ulleungdo. It was windy and the water was cool. I felt refreshing. I think blue is a feeling of chilly."))
+            viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "ulleungdo")?.pngData(), title: "Ulleungdo", date: Date(), reflection: "Today I went to Ulleungdo, which is an island located in eastern part of Korea. The weather was windy and the water was so cool. I felt refreshing. I think blue is a feeling of chilly."))
             
             
             // #4 Tickle me Pink, #FC80A5
@@ -197,7 +196,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Please view this on an iPad Pro 12.9 device. To help your understanding, I added some examples. \nAre you ready to start? Then Let's get started!")
+                Text("Please view this app on an iPad Pro 12.9 device. To help your understanding, I added some examples. \nAre you ready to start? Then Let's get started!")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
