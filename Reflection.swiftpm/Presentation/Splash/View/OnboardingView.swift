@@ -127,7 +127,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Reflect from your memories of the Color, and Make your own color language")
+                Text("Can convert RGB colors to Hex colors, and vice versa, in ConverterView")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
@@ -137,7 +137,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("onboarding")
+            Image("onboarding3")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)

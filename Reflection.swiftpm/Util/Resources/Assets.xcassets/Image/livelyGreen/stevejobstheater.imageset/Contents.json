@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "stevejobs_Theather.svg",
-      "idiom" : "universal"
+      "filename" : "stevejobstheater.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "stevejobstheater@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "stevejobstheater@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
