@@ -39,6 +39,7 @@ struct MemoryFormView: View {
                     DatePicker("Date", 
                                selection: self.$memoryDate,
                                in: ...Date(), displayedComponents: .date)
+                    Text(formattedDate(memoryDate))
                         //.environment(\.timeZone, TimeZone.current)
                 }  header: {
                     Text("Basic Information")
@@ -57,7 +58,7 @@ struct MemoryFormView: View {
             // MARK: - Button
             Button {
                 if self.memoryToEdit == nil {
-                    self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: memoryPicture, title: memoryTitle, date: Date(), reflection: memoryReflection))
+                    self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: memoryPicture, title: memoryTitle, date: memoryDate, reflection: memoryReflection))
                 } else {
                     guard let memoryToEditId = memoryToEdit?.id else {return}
                     self.viewModel.updateMemory(Memory(id: memoryToEditId, picture: memoryPicture, title: memoryTitle, date: memoryDate, reflection: memoryReflection))
@@ -101,6 +102,8 @@ struct MemoryFormView: View {
                 memoryTitle = memoryToEdit.title
                 memoryDate = memoryToEdit.date
                 memoryReflection = memoryToEdit.reflection
+                
+                
             }
         }
         .onDisappear {
@@ -154,5 +157,12 @@ struct MemoryFormView: View {
                     .frame(maxWidth: .infinity, maxHeight: 250, alignment: .center)
             }
         }
+    }
+    
+    func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
     }
 }
