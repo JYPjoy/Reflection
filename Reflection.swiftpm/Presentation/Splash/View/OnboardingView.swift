@@ -105,7 +105,7 @@ struct OnboardingView: View {
                 .scaledToFit()
                 .frame(width: 600)
                 .accessibilityHidden(true)
-            
+//            
             Spacer()
         }
          
@@ -207,11 +207,6 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-//            Image("stevejobstheater")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 600)
-//                .accessibilityHidden(true)
             
             Spacer()
         }
