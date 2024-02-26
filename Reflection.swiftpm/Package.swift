@@ -8,20 +8,20 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "나의 앱",
+    name: "Reflection",
     platforms: [
         .iOS("16.0")
     ],
     products: [
         .iOSApplication(
-            name: "나의 앱",
+            name: "Reflection",
             targets: ["AppModule"],
             bundleIdentifier: "com.jypjoy.reflection",
             teamIdentifier: "XGHDQG66U5",
             displayVersion: "1.0.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .palette),
-            accentColor: .presetColor(.pink),
+            appIcon: .asset("AppIcon"),
+            accentColor: .asset("AccentColor"),
             supportedDeviceFamilies: [
                 .pad,
                 .phone
@@ -31,6 +31,12 @@ let package = Package(
                 .landscapeRight,
                 .landscapeLeft,
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
+            ],
+            capabilities: [
+                .fileAccess(.pictureFolder, mode: .readOnly),
+                .fileAccess(.userSelectedFiles, mode: .readOnly),
+                .photoLibrary(purposeString: "Select a photo to remember this color"),
+                .photoLibraryAdd(purposeString: "Select a photo to remember this color")
             ]
         )
     ],
