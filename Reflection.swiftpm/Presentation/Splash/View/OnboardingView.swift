@@ -64,7 +64,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("stevejobstheater")
+            Image("onboarding1")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)
@@ -90,7 +90,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Reflect from your memories of the Color, and Make your own schema(a cognitive framework organizes and interprets information in the human mind.).") //스키마 풀어 쓰기
+                Text("Reflect from your memories of the Color, and Make your own color language")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
@@ -100,7 +100,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("stevejobstheater")
+            Image("onboarding2")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)
@@ -137,7 +137,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("stevejobstheater")
+            Image("onboarding")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)
@@ -159,18 +159,24 @@ struct OnboardingView: View {
             // #(2) FluffyGreen, #409310
             /* 레인보우 브릿지 - 촉각, 시각 (거대한 초록 빛의 카펫 - 폭신폭신)
              */
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "FluffyGreen", colorList: "#409310", memories: []))
+            
             
             // #3 ChillyBlue, #074A90
             /*
              이카루스 : Tactile Masterpiece Exhibition
              울릉도: Ulleung_island
              */
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "ChillyBlue", colorList: "#074A90", memories: []))
+            
+            viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "ulleungdo")?.pngData(), title: "Chily Ulleungdo", date: Date(), reflection: "Today I came to Ulleungdo. It was windy and the water was cool. I felt refreshing. I think blue is a feeling of chilly."))
             
             
             // #4 Tickle me Pink, #FC80A5
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "Tickle me Pink", colorList: "#FC80A5", memories: []))
             
             // #5 golden-brown sweet potato, #FC80A5
-            
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "golden-brown sweet potato", colorList: "#F8D749", memories: []))
         }
 
     }
@@ -201,11 +207,11 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("stevejobstheater")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 600)
-                .accessibilityHidden(true)
+//            Image("stevejobstheater")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 600)
+//                .accessibilityHidden(true)
             
             Spacer()
         }
