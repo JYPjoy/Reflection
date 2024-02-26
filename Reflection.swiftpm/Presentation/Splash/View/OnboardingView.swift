@@ -64,7 +64,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("rainbow")
+            Image("stevejobstheater")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)
@@ -137,7 +137,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("rainbow")
+            Image("stevejobstheater")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)
@@ -150,10 +150,10 @@ struct OnboardingView: View {
             /* 스티브잡스 씨어터 - 청각: 생상스 - The Carnival of the Animals - Finale,
                 아보카도 - 부드러운 맛(촉각)
              */
-            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "테스트", colorList: "#dfe772", memories: [Memory(id: UUID(), title: "하이", date: Date(), reflection: "하이")]))
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "A Lively Green", colorList: "#dfe772", memories: []))
             
             // The Carnival of the Animals - Finale
-            viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "rainbow")?.pngData(), title: "타이틀", date: Date(), reflection: "감상"))
+            viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "stevejobstheater")?.pngData(), title: "Apple Park's green", date: Date(), reflection: "At WWDC23, I have had a chance to look toward Apple Park in front of Steve Jobs Theater. Apple Park was surrounded by various grasses and trees. It was so fabulous!  That green color reminds me of ‘Saint-Saens: Carnival of the Animals-Finale’. I felt so cheerful, and full of joy."))
             
             
             // #(2) FluffyGreen, #409310
@@ -201,7 +201,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("rainbow")
+            Image("stevejobstheater")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)
