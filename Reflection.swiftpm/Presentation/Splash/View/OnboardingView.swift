@@ -156,14 +156,14 @@ struct OnboardingView: View {
             viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "rainbow")?.pngData(), title: "타이틀", date: Date(), reflection: "감상"))
             
             
-            // #2 FluffyGreen, #409310
+            // #(2) FluffyGreen, #409310
             /* 레인보우 브릿지 - 촉각, 시각 (거대한 초록 빛의 카펫 - 폭신폭신)
              */
             
-            // #3 ChillyBlue,
+            // #3 ChillyBlue, #074A90
             /*
-             이카루스 :
-             울릉도
+             이카루스 : Tactile Masterpiece Exhibition
+             울릉도: Ulleung_island
              */
             
             

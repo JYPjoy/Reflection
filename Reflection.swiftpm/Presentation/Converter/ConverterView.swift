@@ -73,7 +73,7 @@ struct ConverterView: View {
                 ZStack {
                     Rectangle()
                         .stroke(Color.black, lineWidth: 5) // 테두리 색상 및 두께 지정
-                       // .background(Color.white) // 배경색 설정
+                        .background(Color.white) // 배경색 설정
                         .foregroundStyle(Color.System.systemWhite)
          
                     Text("When you enter a hex Color(without the #) on first input field, it will automatically convert into RGB on second input field. \nSimilarly, When you enter an RGB color on second input field, it automatically convert into a hex  Color. Just try it!\n\nIf you want to know more about RGB and HEX, then click the Help button on the top right side of toolbar.")
