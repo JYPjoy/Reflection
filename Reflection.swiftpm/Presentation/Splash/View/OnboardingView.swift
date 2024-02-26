@@ -90,7 +90,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Reflect from your memories of the Color, and Make your own schema") //스키마 풀어 쓰기
+                Text("Reflect from your memories of the Color, and Make your own schema(a cognitive framework organizes and interprets information in the human mind.).") //스키마 풀어 쓰기
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
@@ -100,7 +100,7 @@ struct OnboardingView: View {
             .padding(30)
             .padding(.top, 30)
             
-            Image("rainbow")
+            Image("stevejobstheater")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 600)
@@ -127,7 +127,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Reflect from your memories of the Color, and Make your own schema")
+                Text("Reflect from your memories of the Color, and Make your own color language")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
@@ -146,9 +146,31 @@ struct OnboardingView: View {
             Spacer()
         }
         .onAppear {
-            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "테스트", colorList: "테스트", memories: [Memory(id: UUID(), title: "하이", date: Date(), reflection: "하이")]))
+            // #1 Lively Green, #dfe772
+            /* 스티브잡스 씨어터 - 청각: 생상스 - The Carnival of the Animals - Finale,
+                아보카도 - 부드러운 맛(촉각)
+             */
+            viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "테스트", colorList: "#dfe772", memories: [Memory(id: UUID(), title: "하이", date: Date(), reflection: "하이")]))
             
+            // The Carnival of the Animals - Finale
             viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "rainbow")?.pngData(), title: "타이틀", date: Date(), reflection: "감상"))
+            
+            
+            // #2 FluffyGreen, #409310
+            /* 레인보우 브릿지 - 촉각, 시각 (거대한 초록 빛의 카펫 - 폭신폭신)
+             */
+            
+            // #3 ChillyBlue,
+            /*
+             이카루스 :
+             울릉도
+             */
+            
+            
+            // #4 Tickle me Pink, #FC80A5
+            
+            // #5 golden-brown sweet potato, #FC80A5
+            
         }
 
     }
