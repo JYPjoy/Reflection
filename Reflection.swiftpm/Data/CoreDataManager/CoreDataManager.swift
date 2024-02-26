@@ -266,6 +266,7 @@ extension CoreDataManager: MemoryManagable {
                    
                    memoryEntity.picture = memory.picture
                    memoryEntity.title = memory.title
+                   memoryEntity.date = memory.date
                    memoryEntity.reflection = memory.reflection
                 
                    try self.backgroundContext.save()

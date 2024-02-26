@@ -39,7 +39,7 @@ struct MemoryFormView: View {
                     DatePicker("Date", 
                                selection: self.$memoryDate,
                                in: ...Date(), displayedComponents: .date)
-                    Text(formattedDate(memoryDate))
+                    //Text(formattedDate(memoryDate)) //TODO: 이 내용 지워야 함
                         //.environment(\.timeZone, TimeZone.current)
                 }  header: {
                     Text("Basic Information")
@@ -60,6 +60,7 @@ struct MemoryFormView: View {
                 if self.memoryToEdit == nil {
                     self.viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: memoryPicture, title: memoryTitle, date: memoryDate, reflection: memoryReflection))
                 } else {
+                    Log.d(memoryDate)
                     guard let memoryToEditId = memoryToEdit?.id else {return}
                     self.viewModel.updateMemory(Memory(id: memoryToEditId, picture: memoryPicture, title: memoryTitle, date: memoryDate, reflection: memoryReflection))
                 }
