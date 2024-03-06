@@ -9,9 +9,9 @@ struct RainbowWheel: View {
             VStack {
                 Spacer()
                 Circle()
-                    .stroke(style: StrokeStyle(lineWidth: 100, dash: [30]))
+                    .stroke(style: StrokeStyle(lineWidth: 80, dash: [30]))
                     .fill(AngularGradient(colors: [.red, .green, .blue], center: .center))
-                    .frame(width: 515, height: 515)
+                    .padding(50)
                     .rotationEffect(.degrees(rotation))
                     .animation(.linear(duration: 5).speed(0.5)
                                , value: rotation)
@@ -21,7 +21,7 @@ struct RainbowWheel: View {
             
             // Typo 효과
             Text("REFLECTION")
-                .font(.largeTitle)
+                .font(.title)
                 .bold()
                 .foregroundStyle(Color.white)
         }
