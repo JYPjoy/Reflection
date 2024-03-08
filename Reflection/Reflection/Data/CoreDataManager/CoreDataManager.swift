@@ -166,8 +166,6 @@ extension CoreDataManager: ColorChipManagable {
                     
                     colorChipEntity.colorName = colorChip.colorName
                     colorChipEntity.colorList = colorChip.colorList
-
-                    //olorChipEntity.memories.forEach{ colorChipEntity.removeFromMemories($0) }
                 
                     colorChipEntity.addToMemories(NSSet(array:self.fetchMemoryEntity(of: colorChip.memories)))
                     
