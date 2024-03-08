@@ -190,11 +190,11 @@ extension CoreDataManager: ColorChipManagable {
                         id as CVarArg
                     )
                     let fetchResult = try self.backgroundContext.fetch(request)
-                    guard let gatheringEntity = fetchResult.first else {
+                    guard let colorChipEntity = fetchResult.first else {
                         promise(.failure(.delete))
                         return
                     }
-                    self.backgroundContext.delete(gatheringEntity)
+                    self.backgroundContext.delete(colorChipEntity)
                     try self.backgroundContext.save()
                     
                     let deletedResult = try self.backgroundContext.fetch(ColorChipEntity.fetchRequest())
@@ -281,11 +281,12 @@ extension CoreDataManager: MemoryManagable {
                         id as CVarArg
                     )
                     let fetchResult = try self.backgroundContext.fetch(request)
-                    guard let gatheringEntity = fetchResult.first else {
+                    
+                    guard let memoryEntity = fetchResult.first else {
                         promise(.failure(.delete))
                         return
                     }
-                    self.backgroundContext.delete(gatheringEntity)
+                    self.backgroundContext.delete(memoryEntity)
                     try self.backgroundContext.save()
                     
                     let deletedResult = try self.backgroundContext.fetch(MemoryEntity.fetchRequest())
