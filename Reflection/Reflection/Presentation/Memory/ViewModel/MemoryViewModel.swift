@@ -62,6 +62,7 @@ final class MemoryViewModel: ObservableObject {
             .sink { completion in
                 print(completion)
             } receiveValue: { [weak self] memories in
+                
                 self?.specificColorChipMemories = memories
             }
             .store(in: &self.cancellables)
@@ -82,7 +83,7 @@ final class MemoryViewModel: ObservableObject {
     }
     
     func fetchSpecificColorChipMemories(_ colorChip: ColorChip) {
-       // guard let specificColorChipMemories = self.specificColorChip else {return}
+
         self.colorChipUseCase.fetchSpecificColorChip(colorChip)
             .receive(on: RunLoop.main)
             .sink { completion in
