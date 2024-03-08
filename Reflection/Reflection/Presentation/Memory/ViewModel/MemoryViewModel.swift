@@ -61,11 +61,9 @@ final class MemoryViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .sink { completion in
                 print(completion)
-            } receiveValue: { [weak self] memories in
-                
-                self?.specificColorChipMemories = memories
-            }
-            .store(in: &self.cancellables)
+            } receiveValue: {
+                Log.t("Delete Successfully")
+            }.store(in: &self.cancellables)
     }
     
     

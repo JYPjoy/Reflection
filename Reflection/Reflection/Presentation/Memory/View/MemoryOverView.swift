@@ -126,6 +126,7 @@ struct MemoryOverView: View {
                             guard let memoryToDelete = memoryToDelete else {return}
                             
                             viewModel.deleteMemory(memoryToDelete.id)
+                            viewModel.fetchSpecificColorChipMemories(colorChip)
                         }), secondaryButton: .cancel())
                     })
                 }

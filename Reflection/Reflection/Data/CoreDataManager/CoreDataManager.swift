@@ -15,7 +15,7 @@ protocol MemoryManagable {
     func insertMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataManager.CoreDataError>
     func fetchAllMemory() -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError>
     func updateMemory(_ memory: Memory) -> AnyPublisher<MemoryEntity, CoreDataManager.CoreDataError>
-    func deleteMemory(id: UUID) -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError>
+    func deleteMemory(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
 }
 
 // MARK: - CoreDataManager
@@ -269,7 +269,7 @@ extension CoreDataManager: MemoryManagable {
     }
     
     
-    func deleteMemory(id: UUID) -> AnyPublisher<[MemoryEntity], CoreDataManager.CoreDataError> {
+    func deleteMemory(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError> {
         return Future { promise in
             self.backgroundContext.perform {
                 do {
@@ -289,8 +289,11 @@ extension CoreDataManager: MemoryManagable {
                     self.backgroundContext.delete(memoryEntity)
                     try self.backgroundContext.save()
                     
-                    let deletedResult = try self.backgroundContext.fetch(MemoryEntity.fetchRequest())
-                    promise(.success((deletedResult)))
+                    // 여기를 어떻게 안 되나??? => colorChip의 메모리만 가져와야 되는데..
+                  //  let deletedResult = try self.backgroundContext.fetch(MemoryEntity.fetchRequest())
+                    
+                    
+                    promise(.success(()))
                 } catch {
                     promise(.failure(.delete))
                 }

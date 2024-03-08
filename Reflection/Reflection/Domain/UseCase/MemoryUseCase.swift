@@ -5,7 +5,7 @@ protocol MemoryUseCaseProtocol {
     func insertMemory(_ memory: Memory) -> AnyPublisher<Memory, CoreDataManager.CoreDataError>
     func fetchAllMemory() -> AnyPublisher<[Memory], CoreDataManager.CoreDataError>
     func updateMemory(_ memory: Memory) -> AnyPublisher<Memory, CoreDataManager.CoreDataError>
-    func deleteMemory(id: UUID) -> AnyPublisher<[Memory], CoreDataManager.CoreDataError>
+    func deleteMemory(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError>
 }
 
 final class MemoryUseCase: MemoryUseCaseProtocol {
@@ -36,11 +36,11 @@ final class MemoryUseCase: MemoryUseCaseProtocol {
             .eraseToAnyPublisher()
     }
     
-    func deleteMemory(id: UUID) -> AnyPublisher<[Memory], CoreDataManager.CoreDataError> {
+    func deleteMemory(id: UUID) -> AnyPublisher<Void, CoreDataManager.CoreDataError> {
         self.coreDataManager.deleteMemory(id: id)
-            .map { colorchipList in
-                colorchipList.map{ $0.toDomain() }.sorted(by: <)
-            }
+//            .map { colorchipList in
+//                colorchipList.map{ $0.toDomain() }.sorted(by: <)
+//            }
             .eraseToAnyPublisher()
     }
 }
