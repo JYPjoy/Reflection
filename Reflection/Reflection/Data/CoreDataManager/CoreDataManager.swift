@@ -47,14 +47,6 @@ final class CoreDataManager {
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ColorChipModel", managedObjectModel: CoreDataManager.createColorChip())
-   
-//        // 플레이그라운드 마이그레이션 오류 해결
-//        let option = NSPersistentStoreDescription()
-//        option.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
-//        option.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
-//        container.persistentStoreDescriptions = [option]
-
-        
         container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
