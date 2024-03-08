@@ -32,7 +32,7 @@ final class ColorChipUseCase: ColorChipUseCaseProtocol {
     }
     
     func fetchSpecificColorChip(_ colorChip: ColorChip) -> AnyPublisher<ColorChip, CoreDataManager.CoreDataError> {
-        self.coreDataManager.updateColorChip(colorChip)
+        self.coreDataManager.fetchSpecificColorChip(colorChip) //fetch가 맞는 듯...
             .map{ $0.toDomain() }
             .eraseToAnyPublisher()
     }
