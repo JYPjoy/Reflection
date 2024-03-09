@@ -147,27 +147,15 @@ struct OnboardingView: View {
         }
         .onAppear {
             // #1 Lively Green, #dbe1af
-            /* 스티브잡스 씨어터 - 청각: 생상스 - The Carnival of the Animals - Finale,
-             */
             viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "A Lively Green", colorList: "#dbe1af", memories: []))
-            
-            // The Carnival of the Animals - Finale
             viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "stevejobstheater")?.pngData(), title: "Apple Park's green", date: Date(), reflection: "At WWDC23, I have had a chance to look toward Apple Park in front of Steve Jobs Theater. Apple Park was surrounded by various grasses and trees. It was so fabulous!  That green color reminds me of ‘Saint-Saens: Carnival of the Animals-Finale’. I felt so cheerful, and full of joy."))
             
             
             // #(2) FluffyGreen, #409310
-            /* 레인보우 브릿지 - 촉각, 시각 (거대한 초록 빛의 카펫 - 폭신폭신)
-             */
             viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "FluffyGreen", colorList: "#409310", memories: []))
             
-            
             // #3 ChillyBlue, #074A90
-            /*
-             이카루스 : Tactile Masterpiece Exhibition
-             울릉도: Ulleung_island
-             */
             viewModel.didTapMakeColorChip(colorChip: ColorChip(id: UUID(), colorName: "ChillyBlue", colorList: "#074A90", memories: []))
-            
             viewModel.didTapMakeMemory(memory: Memory(id: UUID(), picture: UIImage(named: "ulleungdo")?.pngData(), title: "Ulleungdo", date: Date(), reflection: "Today I went to Ulleungdo, which is an island located in eastern part of Korea. The weather was windy and the water was so cool. I felt refreshing. I think blue is a feeling of chilly."))
             
             
@@ -180,7 +168,7 @@ struct OnboardingView: View {
 
     }
     
-    var fourthView: some View { //example 넣었다, 어떤 환경에서 구동? (12.9)
+    var fourthView: some View { 
         
         VStack(spacing: 20){
             HStack {
@@ -196,7 +184,7 @@ struct OnboardingView: View {
             
             
             HStack {
-                Text("Please view this app on an iPad Pro 12.9 device. To help your understanding, I added some examples. \nAre you ready to start? Then Let's get started!")
+                Text("To help your understanding, I added some examples. \nAre you ready to start? Then Let's get started!")
                     .bold()
                     .font(.title2)
                     .foregroundColor(.System.systemWhite)
