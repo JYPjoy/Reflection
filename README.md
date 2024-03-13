@@ -5,9 +5,9 @@
 # 🛠️ Skills
 |Type|Skills|
 |:--|:------|
-|Architecture|MVVM-C(Clean Architecture)|
+|Architecture|MVVM-C|
 |UI|SwiftUI|
 |Data|Core Data|
-|Asynchronous Programming|Combine, GCD|
+|Asynchronous Programming|Combine, Concurrency|
 |Apple's Framework|PhotosUI|
 |Accessibility|Considered Accessibility|
