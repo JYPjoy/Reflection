@@ -5,7 +5,7 @@
 # 🛠️ Skills
 |Type|Skills|
 |:--|:------|
-|Architecture|MVVM-C|
+|Architecture|MVVM, Clean Architecture|
 |UI|SwiftUI|
 |Data|Core Data|
 |Asynchronous Programming|Combine, Concurrency|
