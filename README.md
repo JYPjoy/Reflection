@@ -1,5 +1,5 @@
 # 🗂️ Introduction
-- An educational iPad app which helps people reflect their memories of the colors and make their own color language.
+- An iPad app which helps people reflect their memories of the colors and make their own color language.
 - I did it all by myself - ✍🏻planning, 🎨designing, and 👩🏻‍💻development!
 
 # 🛠️ Skills
