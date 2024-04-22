@@ -289,10 +289,6 @@ extension CoreDataManager: MemoryManagable {
                     self.backgroundContext.delete(memoryEntity)
                     try self.backgroundContext.save()
                     
-                    // 여기를 어떻게 안 되나??? => colorChip의 메모리만 가져와야 되는데..
-                  //  let deletedResult = try self.backgroundContext.fetch(MemoryEntity.fetchRequest())
-                    
-                    
                     promise(.success(()))
                 } catch {
                     promise(.failure(.delete))
